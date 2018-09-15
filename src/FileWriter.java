@@ -3,9 +3,7 @@ import java.util.ArrayList;
 
 public class FileWriter {
 
-    BufferedWriter bf;
-
-    public static void writeToFile(String filePath, ArrayList<String> files){
+    public static void writeToFile(String filePath, ArrayList<String> files){ //just write all Strings on a new line into the file
         try {
             BufferedWriter bf = new BufferedWriter(new java.io.FileWriter(filePath));
             for(int i = 0; i < files.size(); i++){
@@ -17,5 +15,4 @@ public class FileWriter {
             System.err.println("EXCEPTION: FileWriter: " + e);
         }
     }
-
 }

@@ -20,20 +20,20 @@ import java.util.Scanner;
 
 public class main extends Application {
     private MediaPlayer mediaPlayer;
-
+    private static ArrayList<String> allFiles;
     public static void main(String[] args){
 
         System.out.println("Willkommen beim MagicMusicPlayer\n Bitte geben sie einen Ordner an in welchem selbst + allen Unterordnern nach Musik gesucht werden soll");
 
         ArrayList<String> directories   = readInputDirectories();                   //user inputs directories to search for music files
         System.out.println("Now searching for music files. This may take a while...");
-        ArrayList<String> allFiles      = FileSearcher.findAllFiles(directories);   //search through all directories and subdirectories
+        allFiles                        = FileSearcher.findAllFiles(directories);   //search through all directories and subdirectories
         System.out.println("File search has been completed. " + (allFiles.size()/2) + " mp3 files have been found.");
 
-        FileWriter.writeToFile("files/Searchdirectories.txt", allFiles);
+        FileWriter.writeToFile("files/Searchdirectories.txt", allFiles);    //write all files into the Seachdirectories.txt with the following system: absolute file path \n file name \n
 
 
-        System.exit(0);
+
 
         try {
             File testfile = new File("files/Searchdirectories.txt");
@@ -57,7 +57,7 @@ public class main extends Application {
     @Override
     public void start(Stage primaryStage) {
         //Scene scene = new Scene(root, 540, 210);
-         File file=new File("E:\\Benutzer\\Musik\\Musik\\Aero Chord\\GTA ft. Sam Bruno - Red Lips (Aero Chord Remix).mp3");
+         File file=new File(/*allFiles.get((int)(Math.random() * 500) * 2)*/ "E:\\Benutzer\\Musik\\Musik\\Alex Clare\\The Lateness of the Hour\\04 Too Close.m4a");
         System.out.println("START");
          final String source= file.toURI().toString();
         // create media player

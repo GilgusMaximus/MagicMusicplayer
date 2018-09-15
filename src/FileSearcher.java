@@ -18,14 +18,12 @@ public class FileSearcher {
         String[] subDirectoriesAndFiles = new File(currentPath).list(); //get the name of all subdirectories and files in the current directory
         if(subDirectoriesAndFiles == null){                             //is the array equal to null?
                 //yes -> the current directory is not a directory but a file
-            if(currentPath.substring(currentPath.length()-3).equals("mp3")) { //are the last 3 characters of the filename mp3?
-                //yes -> we found an mp3 file -> save
+            String fileEnd = currentPath.substring(currentPath.length()-3);
+            if(fileEnd.equals("mp3") || fileEnd.equals("wav") || fileEnd.equals("m4a")) { //are the last 3 characters of the filename mp3/wav/m4a?
+                //yes -> we found an mp3/wav/m4a file -> save
                 allFiles.add(currentPath);
-                allFiles.add(name);
+                allFiles.add(name); //needed to save the file name -> easier to read it into the system again
             }
-            else
-                //no -> print that file for debug purposes only
-                //System.out.println(currentPath + " not an mp3 file");
             return;
         }else{
                 //no -> the current directory is indeed a directory
