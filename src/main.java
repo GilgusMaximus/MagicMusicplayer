@@ -13,10 +13,48 @@ import javafx.scene.paint.Color;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
+
 public class main extends Application {
     MediaPlayer mediaPlayer;
-
+   static ArrayList<String> allFiles = new ArrayList<>();
     public static void main(String[] args){
+
+        System.out.println("Willkommen beim MagicMusicPlayer\n Bitte geben sie einen Ordner an in welchem selbst + allen Unterordnern nach Musik gesucht werden soll");
+        Scanner scanner = new Scanner(System.in);
+
+        ArrayList<String> directories = new ArrayList<>();
+        String directory = null;
+        while(directory == null){
+            directory = scanner.nextLine();
+            File checkExistence = new File(directory);
+            if(!checkExistence.isDirectory()) {
+                directory = null;
+                System.out.println("This is not a valid directory. please try again");
+            }else{
+                directories.add(directory);
+                System.out.println("Möchten sie einen weiteren Ordner hinzufügen? y/n");
+                String answer = scanner.nextLine().toLowerCase();
+                if(answer.equals("y")) {
+                    directory = null;
+                    System.out.println("Bitte geben sie einen weiteren Ordnern an");
+                }
+            }
+        }
+        for(int i = 0; i < directories.size(); i++) {
+            String[] mainSubDirectories = new File(directories.get(i)).list();
+            for(int j = 0; j < mainSubDirectories.length; j++)
+                findAllFiles(directories.get(i) + "\\" +  mainSubDirectories[j]);
+        }
+
+
+
+
+        System.exit(0);
+
         try {
             File testfile = new File("files/Searchdirectories.txt");
             BufferedReader reader = new BufferedReader(new FileReader(testfile));
@@ -84,4 +122,22 @@ public class main extends Application {
         //Displaying the contents of the stage
         primaryStage.show();
     }
+
+
+    static void findAllFiles(String currentPath){
+        System.out.println(currentPath);
+        String[] subDirectoriesAndFiles = new File(currentPath).list();
+        if(subDirectoriesAndFiles == null){
+            if(currentPath.substring(currentPath.length()-3).equals("mp3"))
+                allFiles.add(currentPath);
+            else
+                System.out.println(currentPath.substring(currentPath.length()-4, currentPath.length()-1) + " not an mp3 file");
+            return;
+        }else{
+            for(int i = 0; i < subDirectoriesAndFiles.length; i++) {
+                findAllFiles(currentPath + "\\" + subDirectoriesAndFiles[i]);
+            }
+        }
+    }
 }
+
