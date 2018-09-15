@@ -7,6 +7,7 @@ public class FileSearcher {
    public static ArrayList<String> findAllFiles(ArrayList<String> directories){
        ArrayList<String> allFiles = new ArrayList<>();
        for(int i = 0; i < directories.size(); i++) {                            //go through all directories that have been passed
+           allFiles.add(textfileMarkers.searchDirectoryMarker + directories.get(i));
            String[] mainSubDirectories = new File(directories.get(i)).list();   //get all subdirectoriy names
            for(int j = 0; j < mainSubDirectories.length; j++)                   //go through all subdirectories recursively
                findAllFilesRec(directories.get(i) + "\\" +  mainSubDirectories[j], mainSubDirectories[j], allFiles);

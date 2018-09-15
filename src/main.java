@@ -1,63 +1,71 @@
-import com.sun.xml.internal.ws.api.config.management.policy.ManagementAssertion;
 import javafx.application.Application;
+
+import javafx.event.EventHandler;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.stage.Stage;
-import java.io.File;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.*;
 import javafx.scene.paint.Color;
-import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+
+import javafx.stage.Stage;
+
 import java.io.*;
+
 import java.util.ArrayList;
 import java.util.Scanner;
-
-
 
 public class main extends Application {
     private MediaPlayer mediaPlayer;
     private static ArrayList<String> allFiles;
     public static void main(String[] args){
+        boolean search = true;
+        FileReader reader = new FileReader();
+        System.out.println("Willkommen beim MagicMusicPlayer");
 
-        System.out.println("Willkommen beim MagicMusicPlayer\n Bitte geben sie einen Ordner an in welchem selbst + allen Unterordnern nach Musik gesucht werden soll");
-
-        ArrayList<String> directories   = readInputDirectories();                   //user inputs directories to search for music files
-        System.out.println("Now searching for music files. This may take a while...");
-        allFiles                        = FileSearcher.findAllFiles(directories);   //search through all directories and subdirectories
-        System.out.println("File search has been completed. " + (allFiles.size()/2) + " mp3 files have been found.");
-
-        FileWriter.writeToFile("files/Searchdirectories.txt", allFiles);    //write all files into the Seachdirectories.txt with the following system: absolute file path \n file name \n
-
-
+        if(reader.readFile("files/Searchdirectories.txt")) {
+            allFiles = reader.getAllFiles();
+        }else{
+            allFiles = null;
+        }
 
 
-        try {
-            File testfile = new File("files/Searchdirectories.txt");
-            BufferedReader reader = new BufferedReader(new FileReader(testfile));
-            String a;
-            while((a = reader.readLine()) != null){
-                System.out.println(a);
+        if(allFiles == null){
+            System.out.println("Bitte geben sie einen Ordner an in welchem selbst + allen Unterordnern nach Musik gesucht werden soll");
+        }else{
+            System.out.println("Möchten sie zu den bereits durchsuchten Directories weitere hinzufügen? y/n");
+            Scanner s = new Scanner(System.in);
+            if(!s.nextLine().toLowerCase().equals("y")){
+                search = false;
             }
-        }catch(Exception e){
-            System.out.println(e);
         }
-        System.out.println("MAIN");
-        Application.launch(args);
-        try {
-            Thread.sleep(20000);
-        }catch(Exception e){
-
+        ArrayList<String> directories;
+        if(search) { //did teh user add more directories / had no existing ones?
+            //yes -> search for files
+            directories = readInputDirectories();                   //user inputs directories to search for music files
+            System.out.println("Now searching for music files. This may take a while...");
+            if(allFiles == null) {  //Do we already have files saved?
+                //no -> allFiles = the directories that have been searched
+                allFiles                    = FileSearcher.findAllFiles(directories);   //search through all directories and subdirectories
+            }else{
+                //yes -> we append the new files to the old ones
+                ArrayList<String> newFiles = FileSearcher.findAllFiles(directories);
+                allFiles.addAll(newFiles);
+            }
+            System.out.println("File search has been completed. " + (allFiles.size()/2) + " mp3 files have been found.");
+            FileWriter.writeToFile("files/Searchdirectories.txt", allFiles, false);    //write all files into the Seachdirectories.txt with the following system: absolute file path \n file name \n
         }
+            //no -> just start the app
+        Application.launch();
     }
 
     @Override
     public void start(Stage primaryStage) {
         //Scene scene = new Scene(root, 540, 210);
-         File file=new File(/*allFiles.get((int)(Math.random() * 500) * 2)*/ "E:\\Benutzer\\Musik\\Musik\\Alex Clare\\The Lateness of the Hour\\04 Too Close.m4a");
+         File file=new File(allFiles.get((int)(Math.random() * 500) * 2));
         System.out.println("START");
          final String source= file.toURI().toString();
         // create media player
