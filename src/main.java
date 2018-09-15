@@ -19,38 +19,18 @@ import java.util.Scanner;
 
 
 public class main extends Application {
-    MediaPlayer mediaPlayer;
-   static ArrayList<String> allFiles = new ArrayList<>();
+    private MediaPlayer mediaPlayer;
+
     public static void main(String[] args){
 
         System.out.println("Willkommen beim MagicMusicPlayer\n Bitte geben sie einen Ordner an in welchem selbst + allen Unterordnern nach Musik gesucht werden soll");
-        Scanner scanner = new Scanner(System.in);
 
-        ArrayList<String> directories = new ArrayList<>();
-        String directory = null;
-        while(directory == null){
-            directory = scanner.nextLine();
-            File checkExistence = new File(directory);
-            if(!checkExistence.isDirectory()) {
-                directory = null;
-                System.out.println("This is not a valid directory. please try again");
-            }else{
-                directories.add(directory);
-                System.out.println("Möchten sie einen weiteren Ordner hinzufügen? y/n");
-                String answer = scanner.nextLine().toLowerCase();
-                if(answer.equals("y")) {
-                    directory = null;
-                    System.out.println("Bitte geben sie einen weiteren Ordnern an");
-                }
-            }
-        }
-        for(int i = 0; i < directories.size(); i++) {
-            String[] mainSubDirectories = new File(directories.get(i)).list();
-            for(int j = 0; j < mainSubDirectories.length; j++)
-                findAllFiles(directories.get(i) + "\\" +  mainSubDirectories[j]);
-        }
+        ArrayList<String> directories   = readInputDirectories();                   //user inputs directories to search for music files
+        System.out.println("Now searching for music files. This may take a while...");
+        ArrayList<String> allFiles      = FileSearcher.findAllFiles(directories);   //search through all directories and subdirectories
+        System.out.println("File search has been completed. " + (allFiles.size()/2) + " mp3 files have been found.");
 
-
+        FileWriter.writeToFile("files/Searchdirectories.txt", allFiles);
 
 
         System.exit(0);
@@ -123,21 +103,28 @@ public class main extends Application {
         primaryStage.show();
     }
 
-
-    static void findAllFiles(String currentPath){
-        System.out.println(currentPath);
-        String[] subDirectoriesAndFiles = new File(currentPath).list();
-        if(subDirectoriesAndFiles == null){
-            if(currentPath.substring(currentPath.length()-3).equals("mp3"))
-                allFiles.add(currentPath);
-            else
-                System.out.println(currentPath.substring(currentPath.length()-4, currentPath.length()-1) + " not an mp3 file");
-            return;
-        }else{
-            for(int i = 0; i < subDirectoriesAndFiles.length; i++) {
-                findAllFiles(currentPath + "\\" + subDirectoriesAndFiles[i]);
+    static ArrayList<String> readInputDirectories(){
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<String> directories = new ArrayList<>();
+        String directory = null;
+        while(directory == null){
+            directory = scanner.nextLine();
+            File checkExistence = new File(directory);
+            if(!checkExistence.isDirectory()) {
+                directory = null;
+                System.out.println("This is not a valid directory. please try again");
+            }else{
+                directories.add(directory);
+                System.out.println("Möchten sie einen weiteren Ordner hinzufügen? y/n");
+                String answer = scanner.nextLine().toLowerCase();
+                if(answer.equals("y")) {
+                    directory = null;
+                    System.out.println("Bitte geben sie einen weiteren Ordnern an");
+                }
             }
         }
+        return directories;
     }
+
 }
 
