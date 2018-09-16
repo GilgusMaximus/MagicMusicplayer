@@ -44,7 +44,7 @@ public class MusicManager extends Application{
 
         addSongToEndOfQueue(musicFiles.get(4));
         addSongToEndOfQueue(musicFiles.get(8));
-
+        addSongNext(musicFiles.get(10));
         mediaPlayers.get(0).play();
 
         Parent root  = null;
@@ -83,9 +83,26 @@ public class MusicManager extends Application{
         musicQueue.add(mediaPlayers.size()-1);
     }
 
+    private void addSongNext(String songPath){
+        File song = createMusicFile(songPath);
+        Media media = createMedia(song);
+        mediaPlayers.add(new MediaPlayer(media));
+        if(currentSongInQueue == musicQueue.size()){
+            musicQueue.add(mediaPlayers.size()-1);
+        }else {
+            int value =mediaPlayers.size()-1;
+            for (int i = currentSongInQueue + 1; i < musicQueue.size(); i++) {
+                int help = musicQueue.get(i);
+                musicQueue.set(i, value);
+                value = help;
+            }
+            musicQueue.add(value);
+        }
+    }
+
     private void setMediaPlayerMedia(int oldSongNumber){
-        mediaPlayers.get(oldSongNumber).stop();
-        mediaPlayers.get(currentSongInQueue).play();
+        mediaPlayers.get(musicQueue.get(oldSongNumber)).stop();
+        mediaPlayers.get(musicQueue.get(currentSongInQueue)).play();
     }
 
     //methods called from UI
