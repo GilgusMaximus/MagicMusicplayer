@@ -18,6 +18,11 @@ public class Controller {
     private TextField vornameTF;
 
     @FXML
+    protected void playPause(MouseEvent event) {
+        manager.play();
+    }
+
+    @FXML
     protected void nextSong(MouseEvent event) {
         manager.playNextSongInQueue();
     }

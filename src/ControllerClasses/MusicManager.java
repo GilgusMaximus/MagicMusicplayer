@@ -1,6 +1,7 @@
 package ControllerClasses;
 
 import FileClasses.InputReader;
+import com.sun.istack.internal.NotNull;
 import fxml.Controller;
 import javafx.application.Application;
 
@@ -14,6 +15,7 @@ import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class MusicManager extends Application{
     private MediaPlayer mediaPlayer;
@@ -34,25 +36,15 @@ public class MusicManager extends Application{
         Application.launch();
     }
 
-
-
-    public void initialize(ArrayList<String> allFiles){
-
-        musicFiles = allFiles;
-        Application.launch();
-    }
-
     public void start(Stage primaryStage) {
         musicFiles = InputReader.getAllFiles();
 
         musicQueue = new ArrayList<>();
         mediaPlayers = new ArrayList<>();
-        musicQueue.add(0);
-        musicQueue.add(2);
 
-        File firstSong = createMusicFile("E:Benutzer/Musik/Musik\\Aero Chord\\Aero Chord - Surface.mp3");
-        Media firstMedia = createMedia(firstSong);
-        mediaPlayers.add(new MediaPlayer(firstMedia));
+        addSongToEndOfQueue(musicFiles.get(4));
+        addSongToEndOfQueue(musicFiles.get(8));
+
         mediaPlayers.get(0).play();
 
         Parent root  = null;
@@ -64,7 +56,9 @@ public class MusicManager extends Application{
         }
         uiController = loader.getController();
         uiController.setManager(this);
+
         //Creating a scene object
+        @NotNull
         Scene scene = new Scene(root, 600, 300);
 
         //Setting title to the Stage
@@ -82,39 +76,50 @@ public class MusicManager extends Application{
         // primaryStage.toFront();
     }
 
-    private void stopMediaPlayer(){
-        mediaPlayer.stop();
-    }
-
-    private File createMusicFile(String filePath){
-        return new File(filePath);
-    }
-
-    private void setMediaPlayerMedia(Media media, int oldSongNumber){
+    private void addSongToEndOfQueue(String songPath){
+        File song = createMusicFile(songPath);
+        Media media = createMedia(song);
         mediaPlayers.add(new MediaPlayer(media));
+        musicQueue.add(mediaPlayers.size()-1);
+    }
+
+    private void setMediaPlayerMedia(int oldSongNumber){
         mediaPlayers.get(oldSongNumber).stop();
         mediaPlayers.get(currentSongInQueue).play();
     }
 
-    private Media createMedia(File file){
-        final String source= file.toURI().toString();
-        return new Media(source);
+    //methods called from UI
+
+    public void play(){
+        if(mediaPlayers.get(currentSongInQueue).getStatus().equals(MediaPlayer.Status.PLAYING)){
+            mediaPlayers.get(currentSongInQueue).pause();
+        }else{
+            mediaPlayers.get(currentSongInQueue).play();
+        }
     }
 
     public void playNextSongInQueue(){
         int oldSongInQueue = currentSongInQueue;
         currentSongInQueue = (currentSongInQueue+1)%musicQueue.size();
-        File newSong = createMusicFile(musicFiles.get(musicQueue.get(currentSongInQueue)));
-        Media newMedia = createMedia(newSong);
-        setMediaPlayerMedia(newMedia, oldSongInQueue);
+        setMediaPlayerMedia(oldSongInQueue);
     }
     public void playPreviousSongInQueue(){
+        int oldSongNumber = currentSongInQueue;
         if(currentSongInQueue == 0 && musicQueue.size() > 1){
             currentSongInQueue = musicQueue.size()-1;
         }
+
     }
     public void loop(){
         loopStatus = (loopStatus+1)%3;
     }
 
+    //often used create methods
+    private Media createMedia(File file){
+        final String source= file.toURI().toString();
+        return new Media(source);
+    }
+    private File createMusicFile(String filePath){
+        return new File(filePath);
+    }
 }
