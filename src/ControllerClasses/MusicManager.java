@@ -22,8 +22,6 @@ import java.util.ArrayList;
 
 public class MusicManager extends Application{
 
-    private MediaPlayer reset;
-
     private  ArrayList<String> musicFiles;
     private ArrayList<Integer> musicQueue;
     private ArrayList<MediaPlayer> mediaPlayers;
@@ -34,7 +32,7 @@ public class MusicManager extends Application{
     private final int loopQueue     = 1;
     private final int loopSong      = 2;
 
-    private int loopStatus = loopSong;
+    private int loopStatus = loopNothing;
 
     public static void main(String[] args){
         InputReader.readInput();
@@ -50,10 +48,6 @@ public class MusicManager extends Application{
         musicQueue = new ArrayList<>();
         mediaPlayers = new ArrayList<>();
 
-
-        File resetFile = new File("files/silence.wav");
-        Media resetMedia = createMedia(resetFile);
-        reset = new MediaPlayer(resetMedia);
 
         addSongToEndOfQueue(musicFiles.get(4));
         addSongToEndOfQueue(musicFiles.get(8));
