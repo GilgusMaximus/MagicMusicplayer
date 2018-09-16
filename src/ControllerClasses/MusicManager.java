@@ -15,10 +15,9 @@ import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class MusicManager extends Application{
-    private MediaPlayer mediaPlayer;
+
     private  ArrayList<String> musicFiles;
     private ArrayList<Integer> musicQueue;
     private ArrayList<MediaPlayer> mediaPlayers;
@@ -35,6 +34,8 @@ public class MusicManager extends Application{
         InputReader.readInput();
         Application.launch();
     }
+
+
 
     public void start(Stage primaryStage) {
         musicFiles = InputReader.getAllFiles();
@@ -79,14 +80,14 @@ public class MusicManager extends Application{
     private void addSongToEndOfQueue(String songPath){
         File song = createMusicFile(songPath);
         Media media = createMedia(song);
-        mediaPlayers.add(new MediaPlayer(media));
+        addMediaPlayerToList(new MediaPlayer(media));
         musicQueue.add(mediaPlayers.size()-1);
     }
 
     private void addSongNext(String songPath){
         File song = createMusicFile(songPath);
         Media media = createMedia(song);
-        mediaPlayers.add(new MediaPlayer(media));
+        addMediaPlayerToList(new MediaPlayer(media));
         if(currentSongInQueue == musicQueue.size()){
             musicQueue.add(mediaPlayers.size()-1);
         }else {
@@ -141,4 +142,11 @@ public class MusicManager extends Application{
     private File createMusicFile(String filePath){
         return new File(filePath);
     }
+    private void addMediaPlayerToList(MediaPlayer mediaplayer){
+        mediaplayer.setOnEndOfMedia(() -> {
+            playNextSongInQueue();
+        });
+        mediaPlayers.add(mediaplayer);
+    }
+
 }
