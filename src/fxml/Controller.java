@@ -24,12 +24,12 @@ public class Controller {
 
     @FXML
     protected void nextSong(MouseEvent event) {
-        manager.playNextSongInQueue();
+        manager.playNextButtonHit();
     }
 
     @FXML
     protected void previousSong(MouseEvent event) {
-        manager.playPreviousSongInQueue();
+        manager.playPreviousButtonHit();
     }
 
     @FXML

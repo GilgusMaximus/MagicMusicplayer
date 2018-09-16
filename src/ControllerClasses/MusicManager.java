@@ -6,34 +6,41 @@ import fxml.Controller;
 import javafx.application.Application;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
+
 
 import java.io.File;
 import java.util.ArrayList;
 
 public class MusicManager extends Application{
 
+    private MediaPlayer reset;
+
     private  ArrayList<String> musicFiles;
     private ArrayList<Integer> musicQueue;
     private ArrayList<MediaPlayer> mediaPlayers;
     private int currentSongInQueue = 0;
     private Controller uiController;
-
+    private MediaView mediaView;
     private final int loopNothing   = 0;
     private final int loopQueue     = 1;
     private final int loopSong      = 2;
 
-    private int loopStatus = loopNothing;
+    private int loopStatus = loopSong;
 
     public static void main(String[] args){
         InputReader.readInput();
         Application.launch();
     }
+
 
 
 
@@ -43,10 +50,16 @@ public class MusicManager extends Application{
         musicQueue = new ArrayList<>();
         mediaPlayers = new ArrayList<>();
 
+
+        File resetFile = new File("files/silence.wav");
+        Media resetMedia = createMedia(resetFile);
+        reset = new MediaPlayer(resetMedia);
+
         addSongToEndOfQueue(musicFiles.get(4));
         addSongToEndOfQueue(musicFiles.get(8));
         addSongNext(musicFiles.get(10));
-        mediaPlayers.get(0).play();
+        addSongToEndOfQueue("E:\\Benutzer\\Musik\\Soundeffekte\\Soundboard\\CENA.mp3");
+
 
         Parent root  = null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/ui.fxml"));
@@ -61,7 +74,8 @@ public class MusicManager extends Application{
         //Creating a scene object
         @NotNull
         Scene scene = new Scene(root, 600, 300);
-
+        mediaView = new MediaView();
+        ((Group) scene.getRoot()).getChildren().add(mediaView);
         //Setting title to the Stage
         primaryStage.setTitle("Event Filters Example");
         primaryStage.initStyle(StageStyle.UNDECORATED);
@@ -75,6 +89,7 @@ public class MusicManager extends Application{
         //Displaying the contents of the stage
         primaryStage.show();
         // primaryStage.toFront();
+        play();
     }
 
     private void addSongToEndOfQueue(String songPath){
@@ -106,16 +121,6 @@ public class MusicManager extends Application{
         mediaPlayers.get(musicQueue.get(currentSongInQueue)).play();
     }
 
-    //methods called from UI
-
-    public void play(){
-        if(mediaPlayers.get(currentSongInQueue).getStatus().equals(MediaPlayer.Status.PLAYING)){
-            mediaPlayers.get(currentSongInQueue).pause();
-        }else{
-            mediaPlayers.get(currentSongInQueue).play();
-        }
-    }
-
     public void playNextSongInQueue(){
         int oldSongInQueue = currentSongInQueue;
         currentSongInQueue = (currentSongInQueue+1)%musicQueue.size();
@@ -129,6 +134,33 @@ public class MusicManager extends Application{
             currentSongInQueue--;
         }
         setMediaPlayerMedia(oldSongInQueue);
+    }
+
+    public void songAtEndCheckNextPlay(){
+         if(currentSongInQueue == musicQueue.size()-1 && loopStatus == loopNothing){
+                currentSongInQueue = 0;
+        }else{
+            playNextSongInQueue();
+        }
+    }
+
+    //methods called from UI
+
+    public void play(){
+        if(mediaPlayers.get(currentSongInQueue).getStatus().equals(MediaPlayer.Status.PLAYING)){
+            mediaPlayers.get(currentSongInQueue).pause();
+        }else{
+            mediaView.setMediaPlayer(mediaPlayers.get(currentSongInQueue));
+            mediaPlayers.get(currentSongInQueue).play();
+        }
+    }
+
+
+    public void playNextButtonHit(){
+        playNextSongInQueue();
+    }
+    public void playPreviousButtonHit(){
+        playPreviousSongInQueue();
     }
     public void loop(){
         loopStatus = (loopStatus+1)%3;
@@ -144,7 +176,12 @@ public class MusicManager extends Application{
     }
     private void addMediaPlayerToList(MediaPlayer mediaplayer){
         mediaplayer.setOnEndOfMedia(() -> {
-            playNextSongInQueue();
+            if(loopStatus == loopSong){
+                mediaplayer.seek(Duration.ZERO);
+                mediaplayer.play();
+            }else {
+                songAtEndCheckNextPlay();
+            }
         });
         mediaPlayers.add(mediaplayer);
     }
