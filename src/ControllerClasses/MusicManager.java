@@ -104,11 +104,13 @@ public class MusicManager extends Application{
         setMediaPlayerMedia(oldSongInQueue);
     }
     public void playPreviousSongInQueue(){
-        int oldSongNumber = currentSongInQueue;
+        int oldSongInQueue = currentSongInQueue;
         if(currentSongInQueue == 0 && musicQueue.size() > 1){
             currentSongInQueue = musicQueue.size()-1;
+        }else{
+            currentSongInQueue--;
         }
-
+        setMediaPlayerMedia(oldSongInQueue);
     }
     public void loop(){
         loopStatus = (loopStatus+1)%3;
