@@ -1,3 +1,5 @@
+package FileClasses;
+
 import java.io.BufferedWriter;
 import java.util.ArrayList;
 
@@ -17,7 +19,7 @@ public class FileWriter {
             }
             bf.close();
         }catch(Exception e){
-            System.err.println("EXCEPTION: FileWriter: " + e);
+            System.err.println("EXCEPTION: FileClasses.FileWriter: " + e);
         }
     }
     public static void writeToFile(String filePath, String files, boolean append){ //just write all Strings on a new line into the file
@@ -31,7 +33,7 @@ public class FileWriter {
             bf.newLine();
             bf.close();
         }catch(Exception e){
-            System.err.println("EXCEPTION: FileWriter: " + e);
+            System.err.println("EXCEPTION: FileClasses.FileWriter: " + e);
         }
     }
 }

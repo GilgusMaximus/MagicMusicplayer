@@ -1,29 +1,14 @@
-import javafx.application.Application;
+package FileClasses;
 
-import javafx.event.EventHandler;
-
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.shape.Circle;
-import javafx.scene.text.*;
-import javafx.scene.paint.Color;
-import javafx.scene.input.MouseEvent;
-
-import javafx.stage.Stage;
-
-import java.io.*;
-
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class main extends Application {
-    private MediaPlayer mediaPlayer;
-    private static ArrayList<String> allFiles;
-    public static void main(String[] args){
+public class InputReader {
+    private static ArrayList<String> allFiles = new ArrayList<>();
+   public static void readInput(){
         boolean search = true;
-        FileReader reader = new FileReader();
+        FileClasses.FileReader reader = new FileReader();
         System.out.println("Willkommen beim MagicMusicPlayer");
 
         if(reader.readFile("files/Searchdirectories.txt")) {
@@ -31,7 +16,6 @@ public class main extends Application {
         }else{
             allFiles = null;
         }
-
 
         if(allFiles == null){
             System.out.println("Bitte geben sie einen Ordner an in welchem selbst + allen Unterordnern nach Musik gesucht werden soll");
@@ -58,59 +42,7 @@ public class main extends Application {
             System.out.println("File search has been completed. " + (allFiles.size()/2) + " mp3 files have been found.");
             FileWriter.writeToFile("files/Searchdirectories.txt", allFiles, false);    //write all files into the Seachdirectories.txt with the following system: absolute file path \n file name \n
         }
-            //no -> just start the app
-        Application.launch();
     }
-
-    @Override
-    public void start(Stage primaryStage) {
-        //Scene scene = new Scene(root, 540, 210);
-         File file=new File(allFiles.get((int)(Math.random() * 500) * 2));
-        System.out.println("START");
-         final String source= file.toURI().toString();
-        // create media player
-        Media media = new Media(source);
-        mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setAutoPlay(true);
-        Circle circle = new Circle();
-        //Setting the text
-        Text text = new Text("Click on the circle to change its color");
-
-        //Setting the position of the circle
-        circle.setCenterX(300.0f);
-        circle.setCenterY(135.0f);
-
-        //Setting the radius of the circle
-        circle.setRadius(25.0f);
-
-              EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
-                 @Override
-                 public void handle(MouseEvent e) {
-                    mediaPlayer.stop();
-                 }
-             };
-        //Registering the event filter
-        circle.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
-        circle.setFill(Color.BROWN);
-        //Creating a Group object
-        Group root = new Group(circle, text);
-
-        //Creating a scene object
-        Scene scene = new Scene(root, 600, 300);
-
-        //Setting the fill color to the scene
-        scene.setFill(Color.LAVENDER);
-
-        //Setting title to the Stage
-        primaryStage.setTitle("Event Filters Example");
-
-        //Adding scene to the stage
-        primaryStage.setScene(scene);
-
-        //Displaying the contents of the stage
-        primaryStage.show();
-    }
-
     static ArrayList<String> readInputDirectories(){
         Scanner scanner = new Scanner(System.in);
         ArrayList<String> directories = new ArrayList<>();
@@ -133,6 +65,7 @@ public class main extends Application {
         }
         return directories;
     }
-
+    public static ArrayList<String> getAllFiles(){
+        return allFiles;
+    }
 }
-

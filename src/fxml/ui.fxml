@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.Controller">
+   <children>
+      <AnchorPane fx:id="bottombar" layoutY="310.0" minHeight="50.0" minWidth="640.0" prefHeight="50.0" prefWidth="640.0" style="-fx-background-color: #232323;">
+         <children>
+            <ImageView fitHeight="50.0" fitWidth="30.0" layoutX="1.0" layoutY="-313.0" pickOnBounds="true" preserveRatio="true" x="600.0" y="320.0">
+               <image>
+                  <Image url="@pictures/settings.png" />
+               </image>
+            </ImageView>
+         </children></AnchorPane>
+      <AnchorPane fx:id="rightbar" layoutX="590.0" minHeight="310.0" minWidth="50.0" prefHeight="310.0" prefWidth="50.0" style="-fx-background-color: #232323 ;">
+         <children>
+            <ImageView fx:id="play" fitHeight="50.0" fitWidth="25.0" layoutX="-587.0" layoutY="-306.0" pickOnBounds="true" preserveRatio="true" x="600.0" y="320.0">
+               <image>
+                  <Image url="@pictures/play.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="next" fitHeight="50.0" fitWidth="25.0" layoutX="-587.0" layoutY="-281.0" onMouseClicked="#nextSong" pickOnBounds="true" preserveRatio="true" x="600.0" y="320.0">
+               <image>
+                  <Image url="@pictures/next.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="previous" fitHeight="50.0" fitWidth="25.0" layoutX="-587.0" layoutY="-256.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#previousSong" pickOnBounds="true" preserveRatio="true" x="600.0" y="320.0">
+               <image>
+                  <Image url="@pictures/next.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="loop" fitHeight="50.0" fitWidth="25.0" layoutX="-587.0" layoutY="-231.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#loop" pickOnBounds="true" preserveRatio="true" x="600.0" y="320.0">
+               <image>
+                  <Image url="@pictures/loop.png" />
+               </image>
+            </ImageView>
+         </children></AnchorPane>
+      <AnchorPane fx:id="leftbar" minHeight="310.0" minWidth="50.0" prefHeight="310.0" prefWidth="50.0" style="-fx-background-color: #232323;" />
+   </children>
+</AnchorPane>

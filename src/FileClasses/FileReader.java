@@ -1,4 +1,8 @@
-import javafx.application.Application;
+package FileClasses;
+
+
+
+import ControllerClasses.textfileMarkers;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -34,7 +38,7 @@ public class FileReader {
                 }
             }
         }catch(Exception e){
-           System.err.println("ERROR: FileReader: " + e);
+           System.err.println("ERROR: FileClasses.FileReader: " + e);
         }
         return true;
     }
