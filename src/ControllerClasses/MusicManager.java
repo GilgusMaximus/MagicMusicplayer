@@ -1,10 +1,13 @@
 package ControllerClasses;
 
 import FileClasses.InputReader;
+import FileClasses.PatternMatcher;
 import com.sun.istack.internal.NotNull;
 import fxml.Controller;
+import helliker.id3.MP3File;
 import javafx.application.Application;
-
+import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -16,9 +19,11 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
-
+import java.io.RandomAccessFile;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class MusicManager extends Application{
 
@@ -49,10 +54,10 @@ public class MusicManager extends Application{
         mediaPlayers = new ArrayList<>();
 
 
-        addSongToEndOfQueue(musicFiles.get(4));
-        addSongToEndOfQueue(musicFiles.get(8));
-        addSongNext(musicFiles.get(10));
-        addSongToEndOfQueue("E:\\Benutzer\\Musik\\Soundeffekte\\Soundboard\\CENA.mp3");
+        addSongToEndOfQueue(musicFiles.get(6));
+        //addSongToEndOfQueue(musicFiles.get(12));
+        addSongNext(musicFiles.get(18));
+       // addSongToEndOfQueue("E:\\Benutzer\\Musik\\Soundeffekte\\Soundboard\\CENA.mp3");
 
 
         Parent root  = null;
@@ -88,14 +93,47 @@ public class MusicManager extends Application{
 
     private void addSongToEndOfQueue(String songPath){
         File song = createMusicFile(songPath);
+        PatternMatcher p = new PatternMatcher();
+        p.findM4AData(song);
+
         Media media = createMedia(song);
+        try {
+            MP3File a = new MP3File(song);
+            System.out.println(a.getArtist());
+        }catch (Exception e){
+            System.err.println("EXMP3s");
+        }
+        media.getMetadata().addListener(new MapChangeListener<String, Object>() {
+            @Override
+            public void onChanged(Change<? extends String, ? extends Object> ch) {
+                if (ch.wasAdded()) {
+                    if(ch.getKey().equals("artist"))
+                        System.out.println(ch.getValueAdded());
+                }
+            }
+        });
         addMediaPlayerToList(new MediaPlayer(media));
         musicQueue.add(mediaPlayers.size()-1);
     }
 
-    private void addSongNext(String songPath){
+    private void addSongNext(String songPath)  {
         File song = createMusicFile(songPath);
         Media media = createMedia(song);
+        try {
+            MP3File a = new MP3File(song);
+            System.out.println(a.getArtist());
+        }catch (Exception e){
+            System.err.println("EXMP3s");
+        }
+        media.getMetadata().addListener(new MapChangeListener<String, Object>() {
+            @Override
+            public void onChanged(Change<? extends String, ? extends Object> ch) {
+                if (ch.wasAdded()) {
+                    if(ch.getKey().equals("artist"))
+                        System.out.println(ch.getValueAdded());
+                }
+            }
+        });
         addMediaPlayerToList(new MediaPlayer(media));
         if(currentSongInQueue == musicQueue.size()){
             musicQueue.add(mediaPlayers.size()-1);
@@ -113,6 +151,15 @@ public class MusicManager extends Application{
     private void setMediaPlayerMedia(int oldSongNumber){
         mediaPlayers.get(musicQueue.get(oldSongNumber)).stop();
         mediaPlayers.get(musicQueue.get(currentSongInQueue)).play();
+        mediaPlayers.get(musicQueue.get(currentSongInQueue)).getMedia().getMetadata().addListener(new MapChangeListener<String, Object>() {
+            @Override
+            public void onChanged(Change<? extends String, ? extends Object> ch) {
+                if (ch.wasAdded()) {
+
+                }
+                System.out.println(ch.getKey());
+            }
+        });
     }
 
     public void playNextSongInQueue(){
