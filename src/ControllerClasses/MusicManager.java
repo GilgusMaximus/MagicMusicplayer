@@ -54,7 +54,7 @@ public class MusicManager extends Application{
         mediaPlayers = new ArrayList<>();
 
 
-        addSongToEndOfQueue(musicFiles.get(6));
+        addSongToEndOfQueue(musicFiles.get(30));
         //addSongToEndOfQueue(musicFiles.get(12));
         addSongNext(musicFiles.get(18));
        // addSongToEndOfQueue("E:\\Benutzer\\Musik\\Soundeffekte\\Soundboard\\CENA.mp3");
@@ -94,7 +94,8 @@ public class MusicManager extends Application{
     private void addSongToEndOfQueue(String songPath){
         File song = createMusicFile(songPath);
         PatternMatcher p = new PatternMatcher();
-        p.findM4AData(song);
+        String[] tags = p.findM4AData(song);
+        System.out.println(tags[0] + " " + tags[1] + " " + tags[2]);
 
         Media media = createMedia(song);
         try {
