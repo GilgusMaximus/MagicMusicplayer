@@ -25,7 +25,7 @@ public class FileSearcher {
             if(fileEnd.equals("mp3") || fileEnd.equals("wav") || fileEnd.equals("m4a")) { //are the last 3 characters of the filename mp3/wav/m4a?
                 //yes -> we found an mp3/wav/m4a file -> save
                 allFiles.add(currentPath);
-                allFiles.add(name); //needed to save the file name -> easier to read it into the system again
+                //allFiles.add(name); //needed to save the file name -> easier to read it into the system again
             }
             return;
         }else{

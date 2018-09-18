@@ -1,29 +1,13 @@
 package FileClasses;
 
+import mp3magic.ID3v1;
+import mp3magic.ID3v2;
+import mp3magic.Mp3File;
+
 import java.io.File;
 import java.io.RandomAccessFile;
 
 public class PatternMatcher {
-
-
-
-    /*----------------------------------------------------------------------------------------------------
-                                                Information
-
-                What this class is capable of:
-                You give it a m4a file, and it will return you a String array of size 3 with the following tag value of that file:
-                0: Song name
-                1: Artist name
-                2: Album name
-
-                Usage:
-                To use this class, make an instance of the class and call findM4AData(file).
-                The parameter has to be a file of type m4a.
-
-                I would be happy, if you credit the author (me), somewhere in your project, or link to the github page of this class,
-                but if you do not want to do this, your are free to leave it out.
-
-     ----------------------------------------------------------------------------------------------------*/
 
     //file has to be an m4a file
     public String[] findM4AData(File file) throws RuntimeException{
@@ -34,7 +18,7 @@ public class PatternMatcher {
         final int[] pattern = {-87, 110, 97, 109};
         int[] tagKeyIndices = new int[3]; //array of indices pointing towards the beginning of the tag key
         byte[] byteArray = null;
-        String[] Tags = new String[3];  //array of tag values
+        String[] Tags = new String[3];  //array of tag values (3)
 
         RandomAccessFile randomFile = null;
 
@@ -107,5 +91,31 @@ public class PatternMatcher {
             index++;
         }
         return Tag;
+    }
+
+    public String[] findMp3Data(File file){
+        String[] tags = new String[3];
+        try {
+            Mp3File mp3 = new Mp3File(file);
+            /*if(mp3.hasId3v1Tag()){
+                ID3v1 id3v1Tag = mp3.getId3v1Tag();
+                System.out.println("Artist: " + id3v1Tag.getArtist());
+                System.out.println("Title: " + id3v1Tag.getTitle());
+                System.out.println("Album: " + id3v1Tag.getAlbum());
+            }else if(mp3.hasId3v2Tag()){
+
+                ID3v2 id3v2Tag = mp3.getId3v2Tag();
+                System.out.println("Track: " + id3v2Tag.getTrack());
+                System.out.println("Artist: " + id3v2Tag.getArtist());
+                System.out.println("Artist: " + id3v2Tag.getOriginalArtist());
+                System.out.println("Title: " + id3v2Tag.getTitle());
+                System.out.println("Album: " + id3v2Tag.getAlbum());
+            }*/
+
+
+        }catch(Exception e){
+
+        }
+        return tags;
     }
 }

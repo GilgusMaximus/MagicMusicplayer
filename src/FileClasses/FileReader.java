@@ -26,7 +26,6 @@ public class FileReader {
 
             System.out.println("Die folgenden Directories mit allen subdirectories wurden bereits in einer frueheren Sitzung gescannt");
             System.out.println(currentLine.substring(textfileMarkers.searchDirectoryMarker.length()));
-
             while((currentLine = reader.readLine()) != null){//read all lines
                 //is the current line a marker line or a file line?
                 if(currentLine.length() > textfileMarkers.searchDirectoryMarker.length() && currentLine.substring(0, textfileMarkers.searchDirectoryMarker.length()).equals(textfileMarkers.searchDirectoryMarker)) {
@@ -34,7 +33,8 @@ public class FileReader {
                     System.out.println(currentLine.substring(24));
                 }else{
                     //file line -> save the file paths
-                    allFiles.add(currentLine);
+                        allFiles.add(currentLine);
+
                 }
             }
         }catch(Exception e){

@@ -1,13 +1,13 @@
 package ControllerClasses;
 
 import FileClasses.InputReader;
+import FileClasses.Musicfile;
 import FileClasses.PatternMatcher;
 import com.sun.istack.internal.NotNull;
 import fxml.Controller;
-import helliker.id3.MP3File;
 import javafx.application.Application;
 import javafx.collections.MapChangeListener;
-import javafx.collections.ObservableMap;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -18,21 +18,20 @@ import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import FileClasses.Musicfile;
 
-import java.io.RandomAccessFile;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class MusicManager extends Application{
 
-    private  ArrayList<String> musicFiles;
+    private  ArrayList<Musicfile> musicFiles;
     private ArrayList<Integer> musicQueue;
     private ArrayList<MediaPlayer> mediaPlayers;
     private int currentSongInQueue = 0;
     private Controller uiController;
     private MediaView mediaView;
+    PatternMatcher patternMatcher = new PatternMatcher();
     private final int loopNothing   = 0;
     private final int loopQueue     = 1;
     private final int loopSong      = 2;
@@ -48,17 +47,17 @@ public class MusicManager extends Application{
 
 
     public void start(Stage primaryStage) {
-        musicFiles = InputReader.getAllFiles();
+        musicFiles = InputReader.getMusicFiles();
 
         musicQueue = new ArrayList<>();
         mediaPlayers = new ArrayList<>();
 
+       // System.out.println("PATH " + musicFiles.get(278));
 
-        addSongToEndOfQueue(musicFiles.get(30));
+        addSongToEndOfQueue(musicFiles.get(185).getFilePath());
         //addSongToEndOfQueue(musicFiles.get(12));
-        addSongNext(musicFiles.get(18));
+        //addSongNext(musicFiles.get(18));
        // addSongToEndOfQueue("E:\\Benutzer\\Musik\\Soundeffekte\\Soundboard\\CENA.mp3");
-
 
         Parent root  = null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/ui.fxml"));
@@ -93,17 +92,15 @@ public class MusicManager extends Application{
 
     private void addSongToEndOfQueue(String songPath){
         File song = createMusicFile(songPath);
-        PatternMatcher p = new PatternMatcher();
-        String[] tags = p.findM4AData(song);
-        System.out.println(tags[0] + " " + tags[1] + " " + tags[2]);
+        String[] tags;
+        if(songPath.substring(songPath.length()-3).equals("m4a")){
+            tags = patternMatcher.findM4AData(song);
+        }else{
+            tags = patternMatcher.findMp3Data(song);
+        }
+
 
         Media media = createMedia(song);
-        try {
-            MP3File a = new MP3File(song);
-            System.out.println(a.getArtist());
-        }catch (Exception e){
-            System.err.println("EXMP3s");
-        }
         media.getMetadata().addListener(new MapChangeListener<String, Object>() {
             @Override
             public void onChanged(Change<? extends String, ? extends Object> ch) {
@@ -117,15 +114,11 @@ public class MusicManager extends Application{
         musicQueue.add(mediaPlayers.size()-1);
     }
 
+
+
     private void addSongNext(String songPath)  {
         File song = createMusicFile(songPath);
         Media media = createMedia(song);
-        try {
-            MP3File a = new MP3File(song);
-            System.out.println(a.getArtist());
-        }catch (Exception e){
-            System.err.println("EXMP3s");
-        }
         media.getMetadata().addListener(new MapChangeListener<String, Object>() {
             @Override
             public void onChanged(Change<? extends String, ? extends Object> ch) {
