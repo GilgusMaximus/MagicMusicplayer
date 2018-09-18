@@ -39,6 +39,7 @@ public class MusicManager extends Application{
     private int loopStatus = loopNothing;
 
     public static void main(String[] args){
+      Musicfile a = new Musicfile("5Armin")
         InputReader.readInput();
         Application.launch();
     }
@@ -52,9 +53,9 @@ public class MusicManager extends Application{
         musicQueue = new ArrayList<>();
         mediaPlayers = new ArrayList<>();
 
-       // System.out.println("PATH " + musicFiles.get(278));
+       System.out.println("PATH " + musicFiles.get(0));
 
-        addSongToEndOfQueue(musicFiles.get(185).getFilePath());
+        addSongToEndOfQueue(musicFiles.get(0).getFilePath());
         //addSongToEndOfQueue(musicFiles.get(12));
         //addSongNext(musicFiles.get(18));
        // addSongToEndOfQueue("E:\\Benutzer\\Musik\\Soundeffekte\\Soundboard\\CENA.mp3");

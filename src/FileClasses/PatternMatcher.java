@@ -97,20 +97,18 @@ public class PatternMatcher {
         String[] tags = new String[3];
         try {
             Mp3File mp3 = new Mp3File(file);
-            /*if(mp3.hasId3v1Tag()){
+            if(mp3.hasId3v1Tag()){
                 ID3v1 id3v1Tag = mp3.getId3v1Tag();
-                System.out.println("Artist: " + id3v1Tag.getArtist());
-                System.out.println("Title: " + id3v1Tag.getTitle());
-                System.out.println("Album: " + id3v1Tag.getAlbum());
+                tags[0] = id3v1Tag.getTitle();
+                tags[1] = id3v1Tag.getArtist();
+                tags[2] = id3v1Tag.getAlbum();
             }else if(mp3.hasId3v2Tag()){
 
                 ID3v2 id3v2Tag = mp3.getId3v2Tag();
-                System.out.println("Track: " + id3v2Tag.getTrack());
-                System.out.println("Artist: " + id3v2Tag.getArtist());
-                System.out.println("Artist: " + id3v2Tag.getOriginalArtist());
-                System.out.println("Title: " + id3v2Tag.getTitle());
-                System.out.println("Album: " + id3v2Tag.getAlbum());
-            }*/
+              tags[0] = id3v2Tag.getTitle();
+              tags[1] = id3v2Tag.getArtist();
+              tags[2] = id3v2Tag.getAlbum();
+            }
 
 
         }catch(Exception e){

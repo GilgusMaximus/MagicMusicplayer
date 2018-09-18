@@ -8,13 +8,18 @@ import java.util.Scanner;
 public class InputReader {
     private static ArrayList<String> allFiles = new ArrayList<>();
     private static ArrayList<Musicfile> musicFiles = new ArrayList<>();
+    private static FileWriter fileWriter;
    public static void readInput(){
         boolean search = true;
+        boolean append = false;
+        int writeBegin = 0;
         FileClasses.FileReader reader = new FileReader();
         System.out.println("Willkommen beim MagicMusicPlayer");
         if(new File("files/Searchdirectories.txt").exists()) {
             if (reader.readFile("files/Searchdirectories.txt")) {
                 allFiles = reader.getAllFiles();
+                writeBegin = allFiles.size();
+              append = true;
             } else {
                 allFiles = null;
             }
@@ -39,11 +44,11 @@ public class InputReader {
             Musicfile musicfile;
             long startTime = System.nanoTime();
 
-            MusicFileCreator[] creators = new MusicFileCreator[4];
+            /*MusicFileCreator[] creators = new MusicFileCreator[4];
             int start = 0;
             int end = allFiles.size()/4;
             int size = end;
-            /*creators[0] = new MusicFileCreator(0, 342, allFiles);
+            creators[0] = new MusicFileCreator(0, 342, allFiles);
             creators[1] = new MusicFileCreator(343, 685, allFiles);
             creators[2] = new MusicFileCreator(686, 1028, allFiles);
             creators[3] = new MusicFileCreator(1029, 1070, allFiles);
@@ -75,7 +80,11 @@ public class InputReader {
                     tags = p.findM4AData(file);
                 }else {
                     tags = p.findMp3Data(file);
+                  System.out.println("HIER");
                 }
+             for(int k = 0; k < tags.length; k++){
+               System.out.println(tags[k]);
+             }
                 String[] multArtists = null;
                 if(tags[1] != null) {
                     multArtists = tags[1].split("/");
@@ -96,26 +105,13 @@ public class InputReader {
             System.out.println(totalTime);
 
         }
-
+        //FileWrite extends Thread -> we can put the writing of the files onto another Thread
+        fileWriter = new FileWriter(musicFiles, append, "files/Musicfiles.txt", writeBegin);
+        fileWriter.run();
         System.out.println("ANZAHL"  + musicFiles.size());
-       FileWriter.writeToFile("files/Searchdirectories.txt", allFiles, false);    //write all files into the Seachdirectories.txt with the following system: absolute file path \n file name \n
-        /*if(search) { //did teh user add more directories / had no existing ones?
-            //yes -> search for files
-            directories = readInputDirectories();                   //user inputs directories to search for music files
-            System.out.println("Now searching for music files. This may take a while...");
-            if(allFiles == null) {  //Do we already have files saved?
-                //no -> allFiles = the directories that have been searched
-                allFiles                    = FileSearcher.findAllFiles(directories);   //search through all directories and subdirectories
-            }else{
-                //yes -> we append the new files to the old ones
-                ArrayList<String> newFiles = FileSearcher.findAllFiles(directories);
-                allFiles.addAll(newFiles);
-            }
-            System.out.println("File search has been completed. " + (allFiles.size()/2) + " mp3 files have been found.");
-
-        }*/
+      // FileWriter.writeToFile("files/Searchdirectories.txt", allFiles, false);    //write all files into the Seachdirectories.txt with the following system: absolute file path \n file name \n
     }
-    static ArrayList<String> readInputDirectories(){
+    private static ArrayList<String> readInputDirectories(){
         Scanner scanner = new Scanner(System.in);
         ArrayList<String> directories = new ArrayList<>();
         String directory = null;

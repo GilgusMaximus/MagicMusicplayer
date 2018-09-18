@@ -34,7 +34,11 @@ public class MusicFileCreator extends  Thread{
             if(path.substring(path.length()-3).equals("m4a")){
                 tags = p.findM4AData(file);
             }else /*if(path.substring(path.length()-3).equals("mp3"))*/{
+              System.out.println("HIER");
                 tags = p.findMp3Data(file);
+            }
+            for(int i = 0; i < tags.length; i++){
+              System.out.println(tags[i]);
             }
             String[] multArtists = null;
             if(tags[1] != null) {
