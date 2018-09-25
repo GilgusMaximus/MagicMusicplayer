@@ -1,5 +1,6 @@
 package ControllerClasses;
 
+import FileClasses.FileReader;
 import FileClasses.InputReader;
 import FileClasses.Musicfile;
 import FileClasses.PatternMatcher;
@@ -39,7 +40,6 @@ public class MusicManager extends Application{
     private int loopStatus = loopNothing;
 
     public static void main(String[] args){
-      Musicfile a = new Musicfile("5Armin")
         InputReader.readInput();
         Application.launch();
     }
@@ -48,7 +48,14 @@ public class MusicManager extends Application{
 
 
     public void start(Stage primaryStage) {
-        musicFiles = InputReader.getMusicFiles();
+      FileReader reader = new FileReader();
+        if(reader.readFile("/file/Musicfile.txt")) {
+        musicFiles = reader.getAllFiles();
+      }else{
+          musicFiles = new ArrayList<>();
+        }
+
+        musicFiles.addAll(InputReader.getMusicFiles());
 
         musicQueue = new ArrayList<>();
         mediaPlayers = new ArrayList<>();
