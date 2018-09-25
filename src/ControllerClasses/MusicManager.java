@@ -49,20 +49,15 @@ public class MusicManager extends Application{
 
     public void start(Stage primaryStage) {
       FileReader reader = new FileReader();
-        if(reader.readFile("/file/Musicfile.txt")) {
-        musicFiles = reader.getAllFiles();
-      }else{
-          musicFiles = new ArrayList<>();
-        }
 
-        musicFiles.addAll(InputReader.getMusicFiles());
+        musicFiles = InputReader.getMusicFiles();
 
         musicQueue = new ArrayList<>();
         mediaPlayers = new ArrayList<>();
 
-       System.out.println("PATH " + musicFiles.get(0));
+//       System.out.println("PATH " + musicFiles.get(0));
 
-        addSongToEndOfQueue(musicFiles.get(0).getFilePath());
+      //  addSongToEndOfQueue(musicFiles.get(0).getFilePath());
         //addSongToEndOfQueue(musicFiles.get(12));
         //addSongNext(musicFiles.get(18));
        // addSongToEndOfQueue("E:\\Benutzer\\Musik\\Soundeffekte\\Soundboard\\CENA.mp3");

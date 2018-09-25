@@ -16,17 +16,17 @@ public class InputReader {
         FileClasses.FileReader reader = new FileReader();
         System.out.println("Willkommen beim MagicMusicPlayer");
         if(new File("files/Searchdirectories.txt").exists()) {
-            if (reader.readFile("files/Searchdirectories.txt")) {
+            if (reader.readFile("files/MusicFiles.txt")) {
                 allFiles = reader.getAllFiles();
                 writeBegin = allFiles.size();
-              append = true;
+                append = true;
             } else {
                 allFiles = null;
             }
         }else{
             allFiles = null;
         }
-        if(allFiles == null){
+        if(allFiles == null || writeBegin == 0){
             System.out.println("Bitte geben sie einen Ordner an in welchem selbst + allen Unterordnern nach Musik gesucht werden soll");
         }else{
             System.out.println("Möchten sie zu den bereits durchsuchten Directories weitere hinzufügen? y/n");
@@ -35,42 +35,18 @@ public class InputReader {
                 search = false;
             }
         }
+
+
+        MusicFileCreator creator = new MusicFileCreator(allFiles);
+      creator.start();
         ArrayList<String> directories;
 
-        if(search){
+       if(search){
             directories = readInputDirectories();
             allFiles = FileSearcher.findAllFiles(directories);
             PatternMatcher p = new PatternMatcher();
             Musicfile musicfile;
             long startTime = System.nanoTime();
-
-            /*MusicFileCreator[] creators = new MusicFileCreator[4];
-            int start = 0;
-            int end = allFiles.size()/4;
-            int size = end;
-            creators[0] = new MusicFileCreator(0, 342, allFiles);
-            creators[1] = new MusicFileCreator(343, 685, allFiles);
-            creators[2] = new MusicFileCreator(686, 1028, allFiles);
-            creators[3] = new MusicFileCreator(1029, 1070, allFiles);
-            for(int i = 0; i < 4; i++){
-            //    creators[i] = new MusicFileCreator(i*343, 342 * i - 1, allFiles);
-            }
-            try {
-            for(int i = 0; i < 4; i++){
-                creators[i].start();
-                creators[i].join();
-            }
-
-                for (int i = 0; i < 4; i++) {
-                    creators[i].join();
-                    musicFiles.addAll(creators[i].getMusicFiles());
-                    System.out.println(i + " ist fertig");
-                }
-            }catch (Exception e){
-                System.out.println("ERROR: InputReader: Threads: " + e);
-            }*/
-
-
            for(int i = 1; i < allFiles.size(); i++){
                 String path = allFiles.get(i);
                 //System.out.println(path);
@@ -89,7 +65,7 @@ public class InputReader {
                 if(tags[1] != null) {
                     multArtists = tags[1].split("/");
                 }
-                if(multArtists != null && multArtists.length > 1 && multArtists[0].toLowerCase().equals("axwell")){
+                if(multArtists != null && multArtists.length > 1 && multArtists[0].toLowerCase().equals("axwell")){ //Small trick to avoid the bug by axwell /\ ingrosso ;)
                     multArtists = null;
                 }
                 if(multArtists == null){
@@ -98,17 +74,23 @@ public class InputReader {
                     musicfile = new Musicfile(path, multArtists, tags[2], tags[0], null);
                 }
                 musicFiles.add(musicfile);
-
             }
             long endTime   = System.nanoTime();
             long totalTime = endTime - startTime;
             System.out.println(totalTime);
 
         }
+
         //FileWrite extends Thread -> we can put the writing of the files onto another Thread
         fileWriter = new FileWriter(musicFiles, append, "files/Musicfiles.txt", writeBegin);
         fileWriter.run();
         System.out.println("ANZAHL"  + musicFiles.size());
+        try {
+          creator.join();
+        }catch (Exception e){
+          System.err.println("ERROR: InputReader: MusicFileCreater - JOIN: " + e);
+        }
+        musicFiles.addAll(creator.getMusicFiles());
       // FileWriter.writeToFile("files/Searchdirectories.txt", allFiles, false);    //write all files into the Seachdirectories.txt with the following system: absolute file path \n file name \n
     }
     private static ArrayList<String> readInputDirectories(){
