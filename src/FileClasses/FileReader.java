@@ -12,9 +12,13 @@ public class FileReader {
 
     public boolean readFile(String filepath){
         allFiles = new ArrayList<>();
+        File file = new File(filepath);
+        if(!file.exists())
+            return false;
+
         try {
             BufferedReader reader;
-            reader = new BufferedReader(new java.io.FileReader(new File(filepath)));
+            reader = new BufferedReader(new java.io.FileReader(file));
             String currentLine;
             while((currentLine = reader.readLine()) != null){//read all lines
                 allFiles.add(currentLine);

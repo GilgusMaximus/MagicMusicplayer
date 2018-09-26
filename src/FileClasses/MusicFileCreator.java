@@ -4,27 +4,28 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MusicFileCreator extends  Thread{
+public class MusicFileCreator extends Thread {
 
-    List<String> encodedMusicFiles;
-    ArrayList<Musicfile> musicFiles;
-    PatternMatcher p;
-    MusicFileCreator(ArrayList<String> EncodedMusicFiles){
-        musicFiles = new ArrayList<>();
-        encodedMusicFiles = EncodedMusicFiles;
-    }
+   List<String> encodedMusicFiles;
+   ArrayList<Musicfile> musicFiles;
+   PatternMatcher p;
 
-    public ArrayList<Musicfile> getMusicFiles(){
-        return  musicFiles;
-    }
+   MusicFileCreator(ArrayList<String> EncodedMusicFiles) {
+      musicFiles = new ArrayList<>();
+      encodedMusicFiles = EncodedMusicFiles;
+   }
 
-    @Override
-    public void run(){
-      if(encodedMusicFiles != null) {
-        for (int i = 0; i < encodedMusicFiles.size(); i++) {
-          musicFiles.add(new Musicfile(encodedMusicFiles.get(i)));
-        }
+   public ArrayList<Musicfile> getMusicFiles() {
+      return musicFiles;
+   }
+
+   @Override
+   public void run() {
+      if (encodedMusicFiles != null) {
+         for (int i = 0; i < encodedMusicFiles.size(); i++) {
+            musicFiles.add(new Musicfile(encodedMusicFiles.get(i)));
+         }
       }
-    }
+   }
 
 }
