@@ -57,7 +57,7 @@ public class MusicManager extends Application{
 
 //       System.out.println("PATH " + musicFiles.get(0));
 
-      //  addSongToEndOfQueue(musicFiles.get(0).getFilePath());
+        addSongToEndOfQueue(musicFiles.get(0).getFilePath());
         //addSongToEndOfQueue(musicFiles.get(12));
         //addSongNext(musicFiles.get(18));
        // addSongToEndOfQueue("E:\\Benutzer\\Musik\\Soundeffekte\\Soundboard\\CENA.mp3");

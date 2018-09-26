@@ -38,17 +38,18 @@ public class InputReader {
 
 
         MusicFileCreator creator = new MusicFileCreator(allFiles);
+        ArrayList<String> newSearchedFiles;
       creator.start();
         ArrayList<String> directories;
 
        if(search){
             directories = readInputDirectories();
-            allFiles = FileSearcher.findAllFiles(directories);
+            newSearchedFiles = FileSearcher.findAllFiles(directories);
             PatternMatcher p = new PatternMatcher();
             Musicfile musicfile;
             long startTime = System.nanoTime();
-           for(int i = 1; i < allFiles.size(); i++){
-                String path = allFiles.get(i);
+           for(int i = 1; i < newSearchedFiles.size(); i++){
+                String path = newSearchedFiles.get(i);
                 //System.out.println(path);
                 String[] tags;
                 File file = new File(path);
@@ -78,7 +79,6 @@ public class InputReader {
             long endTime   = System.nanoTime();
             long totalTime = endTime - startTime;
             System.out.println(totalTime);
-
         }
 
         //FileWrite extends Thread -> we can put the writing of the files onto another Thread

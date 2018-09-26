@@ -1,7 +1,5 @@
 package FileClasses;
 
-
-
 import ControllerClasses.textfileMarkers;
 
 import java.io.BufferedReader;
