@@ -3,6 +3,8 @@ package fxml;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import ControllerClasses.MusicManager;
 
@@ -37,4 +39,10 @@ public class Controller {
         manager.loop();
     }
 
+    @FXML
+    private ImageView mp3Thumb;
+
+    public void getMp3Thumb(Image i) {
+        mp3Thumb.setImage(i);
+    }
 }

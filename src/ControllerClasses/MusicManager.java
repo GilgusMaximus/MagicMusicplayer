@@ -4,12 +4,17 @@ import FileClasses.InputReader;
 import FileClasses.Musicfile;
 import com.sun.istack.internal.NotNull;
 import fxml.Controller;
+import java.io.FileInputStream;
+import java.net.URL;
 import javafx.application.Application;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -22,7 +27,8 @@ import java.util.ArrayList;
 
 public class MusicManager extends Application {
 
-
+   @FXML
+   ImageView img1;
    private ArrayList<Integer> musicQueue;
    private ArrayList<MediaPlayer> mediaPlayers;
    private int currentSongInQueue = 0;
@@ -64,8 +70,15 @@ public class MusicManager extends Application {
       }
       uiController = loader.getController();
       uiController.setManager(this);
+      FileInputStream inputstream = null;
+      try {
+         inputstream = new FileInputStream("D:\\Workspace\\Java\\Musicplayer\\src\\fxml\\pictures\\jeff goldblum2.png");
+      }catch(Exception e){
 
-      //Creating a scene object
+      }
+      //ImageView a = new ImageView();
+      uiController.getMp3Thumb(new Image(inputstream));
+      // Creating a scene object
       @NotNull Scene scene = new Scene(root, 600, 300);
       mediaView = new MediaView();
       ((Group) scene.getRoot()).getChildren().add(mediaView);
@@ -78,7 +91,8 @@ public class MusicManager extends Application {
       primaryStage.setWidth(640);
       primaryStage.setHeight(360);
       //primaryStage.setMaximized(true);
-
+//      Image i = new Image("E:\\Benutzer\\Bilder\\Art\\jeff goldblum2.png");
+  //    img1.setImage(i);
       //Displaying the contents of the stage
       primaryStage.show();
       // primaryStage.toFront();
@@ -124,6 +138,8 @@ public class MusicManager extends Application {
       int oldSongInQueue = currentSongInQueue;
       currentSongInQueue = (currentSongInQueue + 1) % musicQueue.size();
       setMediaPlayerMedia(oldSongInQueue);
+
+
    }
 
    private void playPreviousSongInQueue() {
