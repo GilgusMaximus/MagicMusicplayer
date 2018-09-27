@@ -11,6 +11,7 @@ public class InputReader {
 
 
    public static void readInput() {
+      double timeStart = System.nanoTime();
       boolean search = true;
       boolean append = false;
       int writeBegin = 0;
@@ -22,12 +23,11 @@ public class InputReader {
 
       if (reader.readFile("files/MusicFiles.txt")) {   //return true if the file exists and could be read
          allFiles = reader.getAllFiles();                      //get all data
-         writeBegin = allFiles.size();
          append = true;                                        //set flag
       } else {
          allFiles = null;
       }
-      if (allFiles == null || writeBegin == 0) {
+      if (allFiles == null) {
          System.out.println("Bitte geben sie einen Ordner an in welchem selbst + allen Unterordnern nach Musik gesucht werden soll");
       } else {
          System.out.println("Möchten sie zu den bereits durchsuchten Directories weitere hinzufügen? y/n");
@@ -47,7 +47,7 @@ public class InputReader {
          PatternMatcher p = new PatternMatcher();
          Musicfile musicfile;
 
-         for (int i = 1; i < newSearchedFiles.size(); i++) {   //create new musicfile objects for the found music files
+         for (int i = 0; i < newSearchedFiles.size(); i++) {   //create new musicfile objects for the found music files
             String[] tags;
             String[] multArtists = null;
             String path = newSearchedFiles.get(i);
@@ -82,7 +82,7 @@ public class InputReader {
       }
 
       //create custom FileWriter
-      fileWriter = new FileWriter(musicFiles, append, "files/Musicfiles.txt", writeBegin);
+      fileWriter = new FileWriter(musicFiles, append, "files/Musicfiles.txt");
       //start the writer on another thread, and let it write all new musicfiles to it
       fileWriter.run();
 
@@ -92,7 +92,10 @@ public class InputReader {
       } catch (Exception e) {
          System.err.println("ERROR: InputReader: MusicFileCreater - JOIN: " + e);
       }
+      int neueZahl = musicFiles.size();
       musicFiles.addAll(creator.getMusicFiles());
+      double timeEnd = System.nanoTime();
+      System.out.println("read Input hat " + ((timeEnd-timeStart)/1000000000.0) + "s für " + neueZahl + " neu zu suchende Files und " + (musicFiles.size()-neueZahl) + " bereits gespeicherte Files gebraucht");
    }
 
    private static ArrayList<String> readInputDirectories() {

@@ -1,16 +1,14 @@
 package FileClasses;
 
-import ControllerClasses.textfileMarkers;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.util.ArrayList;
 
-public class FileReader {
+class FileReader {
 
     private ArrayList<String> allFiles = null;
 
-    public boolean readFile(String filepath){
+    boolean readFile(String filepath){
         allFiles = new ArrayList<>();
         File file = new File(filepath);
         if(!file.exists())
@@ -29,7 +27,7 @@ public class FileReader {
         }
         return true;
     }
-    public ArrayList<String> getAllFiles(){
+    ArrayList<String> getAllFiles(){
         return  allFiles;
     }
 }

@@ -10,17 +10,17 @@ import java.io.RandomAccessFile;
 public class PatternMatcher {
 
    //file has to be an m4a file
-   public String[] findM4AData(File file) throws RuntimeException {
+   String[] findM4AData(File file) throws RuntimeException {
       int index = 0;
       final int value = -87 + 110 + 97 + 109;
       boolean found = false;
 
       final int[] pattern = {-87, 110, 97, 109};
       int[] tagKeyIndices = new int[3]; //array of indices pointing towards the beginning of the tag key
-      byte[] byteArray = null;
+      byte[] byteArray;
       String[] Tags = new String[3];  //array of tag values (3)
 
-      RandomAccessFile randomFile = null;
+      RandomAccessFile randomFile;
 
       //read the bytes of the file
       try {
@@ -94,7 +94,7 @@ public class PatternMatcher {
       return Tag;
    }
 
-   public String[] findMp3Data(File file) {
+   String[] findMp3Data(File file) {
       String[] tags = new String[3];
       try {
          Mp3File mp3 = new Mp3File(file);
@@ -113,7 +113,7 @@ public class PatternMatcher {
 
 
       } catch (Exception e) {
-
+         System.err.println("ERROR: PatternMatcher: findMp3Data(): " + e);
       }
       return tags;
    }

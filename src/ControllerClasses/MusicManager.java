@@ -2,7 +2,6 @@ package ControllerClasses;
 
 import FileClasses.InputReader;
 import FileClasses.Musicfile;
-import FileClasses.PatternMatcher;
 import com.sun.istack.internal.NotNull;
 import fxml.Controller;
 import javafx.application.Application;
@@ -158,7 +157,6 @@ public class MusicManager extends Application {
          mediaPlayers.get(currentSongInQueue).play();
       }
    }
-
 
    public void playNextButtonHit() {
       playNextSongInQueue();

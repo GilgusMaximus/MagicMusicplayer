@@ -6,7 +6,7 @@ public class Musicfile {
    private String[] artists;
 
    //constructor called when more than 1 artist are read from the file tags
-   public Musicfile(String path, String[] art, String alb, String tit, String img) {
+   Musicfile(String path, String[] art, String alb, String tit, String img) {
       if (path != null) {
          filePath = path;
       }
@@ -23,7 +23,7 @@ public class Musicfile {
    }
 
    //constructor called when only one artist is read from the file tags
-   public Musicfile(String path, String art, String alb, String tit, String img) {
+   Musicfile(String path, String art, String alb, String tit, String img) {
       if (path != null) {
          filePath = path;
       }
@@ -45,7 +45,7 @@ public class Musicfile {
    }
 
    //constructor called when the line is read from a file
-   public Musicfile(String readLine) {
+   Musicfile(String readLine) {
       String word = "";                                               //current tag
       int count = 0;                                                  //counter for tags array
       String[] tags = new String[4 + (int) readLine.charAt(0) - 48];  //we always have a minimum of 5 tags -> 4 + the amount of artists, indicated by the first char from the text file line

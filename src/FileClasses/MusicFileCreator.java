@@ -1,21 +1,19 @@
 package FileClasses;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MusicFileCreator extends Thread {
 
-   List<String> encodedMusicFiles;
-   ArrayList<Musicfile> musicFiles;
-   PatternMatcher p;
+   private List<String> encodedMusicFiles;
+   private ArrayList<Musicfile> musicFiles;
 
    MusicFileCreator(ArrayList<String> EncodedMusicFiles) {
       musicFiles = new ArrayList<>();
       encodedMusicFiles = EncodedMusicFiles;
    }
 
-   public ArrayList<Musicfile> getMusicFiles() {
+   ArrayList<Musicfile> getMusicFiles() {
       return musicFiles;
    }
 
