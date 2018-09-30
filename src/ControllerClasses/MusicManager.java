@@ -5,7 +5,6 @@ import FileClasses.Musicfile;
 import com.sun.istack.internal.NotNull;
 import fxml.Controller;
 import java.io.FileInputStream;
-import java.net.URL;
 import javafx.application.Application;
 
 import javafx.fxml.FXML;
@@ -27,8 +26,6 @@ import java.util.ArrayList;
 
 public class MusicManager extends Application {
 
-   @FXML
-   ImageView img1;
    private ArrayList<Integer> musicQueue;
    private ArrayList<MediaPlayer> mediaPlayers;
    private int currentSongInQueue = 0;
@@ -38,7 +35,7 @@ public class MusicManager extends Application {
    private final int loopSong = 2;
 
    private int loopStatus = loopNothing;
-
+   private Controller uiController;
    public static void main(String[] args) {
       InputReader.readInput();
       Application.launch();
@@ -46,7 +43,6 @@ public class MusicManager extends Application {
 
    public void start(Stage primaryStage) {
       ArrayList<Musicfile> musicFiles;
-      Controller uiController;
 
       musicFiles = InputReader.getMusicFiles();
 
@@ -70,14 +66,7 @@ public class MusicManager extends Application {
       }
       uiController = loader.getController();
       uiController.setManager(this);
-      FileInputStream inputstream = null;
-      try {
-         inputstream = new FileInputStream("D:\\Workspace\\Java\\Musicplayer\\src\\fxml\\pictures\\jeff goldblum2.png");
-      }catch(Exception e){
 
-      }
-      //ImageView a = new ImageView();
-      uiController.getMp3Thumb(new Image(inputstream));
       // Creating a scene object
       @NotNull Scene scene = new Scene(root, 600, 300);
       mediaView = new MediaView();
@@ -91,8 +80,7 @@ public class MusicManager extends Application {
       primaryStage.setWidth(640);
       primaryStage.setHeight(360);
       //primaryStage.setMaximized(true);
-//      Image i = new Image("E:\\Benutzer\\Bilder\\Art\\jeff goldblum2.png");
-  //    img1.setImage(i);
+
       //Displaying the contents of the stage
       primaryStage.show();
       // primaryStage.toFront();
@@ -139,7 +127,13 @@ public class MusicManager extends Application {
       currentSongInQueue = (currentSongInQueue + 1) % musicQueue.size();
       setMediaPlayerMedia(oldSongInQueue);
 
-
+      FileInputStream inputstream = null;
+      try {
+       inputstream = new FileInputStream("D:\\Workspace\\Java\\MagicMusicplayer\\files\\crop.php.jpg"); //open the needed image as FileStream
+      }catch(Exception e){
+        System.err.println("ERROR: MusicManager: playNextSongInQueue: inputStream: " + e);
+      }
+      uiController.setSongThumbnail(new Image(inputstream));  //set the image that is shown in the ui
    }
 
    private void playPreviousSongInQueue() {

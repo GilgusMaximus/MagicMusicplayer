@@ -95,7 +95,7 @@ public class InputReader {
       int neueZahl = musicFiles.size();
       musicFiles.addAll(creator.getMusicFiles());
       double timeEnd = System.nanoTime();
-      System.out.println("read Input hat " + ((timeEnd-timeStart)/1000000000.0) + "s für " + neueZahl + " neu zu suchende Files und " + (musicFiles.size()-neueZahl) + " bereits gespeicherte Files gebraucht");
+      System.out.println("read Input hat " + ((timeEnd-timeStart)/1000000000) + "s für " + neueZahl + " neu zu suchende Files und " + (musicFiles.size()-neueZahl) + " bereits gespeicherte Files gebraucht");
    }
 
    private static ArrayList<String> readInputDirectories() {

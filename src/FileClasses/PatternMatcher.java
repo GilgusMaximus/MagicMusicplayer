@@ -111,7 +111,6 @@ public class PatternMatcher {
             tags[2] = id3v2Tag.getAlbum();
          }
 
-
       } catch (Exception e) {
          System.err.println("ERROR: PatternMatcher: findMp3Data(): " + e);
       }

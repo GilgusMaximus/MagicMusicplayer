@@ -42,7 +42,7 @@ public class Controller {
     @FXML
     private ImageView mp3Thumb;
 
-    public void getMp3Thumb(Image i) {
+    public void setSongThumbnail(Image i) {
         mp3Thumb.setImage(i);
     }
 }
