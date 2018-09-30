@@ -4,16 +4,16 @@ import FileClasses.InputReader;
 import FileClasses.Musicfile;
 import com.sun.istack.internal.NotNull;
 import fxml.Controller;
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import javafx.application.Application;
 
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -23,6 +23,9 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.util.ArrayList;
+import mp3magic.ID3v2;
+import mp3magic.ID3v22Tag;
+import mp3magic.Mp3File;
 
 public class MusicManager extends Application {
 
@@ -33,7 +36,7 @@ public class MusicManager extends Application {
    private MediaView mediaView;
    private final int loopNothing = 0;
    private final int loopSong = 2;
-
+   ArrayList<Musicfile> musicFiles;
    private int loopStatus = loopNothing;
    private Controller uiController;
    public static void main(String[] args) {
@@ -42,7 +45,7 @@ public class MusicManager extends Application {
    }
 
    public void start(Stage primaryStage) {
-      ArrayList<Musicfile> musicFiles;
+
 
       musicFiles = InputReader.getMusicFiles();
 
@@ -52,7 +55,7 @@ public class MusicManager extends Application {
       //       System.out.println("PATH " + musicFiles.get(0));
 
       addSongToEndOfQueue(musicFiles.get(0).getFilePath());
-      addSongToEndOfQueue(musicFiles.get(1).getFilePath());
+      //addSongToEndOfQueue(musicFiles.get(2).getFilePath());
       //addSongToEndOfQueue(musicFiles.get(12));
       //addSongNext(musicFiles.get(18));
       // addSongToEndOfQueue("E:\\Benutzer\\Musik\\Soundeffekte\\Soundboard\\CENA.mp3");
@@ -126,16 +129,43 @@ public class MusicManager extends Application {
       int oldSongInQueue = currentSongInQueue;
       currentSongInQueue = (currentSongInQueue + 1) % musicQueue.size();
       setMediaPlayerMedia(oldSongInQueue);
+      setDisplayedImage();
 
-      FileInputStream inputstream = null;
-      try {
-       inputstream = new FileInputStream("D:\\Workspace\\Java\\MagicMusicplayer\\files\\crop.php.jpg"); //open the needed image as FileStream
-      }catch(Exception e){
-        System.err.println("ERROR: MusicManager: playNextSongInQueue: inputStream: " + e);
-      }
-      uiController.setSongThumbnail(new Image(inputstream));  //set the image that is shown in the ui
    }
+   private void setDisplayedImage(){
+      Musicfile currentSong = musicFiles.get(currentSongInQueue);
+      if(currentSong.getImage().equals("Image")){
+         try {
+            Mp3File f = new Mp3File(currentSong.getFilePath());
+            ID3v2 songTags = f.getId3v2Tag();
+            byte[] image = songTags.getAlbumImage();
+            if(image != null) {
+               InputStream inputStream = new ByteArrayInputStream(image);
+               uiController.setSongThumbnail(new Image(inputStream));  //set the image that is shown in the ui
+            }else{
+               FileInputStream inputstream = null;
+               try {
+                  inputstream = new FileInputStream("src/fxml/pictures/standardcover.png"); //open the needed image as FileStream
+               }catch(Exception e){
+                  System.err.println("ERROR: MusicManager: playNextSongInQueue: inputStream: " + e);
+               }
+               uiController.setSongThumbnail(new Image(inputstream));  //set the image that is shown in the ui
+            }
+         }catch(Exception e){
 
+         }
+      }else if(currentSong.getImage().equals("noImage")){
+
+      }else{
+         FileInputStream inputstream = null;
+         try {
+            inputstream = new FileInputStream(musicFiles.get(currentSongInQueue).getImage()); //open the needed image as FileStream
+         }catch(Exception e){
+            System.err.println("ERROR: MusicManager: playNextSongInQueue: inputStream: " + e);
+         }
+         uiController.setSongThumbnail(new Image(inputstream));  //set the image that is shown in the ui
+      }
+   }
    private void playPreviousSongInQueue() {
       System.out.println("'Play Previous' pressed");
       int oldSongInQueue = currentSongInQueue;

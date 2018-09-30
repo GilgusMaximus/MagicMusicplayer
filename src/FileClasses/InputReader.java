@@ -72,10 +72,10 @@ public class InputReader {
             }
             if (multArtists == null || multArtists.length == 1) {
                //not multiple artists
-               musicfile = new Musicfile(path, tags[1], tags[2], tags[0], null);
+               musicfile = new Musicfile(path, tags[1], tags[2], tags[0], tags[3]);
             } else {
                //multiple artists
-               musicfile = new Musicfile(path, multArtists, tags[2], tags[0], null);
+               musicfile = new Musicfile(path, multArtists, tags[2], tags[0], tags[3]);
             }
             musicFiles.add(musicfile);
          }

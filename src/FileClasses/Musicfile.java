@@ -1,5 +1,8 @@
 package FileClasses;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class Musicfile {
 
    private String filePath = "noData", album = "noData", title = "noData", image = "noData";
@@ -17,7 +20,13 @@ public class Musicfile {
          title = tit;
       }
       if (img != null) {
-         image = img;
+         if(img.equals("AlbumArtSmall.jpg")) {
+            Path a = Paths.get(path);
+            a = a.getParent();
+            image = a.toString() + "\\AlbumArtSmall.jpg";
+         }
+         else
+            image = img;
       }
       artists = art;
    }
@@ -34,7 +43,13 @@ public class Musicfile {
          title = tit;
       }
       if (img != null) {
-         image = img;
+         if(img.equals("AlbumArtSmall.jpg")) {
+            Path a = Paths.get(path);
+            a = a.getParent();
+            image = a.toString() + "\\AlbumArtSmall.jpg";
+         }
+         else
+            image = img;
       }
       artists = new String[1];
       if (art != null) {

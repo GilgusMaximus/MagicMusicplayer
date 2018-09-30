@@ -16,38 +16,37 @@
                         <Image url="@pictures/settings.png" />
                      </image>
                   </ImageView>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="rightbar" layoutX="590.0" minHeight="310.0" minWidth="50.0" prefHeight="310.0" prefWidth="50.0" style="-fx-background-color: #232323 ;">
-               <children>
-                  <ImageView fx:id="play" fitHeight="50.0" fitWidth="25.0" layoutX="-587.0" layoutY="-306.0" onMouseClicked="#playPause" pickOnBounds="true" preserveRatio="true" x="600.0" y="320.0">
-                     <image>
-                        <Image url="@pictures/play.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="next" fitHeight="50.0" fitWidth="25.0" layoutX="-587.0" layoutY="-281.0" onMouseClicked="#nextSong" pickOnBounds="true" preserveRatio="true" x="600.0" y="320.0">
-                     <image>
-                        <Image url="@pictures/next.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="previous" fitHeight="50.0" fitWidth="25.0" layoutX="-587.0" layoutY="-256.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#previousSong" pickOnBounds="true" preserveRatio="true" x="600.0" y="320.0">
-                     <image>
-                        <Image url="@pictures/next.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="loop" fitHeight="50.0" fitWidth="25.0" layoutX="-587.0" layoutY="-231.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#loop" pickOnBounds="true" preserveRatio="true" x="600.0" y="320.0">
+                  <ImageView fx:id="loop" fitHeight="25.0" fitWidth="25.0" layoutX="-206.0" layoutY="-307.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#loop" pickOnBounds="true" preserveRatio="true" x="600.0" y="320.0">
                      <image>
                         <Image url="@pictures/loop.png" />
                      </image>
                   </ImageView>
+                  <ImageView fx:id="previous" fitHeight="30.0" fitWidth="30.0" layoutX="-310.0" layoutY="-310.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#previousSong" pickOnBounds="true" preserveRatio="true" x="600.0" y="320.0">
+                     <image>
+                        <Image url="@pictures/next.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="next" fitHeight="30.0" fitWidth="30.0" layoutX="-246.0" layoutY="-310.0" onMouseClicked="#nextSong" pickOnBounds="true" preserveRatio="true" x="600.0" y="320.0">
+                     <image>
+                        <Image url="@pictures/next.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="play" fitHeight="30.0" fitWidth="30.0" layoutX="-276.0" layoutY="-310.0" onMouseClicked="#playPause" pickOnBounds="true" preserveRatio="true" x="600.0" y="320.0">
+                     <image>
+                        <Image url="@pictures/play.png" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="leftbar" minHeight="310.0" minWidth="50.0" prefHeight="310.0" prefWidth="50.0" style="-fx-background-color: #232323;" />
-            <ImageView fx:id="mp3Thumb" fitHeight="50.0" fitWidth="58.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@pictures/settings.png" />
-               </image>
-            </ImageView>
+            <AnchorPane fx:id="rightbar" layoutX="590.0" minHeight="310.0" minWidth="50.0" prefHeight="310.0" prefWidth="50.0" style="-fx-background-color: #232323 ;" />
+            <AnchorPane fx:id="leftbar" minHeight="310.0" minWidth="50.0" prefHeight="310.0" prefWidth="100.0" style="-fx-background-color: #232323;">
+               <children>
+                  <ImageView fx:id="mp3Thumb" fitHeight="100.0" fitWidth="100.0" layoutY="260.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@pictures/settings.png" />
+                     </image>
+                  </ImageView>
+               </children></AnchorPane>
          </children>
       </AnchorPane>
    </children>

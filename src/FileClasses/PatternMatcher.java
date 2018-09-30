@@ -1,5 +1,7 @@
 package FileClasses;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import mp3magic.ID3v1;
 import mp3magic.ID3v2;
 import mp3magic.Mp3File;
@@ -18,7 +20,7 @@ public class PatternMatcher {
       final int[] pattern = {-87, 110, 97, 109};
       int[] tagKeyIndices = new int[3]; //array of indices pointing towards the beginning of the tag key
       byte[] byteArray;
-      String[] Tags = new String[3];  //array of tag values (3)
+      String[] Tags = new String[4];  //array of tag values (4)
 
       RandomAccessFile randomFile;
 
@@ -81,6 +83,14 @@ public class PatternMatcher {
       Tags[0] = readtag(tagKeyIndices[0], byteArray);
       Tags[1] = readtag(tagKeyIndices[1], byteArray);
       Tags[2] = readtag(tagKeyIndices[2], byteArray);
+      Path a = Paths.get(file.getPath());
+      a = a.getParent();
+      String[] images = new File(a.toString()).list();
+      for(String iFile : images)
+         if (iFile.equals("AlbumArtSmall.jpg")) {
+            Tags[3] = "AlbumArtSmall.jpg";
+            break;
+         }
       return Tags;
    }
 
@@ -95,7 +105,8 @@ public class PatternMatcher {
    }
 
    String[] findMp3Data(File file) {
-      String[] tags = new String[3];
+
+      String[] tags = new String[4];
       try {
          Mp3File mp3 = new Mp3File(file);
          if (mp3.hasId3v1Tag()) {
@@ -103,12 +114,13 @@ public class PatternMatcher {
             tags[0] = id3v1Tag.getTitle();
             tags[1] = id3v1Tag.getArtist();
             tags[2] = id3v1Tag.getAlbum();
+            tags[3] = "Image";
          } else if (mp3.hasId3v2Tag()) {
-
             ID3v2 id3v2Tag = mp3.getId3v2Tag();
             tags[0] = id3v2Tag.getTitle();
             tags[1] = id3v2Tag.getArtist();
             tags[2] = id3v2Tag.getAlbum();
+            tags[3] = "Image";
          }
 
       } catch (Exception e) {

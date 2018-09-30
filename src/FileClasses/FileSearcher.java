@@ -28,6 +28,8 @@ class FileSearcher {
             //yes -> we found an mp3/wav/m4a file -> save
             allFiles.add(currentPath);
             //allFiles.add(name); //needed to save the file name -> easier to read it into the system again
+         }else if(fileEnd.equals("png")||fileEnd.equals("jpg")||fileEnd.equals("jpeg")){
+            System.out.println(currentPath);
          }
          return;
       } else {
