@@ -9,7 +9,7 @@ import mp3magic.Mp3File;
 import java.io.File;
 import java.io.RandomAccessFile;
 
-public class PatternMatcher {
+class PatternMatcher {
 
    //file has to be an m4a file
    String[] findM4AData(File file) throws RuntimeException {

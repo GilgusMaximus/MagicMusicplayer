@@ -24,19 +24,19 @@ import javafx.util.Duration;
 import java.io.File;
 import java.util.ArrayList;
 import mp3magic.ID3v2;
-import mp3magic.ID3v22Tag;
 import mp3magic.Mp3File;
 
 public class MusicManager extends Application {
+  //TODO mediaPLayers entfernen und stattdessen immer nur den Song der gerade spielt in einen Mediaplayer umwandeln -> viel Speicher der gespart werden kann
 
    private ArrayList<Integer> musicQueue;
    private ArrayList<MediaPlayer> mediaPlayers;
+   private ArrayList<Musicfile> musicFiles;
    private int currentSongInQueue = 0;
 
    private MediaView mediaView;
    private final int loopNothing = 0;
    private final int loopSong = 2;
-   ArrayList<Musicfile> musicFiles;
    private int loopStatus = loopNothing;
    private Controller uiController;
    public static void main(String[] args) {
@@ -45,16 +45,13 @@ public class MusicManager extends Application {
    }
 
    public void start(Stage primaryStage) {
-
-
       musicFiles = InputReader.getMusicFiles();
 
       musicQueue = new ArrayList<>();
       mediaPlayers = new ArrayList<>();
 
-      //       System.out.println("PATH " + musicFiles.get(0));
-
       addSongToEndOfQueue(musicFiles.get(0).getFilePath());
+
       //addSongToEndOfQueue(musicFiles.get(2).getFilePath());
       //addSongToEndOfQueue(musicFiles.get(12));
       //addSongNext(musicFiles.get(18));
@@ -87,6 +84,7 @@ public class MusicManager extends Application {
       //Displaying the contents of the stage
       primaryStage.show();
       // primaryStage.toFront();
+     setDisplayedImage();
       play();
    }
 
@@ -132,40 +130,54 @@ public class MusicManager extends Application {
       setDisplayedImage();
 
    }
+
+   void setDisplayedTexts(){
+     uiController.setSongTitle(musicFiles.get(currentSongInQueue).getTitle());
+   }
+
+   //checks what kind of musicfile is going to start, and accordingly to type is using different methods to try to read the cover image based on the encoding of the file
    private void setDisplayedImage(){
       Musicfile currentSong = musicFiles.get(currentSongInQueue);
-      if(currentSong.getImage().equals("Image")){
+      if(currentSong.getImage().equals("Image")){ //mp3 files
          try {
-            Mp3File f = new Mp3File(currentSong.getFilePath());
-            ID3v2 songTags = f.getId3v2Tag();
-            byte[] image = songTags.getAlbumImage();
-            if(image != null) {
-               InputStream inputStream = new ByteArrayInputStream(image);
+            Mp3File mp3File = new Mp3File(currentSong.getFilePath());
+            ID3v2 songIdv2Tags = mp3File.getId3v2Tag();
+            byte[] imageByteArray = songIdv2Tags.getAlbumImage();
+            if(imageByteArray != null) {
+               InputStream inputStream = new ByteArrayInputStream(imageByteArray);
                uiController.setSongThumbnail(new Image(inputStream));  //set the image that is shown in the ui
             }else{
-               FileInputStream inputstream = null;
-               try {
-                  inputstream = new FileInputStream("src/fxml/pictures/standardcover.png"); //open the needed image as FileStream
-               }catch(Exception e){
-                  System.err.println("ERROR: MusicManager: playNextSongInQueue: inputStream: " + e);
-               }
-               uiController.setSongThumbnail(new Image(inputstream));  //set the image that is shown in the ui
+               setDisplayedImageToStandard();
             }
          }catch(Exception e){
-
+            System.out.println("ERROR: MusicManager: setDisplayedImage: MP3 Cover: " + e);
          }
-      }else if(currentSong.getImage().equals("noImage")){
-
-      }else{
+      }else{  //m4a files
          FileInputStream inputstream = null;
          try {
             inputstream = new FileInputStream(musicFiles.get(currentSongInQueue).getImage()); //open the needed image as FileStream
          }catch(Exception e){
-            System.err.println("ERROR: MusicManager: playNextSongInQueue: inputStream: " + e);
+            System.err.println("ERROR: MusicManager: setDisplayedImage: inputStream: " + e);
          }
-         uiController.setSongThumbnail(new Image(inputstream));  //set the image that is shown in the ui
+         if(inputstream != null)
+           uiController.setSongThumbnail(new Image(inputstream));  //set the image that is shown in the ui
+        else
+          setDisplayedImageToStandard();
       }
    }
+
+   //sets the image that is displayed to a filler picture
+   private void setDisplayedImageToStandard(){
+     FileInputStream inputstream = null;
+     try {
+       inputstream = new FileInputStream("src/fxml/pictures/standardcover.png"); //open the needed image as FileStream
+     }catch(Exception e){
+       System.err.println("ERROR: MusicManager: setDisplayedImage: inputStream: " + e);
+     }
+     if(inputstream != null)
+       uiController.setSongThumbnail(new Image(inputstream));  //set the image that is shown in the ui
+   }
+
    private void playPreviousSongInQueue() {
       System.out.println("'Play Previous' pressed");
       int oldSongInQueue = currentSongInQueue;
@@ -188,7 +200,6 @@ public class MusicManager extends Application {
    }
 
    //methods called from UI
-
    public void play() {
       if (mediaPlayers.get(currentSongInQueue).getStatus().equals(MediaPlayer.Status.PLAYING)) {
          mediaPlayers.get(currentSongInQueue).pause();

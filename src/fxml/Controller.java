@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import ControllerClasses.MusicManager;
+import javafx.scene.text.Text;
 
 public class Controller {
 
@@ -41,6 +42,21 @@ public class Controller {
 
     @FXML
     private ImageView mp3Thumb;
+
+    @FXML
+    private Text songTitle;
+
+    public void setSongTitle(String newTitle){
+      songTitle.setText(newTitle);
+    }
+
+    public void setSongArtist(String newArtist){
+
+    }
+
+    public void setSongAlbum(String newAlbum){
+
+    }
 
     public void setSongThumbnail(Image i) {
         mp3Thumb.setImage(i);

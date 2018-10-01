@@ -14,7 +14,6 @@ public class InputReader {
       double timeStart = System.nanoTime();
       boolean search = true;
       boolean append = false;
-      int writeBegin = 0;
       FileWriter fileWriter;
       ArrayList<String> allFiles;
 
