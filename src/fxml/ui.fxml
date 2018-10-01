@@ -11,7 +11,65 @@
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="640.0">
          <children>
-            <AnchorPane fx:id="bottombar" layoutY="310.0" minHeight="50.0" minWidth="640.0" prefHeight="50.0" prefWidth="640.0" style="-fx-background-color: #232323;">
+            <AnchorPane fx:id="scrollable" layoutX="100.0" onScroll="#scrollSongs" prefHeight="300.0" prefWidth="489.0">
+               <children>
+                  <AnchorPane fx:id="button3" layoutY="100.0" prefHeight="50.0" prefWidth="490.0" style="-fx-background-color: #232323;">
+                     <children>
+                        <ImageView fx:id="mp3Thumb" fitHeight="36.0" fitWidth="39.0" layoutX="6.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@pictures/play.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="button4" layoutY="150.0" prefHeight="50.0" prefWidth="490.0" style="-fx-background-color: #232323;">
+                     <children>
+                        <ImageView fx:id="mp3Thumb" fitHeight="36.0" fitWidth="39.0" layoutX="6.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@pictures/play.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="button5" layoutY="200.0" prefHeight="50.0" prefWidth="490.0" style="-fx-background-color: #232323;">
+                     <children>
+                        <ImageView fx:id="mp3Thumb" fitHeight="36.0" fitWidth="39.0" layoutX="6.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@pictures/play.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="button6" layoutY="250.0" prefHeight="50.0" prefWidth="490.0" style="-fx-background-color: #232323;">
+                     <children>
+                        <ImageView fx:id="mp3Thumb" fitHeight="36.0" fitWidth="39.0" layoutX="6.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@pictures/play.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="button1" prefHeight="50.0" prefWidth="490.0" style="-fx-background-color: #232323;">
+                     <children>
+                        <ImageView fx:id="mp3Thumb" fitHeight="36.0" fitWidth="39.0" layoutX="6.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@pictures/play.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="button2" layoutY="50.0" prefHeight="50.0" prefWidth="490.0" style="-fx-background-color: #232323;">
+                     <children>
+                        <ImageView fx:id="mp3Thumb" fitHeight="36.0" fitWidth="39.0" layoutX="6.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@pictures/play.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="bottombar" layoutY="300.0" minHeight="50.0" minWidth="640.0" prefHeight="60.0" prefWidth="640.0" style="-fx-background-color: #232323;">
                <children>
                   <ImageView fitHeight="50.0" fitWidth="30.0" layoutX="1.0" layoutY="-313.0" pickOnBounds="true" preserveRatio="true" x="600.0" y="320.0">
                      <image>
@@ -40,9 +98,11 @@
                   </ImageView>
                   <Text fx:id="songTitle" fill="#d3d3d3" fontSmoothingType="LCD" layoutX="106.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="title" wrappingWidth="106.44140625">
                      <font>
-                        <Font size="13.0" />
+                        <Font name="Calibri" size="14.0" />
                      </font>
                   </Text>
+                  <Text fx:id="albumTitle" fill="#d3d3d3" fontSmoothingType="LCD" layoutX="106.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="title" wrappingWidth="176.0" />
+                  <Text fx:id="artistTitle" fill="#d3d3d3" fontSmoothingType="LCD" layoutX="106.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="title" wrappingWidth="100.0" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="rightbar" layoutX="590.0" minHeight="310.0" minWidth="50.0" prefHeight="310.0" prefWidth="50.0" style="-fx-background-color: #232323 ;" />

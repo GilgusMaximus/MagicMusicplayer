@@ -84,8 +84,11 @@ public class MusicManager extends Application {
       //Displaying the contents of the stage
       primaryStage.show();
       // primaryStage.toFront();
-     setDisplayedImage();
+
       play();
+      setDisplayedImage();
+      setDisplayedTexts();
+      uiController.buttonSetup();
    }
 
    private void addSongToEndOfQueue(String songPath) {
@@ -128,11 +131,13 @@ public class MusicManager extends Application {
       currentSongInQueue = (currentSongInQueue + 1) % musicQueue.size();
       setMediaPlayerMedia(oldSongInQueue);
       setDisplayedImage();
-
+      setDisplayedTexts();
    }
 
    void setDisplayedTexts(){
      uiController.setSongTitle(musicFiles.get(currentSongInQueue).getTitle());
+      uiController.setSongAlbum(musicFiles.get(currentSongInQueue).getAlbum());
+      uiController.setSongArtist(musicFiles.get(currentSongInQueue).getArtists()[0]);
    }
 
    //checks what kind of musicfile is going to start, and accordingly to type is using different methods to try to read the cover image based on the encoding of the file

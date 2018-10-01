@@ -75,6 +75,7 @@ public class Musicfile {
             word += readLine.charAt(i);
          }
       }
+      tags[count] = word;
       //save tags
       artists = new String[tags.length - 4];
       filePath = tags[0];
