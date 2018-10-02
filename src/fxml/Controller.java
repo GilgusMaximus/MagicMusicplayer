@@ -33,27 +33,27 @@ public class Controller {
     }
 
     @FXML
-    private AnchorPane button1, button2, button3, button4, button5, button6;
+    private AnchorPane button1, button2, button3, button4, button5, button6, button7;
     AnchorPane[]buttons;
 
 
     public void buttonSetup(){
-        AnchorPane[] a = {button1, button2, button3, button4, button5, button6};
+        AnchorPane[] a = {button1, button2, button3, button4, button5, button6, button7};
         buttons = a;
     }
 
     @FXML
     protected void scrollSongs(ScrollEvent event){
-        for(AnchorPane a : buttons) {
-            if(a.getLayoutY() > 325){
-                a.setLayoutY(-75+a.getLayoutY()-300);
-            }else {
-                if ((a.getLayoutY() < -75))
-                    a.setLayoutY(300-a.getLayoutY()+50);
-                else
-                    a.setLayoutY(a.getLayoutY() + event.getDeltaY() * 0.30);
-            }
+      for(AnchorPane pane : buttons){
+        pane.setLayoutY(pane.getLayoutY() + event.getDeltaY() * 0.30);
+      }
+      for(int i = 0; i < buttons.length; i++){
+        if(buttons[i].getLayoutY() < -50){
+          buttons[i].setLayoutY(buttons[(i+buttons.length-1)%buttons.length].getLayoutY()+50);
+        }else if(buttons[i].getLayoutY() > 300){
+          buttons[i].setLayoutY(buttons[(i+1)%buttons.length].getLayoutY()-50);
         }
+      }
     }
 
     @FXML

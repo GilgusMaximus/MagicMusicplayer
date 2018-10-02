@@ -11,7 +11,7 @@
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="640.0">
          <children>
-            <AnchorPane fx:id="scrollable" layoutX="100.0" onScroll="#scrollSongs" prefHeight="300.0" prefWidth="489.0">
+            <AnchorPane fx:id="scrollable" layoutX="100.0" onScroll="#scrollSongs" prefHeight="300.0" prefWidth="489.0" style="-fx-background-color: #132325;">
                <children>
                   <AnchorPane fx:id="button3" layoutY="100.0" prefHeight="50.0" prefWidth="490.0" style="-fx-background-color: #232323;">
                      <children>
@@ -61,6 +61,15 @@
                   <AnchorPane fx:id="button2" layoutY="50.0" prefHeight="50.0" prefWidth="490.0" style="-fx-background-color: #232323;">
                      <children>
                         <ImageView fx:id="mp3Thumb" fitHeight="36.0" fitWidth="39.0" layoutX="6.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@pictures/play.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="button7" layoutY="300.0" prefHeight="50.0" prefWidth="490.0" style="-fx-background-color: #232323;">
+                     <children>
+                        <ImageView fx:id="mp3Thumb1" fitHeight="36.0" fitWidth="39.0" layoutX="6.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@pictures/play.png" />
                            </image>
