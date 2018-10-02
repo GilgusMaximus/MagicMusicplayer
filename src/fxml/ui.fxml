@@ -15,65 +15,100 @@
                <children>
                   <AnchorPane fx:id="button3" layoutY="100.0" prefHeight="50.0" prefWidth="490.0" style="-fx-background-color: #232323;">
                      <children>
-                        <ImageView fx:id="mp3Thumb" fitHeight="36.0" fitWidth="39.0" layoutX="6.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="playSongButton3" fitHeight="36.0" fitWidth="39.0" layoutX="6.0" layoutY="7.0" onMouseClicked="#playSongButton3" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@pictures/play.png" />
                            </image>
                         </ImageView>
+                        <Text fx:id="button3SongText" fill="#00e5ff" layoutX="61.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button3SongText" wrappingWidth="189.9999966621399">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="button4" layoutY="150.0" prefHeight="50.0" prefWidth="490.0" style="-fx-background-color: #232323;">
                      <children>
-                        <ImageView fx:id="mp3Thumb" fitHeight="36.0" fitWidth="39.0" layoutX="6.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="playSongButton4" fitHeight="36.0" fitWidth="39.0" layoutX="6.0" layoutY="7.0" onMouseClicked="#playSongButton4" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@pictures/play.png" />
                            </image>
                         </ImageView>
+                        <Text fx:id="button4SongText" fill="#00e5ff" layoutX="62.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button4SongText" wrappingWidth="189.9999966621399">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="button5" layoutY="200.0" prefHeight="50.0" prefWidth="490.0" style="-fx-background-color: #232323;">
                      <children>
-                        <ImageView fx:id="mp3Thumb" fitHeight="36.0" fitWidth="39.0" layoutX="6.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="playSongButton5" fitHeight="36.0" fitWidth="39.0" layoutX="6.0" layoutY="7.0" onMouseClicked="#playSongButton5" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@pictures/play.png" />
                            </image>
                         </ImageView>
+                        <Text fx:id="button5SongText" fill="#00e5ff" layoutX="61.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button5SongText" wrappingWidth="189.9999966621399">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="button6" layoutY="250.0" prefHeight="50.0" prefWidth="490.0" style="-fx-background-color: #232323;">
                      <children>
-                        <ImageView fx:id="mp3Thumb" fitHeight="36.0" fitWidth="39.0" layoutX="6.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="playSongButton6" fitHeight="36.0" fitWidth="39.0" layoutX="6.0" layoutY="7.0" onMouseClicked="#playSongButton6" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@pictures/play.png" />
                            </image>
                         </ImageView>
+                        <Text fx:id="button6SongText" fill="#00e5ff" layoutX="61.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button6SongText" wrappingWidth="189.9999966621399">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="button1" prefHeight="50.0" prefWidth="490.0" style="-fx-background-color: #232323;">
                      <children>
-                        <ImageView fx:id="mp3Thumb" fitHeight="36.0" fitWidth="39.0" layoutX="6.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="playSongButton1" fitHeight="36.0" fitWidth="39.0" layoutX="6.0" layoutY="7.0" onMouseClicked="#playSongButton1" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@pictures/play.png" />
                            </image>
                         </ImageView>
+                        <Text fx:id="button1SongText" fill="#00e5ff" layoutX="62.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button1SongText" wrappingWidth="189.9999966621399">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="button2" layoutY="50.0" prefHeight="50.0" prefWidth="490.0" style="-fx-background-color: #232323;">
                      <children>
-                        <ImageView fx:id="mp3Thumb" fitHeight="36.0" fitWidth="39.0" layoutX="6.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="playSongButton2" fitHeight="36.0" fitWidth="39.0" layoutX="6.0" layoutY="7.0" onMouseClicked="#playSongButton2" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@pictures/play.png" />
                            </image>
                         </ImageView>
+                        <Text fx:id="button2Songext" fill="#00e5ff" layoutX="62.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button2SongText" wrappingWidth="189.9999966621399">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="button7" layoutY="300.0" prefHeight="50.0" prefWidth="490.0" style="-fx-background-color: #232323;">
                      <children>
-                        <ImageView fx:id="mp3Thumb1" fitHeight="36.0" fitWidth="39.0" layoutX="6.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="playSongButton7" fitHeight="36.0" fitWidth="39.0" layoutX="6.0" layoutY="7.0" onMouseClicked="#playSongButton7" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@pictures/play.png" />
                            </image>
                         </ImageView>
+                        <Text fx:id="button7SongText" fill="#00e5ff" layoutX="61.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button7SongText" wrappingWidth="189.9999966621399">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
                      </children>
                   </AnchorPane>
                </children>
