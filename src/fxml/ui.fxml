@@ -71,7 +71,7 @@
                   </AnchorPane>
                   <AnchorPane fx:id="button1" prefHeight="50.0" prefWidth="490.0" style="-fx-background-color: #232323;">
                      <children>
-                        <ImageView fx:id="playSongButton1" fitHeight="36.0" fitWidth="39.0" layoutX="6.0" layoutY="7.0" onMouseClicked="#playSongButton1" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="playSongButton1" fitHeight="36.0" fitWidth="39.0" layoutX="6.0" layoutY="7.0" onMouseClicked="#playSongButton1" onMousePressed="#playSongButton1" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@pictures/play.png" />
                            </image>
@@ -90,7 +90,7 @@
                               <Image url="@pictures/play.png" />
                            </image>
                         </ImageView>
-                        <Text fx:id="button2Songext" fill="#00e5ff" layoutX="62.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button2SongText" wrappingWidth="189.9999966621399">
+                        <Text fx:id="button2SongText" fill="#00e5ff" layoutX="62.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button2SongText" wrappingWidth="189.9999966621399">
                            <font>
                               <Font size="14.0" />
                            </font>

@@ -51,7 +51,7 @@ public class MusicManager extends Application {
       mediaPlayers = new ArrayList<>();
 
       addSongToEndOfQueue(musicFiles.get(0).getFilePath());
-
+      addSongToEndOfQueue(musicFiles.get(1).getFilePath());
       //addSongToEndOfQueue(musicFiles.get(2).getFilePath());
       //addSongToEndOfQueue(musicFiles.get(12));
       //addSongNext(musicFiles.get(18));
@@ -193,7 +193,12 @@ public class MusicManager extends Application {
       }
       setMediaPlayerMedia(oldSongInQueue);
    }
-
+   public void playSongOnIndex(int index){
+      File fiel = new File(musicFiles.get(index).getFilePath());
+      Media a = createMedia(fiel);
+      MediaPlayer m = new MediaPlayer(a);
+      m.play();
+   }
    private void songAtEndCheckNextPlay() { //at the end of the queue check which looping type is active
       if (currentSongInQueue == musicQueue.size() - 1 && loopStatus == loopNothing) {  //not looping?
          //yes -> set the current song to the first one in queue, but do not start playing
@@ -250,5 +255,10 @@ public class MusicManager extends Application {
       });
       mediaPlayers.add(mediaplayer);
    }
-
+   public int getNumberOfSongs(){
+      return musicFiles.size()-1;
+   }
+   public Musicfile getMusicfileAtPosition(int position){
+      return musicFiles.get(position);
+   }
 }
