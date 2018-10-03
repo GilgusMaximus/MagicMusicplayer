@@ -38,11 +38,14 @@ public class Controller {
    @FXML
    private Text button1SongText, button2SongText, button3SongText, button4SongText, button5SongText, button6SongText, button7SongText;
    Text[] scrollableButtonsTexts;
+   ImageView[] playSongButtons;
     public void buttonSetup(){
         AnchorPane[] a = {button1, button2, button3, button4, button5, button6, button7};
         buttons = a;
         Text[] b = {button1SongText, button2SongText, button3SongText, button4SongText, button5SongText, button6SongText, button7SongText};
         scrollableButtonsTexts = b;
+         ImageView[] c = {playSongButton1, playSongButton2, playSongButton3, playSongButton4, playSongButton5, playSongButton6, playSongButton7};
+       playSongButtons = c;
     }
     private int indexHighestButton = 0;
     private int indexHighestSong = 0;
@@ -88,35 +91,18 @@ public class Controller {
     }
 
     @FXML
-    protected void playSongButton1(MouseEvent event){
-      manager.playSongOnIndex(indexHighestSong);
+    protected void playSongButton(MouseEvent event){
+       int index = -1;
+      for(int i = 0; i < playSongButtons.length; i++){
+         int pos =(indexHighestButton+i)%playSongButtons.length;
+         if(event.getSource().equals(playSongButtons[pos])){
+            index = i;
+            break;
+         }
+      }
+
+       manager.playSongOnIndex(indexHighestSong+index);
     }
-  @FXML
-  protected void playSongButton2(MouseEvent event){
-     manager.playSongOnIndex(indexHighestSong+1);
-  }
-
-  @FXML
-  protected void playSongButton3(MouseEvent event){
-     manager.playSongOnIndex(indexHighestSong+2);
-  }
-  @FXML
-  protected void playSongButton4(MouseEvent event){
-     manager.playSongOnIndex(indexHighestSong+3);
-  }
-
-  @FXML
-  protected void playSongButton5(MouseEvent event){
-     manager.playSongOnIndex(indexHighestSong+4);
-  }
-  @FXML
-  protected void playSongButton6(MouseEvent event){
-     manager.playSongOnIndex(indexHighestSong+5);
-  }
-  @FXML
-  protected void playSongButton7(MouseEvent event){
-    System.out.println("Button7 pressed");
-  }
     @FXML
     protected void loop(MouseEvent event) {
         manager.loop();

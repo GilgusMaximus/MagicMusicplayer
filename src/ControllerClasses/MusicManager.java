@@ -14,6 +14,7 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.media.AudioEqualizer;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -30,9 +31,10 @@ public class MusicManager extends Application {
   //TODO mediaPLayers entfernen und stattdessen immer nur den Song der gerade spielt in einen Mediaplayer umwandeln -> viel Speicher der gespart werden kann
 
    private ArrayList<Integer> musicQueue;
-   private ArrayList<MediaPlayer> mediaPlayers;
    private ArrayList<Musicfile> musicFiles;
    private int currentSongInQueue = 0;
+   private MediaPlayer currentSongmediaPlayer;
+
 
    private MediaView mediaView;
    private final int loopNothing = 0;
@@ -48,14 +50,10 @@ public class MusicManager extends Application {
       musicFiles = InputReader.getMusicFiles();
 
       musicQueue = new ArrayList<>();
-      mediaPlayers = new ArrayList<>();
 
-      addSongToEndOfQueue(musicFiles.get(0).getFilePath());
-      addSongToEndOfQueue(musicFiles.get(1).getFilePath());
-      //addSongToEndOfQueue(musicFiles.get(2).getFilePath());
-      //addSongToEndOfQueue(musicFiles.get(12));
-      //addSongNext(musicFiles.get(18));
-      // addSongToEndOfQueue("E:\\Benutzer\\Musik\\Soundeffekte\\Soundboard\\CENA.mp3");
+      for(int i = 0; i < musicFiles.size(); i++){
+         addSongToEndOfQueue(i);
+      }
 
       Parent root = null;
       FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/ui.fxml"));
@@ -84,33 +82,25 @@ public class MusicManager extends Application {
       //Displaying the contents of the stage
       primaryStage.show();
       // primaryStage.toFront();
-
+      setMediaPlayerMedia();
       play();
-      setDisplayedImage();
-      setDisplayedTexts();
+      setDisplayedImage(currentSongInQueue);
+      setDisplayedTexts(currentSongInQueue);
       uiController.buttonSetup();
    }
 
-   private void addSongToEndOfQueue(String songPath) {
-      File song = createMusicFile(songPath); //create actual File object
-      Media media = createMedia(song);       //create Media object for the file
-
-      addMediaPlayerToList(new MediaPlayer(media));   //create MediaPlayer for the Meda object and add it to the MediaPlayerList
-      musicQueue.add(mediaPlayers.size() - 1);        //add the MediaPlayer to the play queue
+   private void addSongToEndOfQueue(int songIndex) {
+      musicQueue.add(songIndex);        //add the MediaPlayer to the play queue
    }
 
 
-   private void addSongNext(String songPath) {  //play the song as next
-      File song = createMusicFile(songPath);
-      Media media = createMedia(song);
-
-      addMediaPlayerToList(new MediaPlayer(media));
+   private void addSongNext(int songIndex) {  //play the song as next
       if (currentSongInQueue == musicQueue.size()) {  //is the current song the last one in queue?
          //yes -> add the song to the end of the queue
-         musicQueue.add(mediaPlayers.size() - 1);
+         musicQueue.add(songIndex);
       } else {
          //no -> move all songs in queue 1 position back, and add the song to the free position
-         int value = mediaPlayers.size() - 1;
+         int value = songIndex;
          for (int i = currentSongInQueue + 1; i < musicQueue.size(); i++) {
             int help = musicQueue.get(i);
             musicQueue.set(i, value);
@@ -120,29 +110,32 @@ public class MusicManager extends Application {
       }
    }
 
-   private void setMediaPlayerMedia(int oldSongNumber) {
-      mediaPlayers.get(musicQueue.get(oldSongNumber)).stop();
-      mediaPlayers.get(musicQueue.get(currentSongInQueue)).play();
+   private void setMediaPlayerMedia() {
+      if(currentSongmediaPlayer != null)
+         currentSongmediaPlayer.stop();
+      File f = new File(musicFiles.get(currentSongInQueue).getFilePath());
+      Media m = createMedia(f);
+      currentSongmediaPlayer = new MediaPlayer(m);
    }
 
    private void playNextSongInQueue() {
       System.out.println("'Play Next' pressed");
-      int oldSongInQueue = currentSongInQueue;
       currentSongInQueue = (currentSongInQueue + 1) % musicQueue.size();
-      setMediaPlayerMedia(oldSongInQueue);
-      setDisplayedImage();
-      setDisplayedTexts();
+      setMediaPlayerMedia();
+      play();
+      setDisplayedImage(currentSongInQueue);
+      setDisplayedTexts(currentSongInQueue);
    }
 
-   void setDisplayedTexts(){
-     uiController.setSongTitle(musicFiles.get(currentSongInQueue).getTitle());
-      uiController.setSongAlbum(musicFiles.get(currentSongInQueue).getAlbum());
-      uiController.setSongArtist(musicFiles.get(currentSongInQueue).getArtists()[0]);
+   void setDisplayedTexts(int index){
+     uiController.setSongTitle(musicFiles.get(index).getTitle());
+      uiController.setSongAlbum(musicFiles.get(index).getAlbum());
+      uiController.setSongArtist(musicFiles.get(index).getArtists()[0]);
    }
 
    //checks what kind of musicfile is going to start, and accordingly to type is using different methods to try to read the cover image based on the encoding of the file
-   private void setDisplayedImage(){
-      Musicfile currentSong = musicFiles.get(currentSongInQueue);
+   private void setDisplayedImage(int index){
+      Musicfile currentSong = musicFiles.get(index);
       if(currentSong.getImage().equals("Image")){ //mp3 files
          try {
             Mp3File mp3File = new Mp3File(currentSong.getFilePath());
@@ -160,7 +153,7 @@ public class MusicManager extends Application {
       }else{  //m4a files
          FileInputStream inputstream = null;
          try {
-            inputstream = new FileInputStream(musicFiles.get(currentSongInQueue).getImage()); //open the needed image as FileStream
+            inputstream = new FileInputStream(musicFiles.get(index).getImage()); //open the needed image as FileStream
          }catch(Exception e){
             System.err.println("ERROR: MusicManager: setDisplayedImage: inputStream: " + e);
          }
@@ -185,19 +178,34 @@ public class MusicManager extends Application {
 
    private void playPreviousSongInQueue() {
       System.out.println("'Play Previous' pressed");
-      int oldSongInQueue = currentSongInQueue;
       if (currentSongInQueue == 0 && musicQueue.size() > 0) {
          currentSongInQueue = musicQueue.size() - 1;
       } else {
          currentSongInQueue--;
       }
-      setMediaPlayerMedia(oldSongInQueue);
+      setMediaPlayerMedia();
+      setDisplayedTexts(currentSongInQueue);
+      setDisplayedImage(currentSongInQueue);
+      play();
    }
    public void playSongOnIndex(int index){
       File fiel = new File(musicFiles.get(index).getFilePath());
       Media a = createMedia(fiel);
-      MediaPlayer m = new MediaPlayer(a);
-      m.play();
+      currentSongmediaPlayer.stop();
+      currentSongmediaPlayer = new MediaPlayer(a);
+      currentSongmediaPlayer.setOnEndOfMedia(() -> { //method called when the song ends
+         if (loopStatus == loopSong) { //are we currently looping the song?
+            //yes -> reset the player and play again
+            currentSongmediaPlayer.seek(Duration.ZERO);
+            currentSongmediaPlayer.play();
+         } else {
+            //no -> see method for explanation
+            songAtEndCheckNextPlay();
+         }
+      });
+      setDisplayedTexts(index);
+      setDisplayedImage(index);
+      currentSongmediaPlayer.play();
    }
    private void songAtEndCheckNextPlay() { //at the end of the queue check which looping type is active
       if (currentSongInQueue == musicQueue.size() - 1 && loopStatus == loopNothing) {  //not looping?
@@ -211,11 +219,14 @@ public class MusicManager extends Application {
 
    //methods called from UI
    public void play() {
-      if (mediaPlayers.get(currentSongInQueue).getStatus().equals(MediaPlayer.Status.PLAYING)) {
-         mediaPlayers.get(currentSongInQueue).pause();
+      if (currentSongmediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
+         currentSongmediaPlayer.pause();
       } else {
-         mediaView.setMediaPlayer(mediaPlayers.get(currentSongInQueue));
-         mediaPlayers.get(currentSongInQueue).play();
+         currentSongmediaPlayer.play();
+         AudioEqualizer c = currentSongmediaPlayer.getAudioEqualizer();
+
+         System.out.println(currentSongmediaPlayer.getVolume());
+
       }
    }
 
@@ -242,19 +253,6 @@ public class MusicManager extends Application {
       return new File(filePath);
    }
 
-   private void addMediaPlayerToList(MediaPlayer mediaplayer) {   //adds the Media player to the list
-      mediaplayer.setOnEndOfMedia(() -> { //method called when the song ends
-         if (loopStatus == loopSong) { //are we currently looping the song?
-            //yes -> reset the player and play again
-            mediaplayer.seek(Duration.ZERO);
-            mediaplayer.play();
-         } else {
-            //no -> see method for explanation
-            songAtEndCheckNextPlay();
-         }
-      });
-      mediaPlayers.add(mediaplayer);
-   }
    public int getNumberOfSongs(){
       return musicFiles.size()-1;
    }
