@@ -13,139 +13,160 @@ import javafx.scene.text.Text;
 
 public class Controller {
 
-    private MusicManager manager;
+  private MusicManager manager;
+  public void setManager(MusicManager m) {
+    manager = m;
+  }
 
-    public void setManager(MusicManager m){
-        manager = m;
-    }
+  //------------------------------------------------------------------------------------
+  //                                  Bottombar buttons
+  //------------------------------------------------------------------------------------
 
+  @FXML
+  protected void playPause(MouseEvent event) {
+    manager.play();
+  }
 
-    @FXML
-    protected void playPause(MouseEvent event) {
-        manager.play();
-    }
+  @FXML
+  protected void nextSong(MouseEvent event) {
+    manager.playNextButtonHit();
+  }
 
-    @FXML
-    protected void nextSong(MouseEvent event) {
-        manager.playNextButtonHit();
-    }
-    boolean first = true;
-    @FXML
-    private AnchorPane button1, button2, button3, button4, button5, button6, button7;
-    AnchorPane[]buttons;
-    @FXML
-    private ImageView playSongButton1, playSongButton2, playSongButton3, playSongButton4, playSongButton5, playSongButton6, playSongButton7;
-   @FXML
-   private Text button1SongText, button2SongText, button3SongText, button4SongText, button5SongText, button6SongText, button7SongText;
-   Text[] scrollableButtonsTexts;
-   ImageView[] playSongButtons;
-    public void buttonSetup(){
-        AnchorPane[] a = {button1, button2, button3, button4, button5, button6, button7};
-        buttons = a;
-        Text[] b = {button1SongText, button2SongText, button3SongText, button4SongText, button5SongText, button6SongText, button7SongText};
-        scrollableButtonsTexts = b;
-         ImageView[] c = {playSongButton1, playSongButton2, playSongButton3, playSongButton4, playSongButton5, playSongButton6, playSongButton7};
-       playSongButtons = c;
-    }
-    private int indexHighestButton = 0;
-    private int indexHighestSong = 0;
-    @FXML
-    protected void scrollSongs(ScrollEvent event){
-       if(first) {
-          for (int i = 0; i < scrollableButtonsTexts.length; i++) {
-             Musicfile file = manager.getMusicfileAtPosition(i);
-             if (file != null) {
-                String title = file.getTitle();
-                Text a = scrollableButtonsTexts[i];
-                a.setText(title);
-             }
-          }
-          first = false;
-       }
-       if(!(buttons[0].getLayoutY() == 0 && indexHighestSong == 0 && event.getDeltaY() > 0) && !(buttons[indexHighestButton].getLayoutY() >= -15 && buttons[indexHighestButton].getLayoutY() <= 15 && indexHighestSong == manager.getNumberOfSongs()-5 && event.getDeltaY() < 0)) {
-          for (AnchorPane pane : buttons) { //first update all positions accordingly
-             pane.setLayoutY(pane.getLayoutY() + event.getDeltaY() * 0.40);
-          }
-          for (int i = 0; i < buttons.length; i++) {  //check which button is not seen anymore, and move it accordingly ont top f the next or below the previous button
-             if (buttons[i].getLayoutY() < -50) {
-                buttons[i].setLayoutY(buttons[(i + buttons.length - 1) % buttons.length].getLayoutY() + 50);
-                indexHighestSong++;
-                updateSrcollTexts(false, i);
-             } else if (buttons[i].getLayoutY() > 300) {
-                buttons[i].setLayoutY(buttons[(i + 1) % buttons.length].getLayoutY() - 50);
-                indexHighestSong--;
-                updateSrcollTexts(true, i);
-             }
-             if (buttons[i].getLayoutY() < buttons[indexHighestButton].getLayoutY())
-                indexHighestButton = i;
-          }
-          System.out.println("highes " + indexHighestSong);
-       }
-    }
+  @FXML
+  protected void previousSong(MouseEvent event) {
+    manager.playPreviousButtonHit();
+  }
 
+  @FXML
+  protected void loop(MouseEvent event) {
+    manager.loop();
+  }
 
+  //------------------------------------------------------------------------------------
+  //                            Scrolling buttons in songs
+  //------------------------------------------------------------------------------------
 
-    @FXML
-    protected void previousSong(MouseEvent event) {
-        manager.playPreviousButtonHit();
-    }
+  private boolean first = true;
+  private int indexHighestButton = 0; //the button with the highest y coordinate
+  private int indexHighestSong = 0;   //the song (as index) that is on the highest button
 
-    @FXML
-    protected void playSongButton(MouseEvent event){
-       int index = -1;
-      for(int i = 0; i < playSongButtons.length; i++){
-         int pos =(indexHighestButton+i)%playSongButtons.length;
-         if(event.getSource().equals(playSongButtons[pos])){
-            index = i;
-            break;
-         }
+  @FXML
+  private AnchorPane button1, button2, button3, button4, button5, button6, button7;                                                         //the panels that represent a song
+  @FXML
+  private ImageView playSongButton1, playSongButton2, playSongButton3, playSongButton4, playSongButton5, playSongButton6, playSongButton7;  //the play button on every panel
+  @FXML
+  private Text button1SongText, button2SongText, button3SongText, button4SongText, button5SongText, button6SongText, button7SongText;       //the Song Title on every pane
+
+  private AnchorPane[] buttons;
+  private Text[] scrollableButtonsTexts;
+  private ImageView[] playSongButtons ;
+
+  public void buttonSetup(){  //is needed, because the ui items get initalozed later on, so it is not possible to initialize them on declaration
+    ImageView[] a   = {playSongButton1, playSongButton2, playSongButton3, playSongButton4, playSongButton5, playSongButton6, playSongButton7};
+    Text[] b        = {button1SongText, button2SongText, button3SongText, button4SongText, button5SongText, button6SongText, button7SongText};
+    AnchorPane[] c  = {button1, button2, button3, button4, button5, button6, button7};
+    playSongButtons = a;
+    scrollableButtonsTexts = b;
+    buttons = c;
+  }
+
+  @FXML
+  protected void scrollSongs(ScrollEvent event) { //handles the scrolling of the panes, and correct updating of their information
+    if (first) {  //beacause we cannot do that before everything is initialized
+      for (int i = 0; i < scrollableButtonsTexts.length; i++) {
+        Musicfile file = manager.getMusicfileAtPosition(i);
+        if (file != null) {
+          String title = file.getTitle();
+          Text a = scrollableButtonsTexts[i];
+          a.setText(title);
+        }
       }
-
-       manager.playSongOnIndex(indexHighestSong+index);
+      first = false;
     }
-    @FXML
-    protected void loop(MouseEvent event) {
-        manager.loop();
+    //is the song with index 0 already on top at the position y = 0 (start position)? or the song with the lowest index-5 on the higehst position close to the position y = 0 (different scroll speeds do not allow hitting y = 0)?
+    if (!(buttons[0].getLayoutY() == 0 && indexHighestSong == 0 && event.getDeltaY() > 0) && !(buttons[indexHighestButton].getLayoutY() >= -15 && buttons[indexHighestButton].getLayoutY() <= 15 && indexHighestSong == manager.getNumberOfSongs() - 5 && event.getDeltaY() < 0)) {
+      //no -> we can sroll
+      for (AnchorPane pane : buttons) { //first update all positions accordingly
+        pane.setLayoutY(pane.getLayoutY() + event.getDeltaY() * 0.40);
+      }
+      for (int i = 0; i < buttons.length; i++) {  //check which button is not seen anymore, and wrap it accordingly ont top of the next or below the previous button
+        if (buttons[i].getLayoutY() < -50) {
+          buttons[i].setLayoutY(buttons[(i + buttons.length - 1) % buttons.length].getLayoutY() + 50);
+          indexHighestSong++;
+          updateSrcollTexts(false, i);
+        } else if (buttons[i].getLayoutY() > 300) {
+          buttons[i].setLayoutY(buttons[(i + 1) % buttons.length].getLayoutY() - 50);
+          indexHighestSong--;
+          updateSrcollTexts(true, i);
+        }
+        if (buttons[i].getLayoutY() < buttons[indexHighestButton].getLayoutY()) { //find the button with the higehst y coordinate
+          indexHighestButton = i;
+        }
+      }
+      System.out.println("highes " + indexHighestSong);
     }
+    //yes -> do nothing, because we have reached the maximum we can sroll, without going out of boundaries
+  }
 
 
-
-    private void updateSrcollTexts(boolean up, int i){
-       System.out.println(indexHighestSong);
-          if (up) {
-             Musicfile file = manager.getMusicfileAtPosition(indexHighestSong);
-             scrollableButtonsTexts[i].setText(file.getTitle());
-          } else {
-             Musicfile file = manager.getMusicfileAtPosition(indexHighestSong+6);
-             scrollableButtonsTexts[i].setText(file.getTitle());
-          }
+  //called if one of the play button on the scollpane is pressed
+  @FXML
+  protected void playSongButton(MouseEvent event) {
+    int index = -1;
+    for (int i = 0; i < playSongButtons.length; i++) {
+      int pos = (indexHighestButton + i) % playSongButtons.length;
+      if (event.getSource().equals(playSongButtons[pos])) {
+        index = i;
+        break;
+      }
     }
+    manager.playSongOnIndex(indexHighestSong + index);
+  }
 
-    @FXML
-    private ImageView mp3Thumb;
-
-    @FXML
-    private Text songTitle;
-
-    @FXML
-    private Text artistTitle;
-
-    @FXML
-    private Text albumTitle;
-
-    public void setSongTitle(String newTitle){
-      songTitle.setText(newTitle);
+  //sets the song of the the pane that has been wrapped to the top or bottom
+  private void updateSrcollTexts(boolean up, int i) {
+    System.out.println(indexHighestSong);
+    //did a song pane get wrapped to the top? (so teh user scroleld up)
+    if (up) {
+      //yes -> just use the already updated index of the highest song
+      Musicfile file = manager.getMusicfileAtPosition(indexHighestSong);
+      scrollableButtonsTexts[i].setText(file.getTitle());
+    } else {
+      //no -> we need to get the song that has an index to the current highest song + 6
+      Musicfile file = manager.getMusicfileAtPosition(indexHighestSong + 6);
+      scrollableButtonsTexts[i].setText(file.getTitle());
     }
+  }
 
-    public void setSongArtist(String newArtist){
-        artistTitle.setText(newArtist);
-    }
+  //------------------------------------------------------------------------------------
+  //                            currently playing song information
+  //------------------------------------------------------------------------------------
 
-    public void setSongAlbum(String newAlbum){
-        albumTitle.setText(newAlbum);
-    }
+  @FXML
+  private ImageView mp3Thumb;
 
-    public void setSongThumbnail(Image i) {
-        mp3Thumb.setImage(i);
-    }
+  @FXML
+  private Text songTitle;
+
+  @FXML
+  private Text artistTitle;
+
+  @FXML
+  private Text albumTitle;
+
+  public void setSongTitle(String newTitle) {
+    songTitle.setText(newTitle);
+  }
+
+  public void setSongArtist(String newArtist) {
+    artistTitle.setText(newArtist);
+  }
+
+  public void setSongAlbum(String newAlbum) {
+    albumTitle.setText(newAlbum);
+  }
+
+  public void setSongThumbnail(Image i) {
+    mp3Thumb.setImage(i);
+  }
 }
