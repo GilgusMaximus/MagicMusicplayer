@@ -30,6 +30,11 @@
                               <Font size="14.0" />
                            </font>
                         </Text>
+                        <Text fx:id="button3AlbumText" fill="#00e5ff" layoutX="361.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button3AlbumText" wrappingWidth="189.9999966621399">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="button4" layoutY="150.0" prefHeight="50.0" prefWidth="490.0" style="-fx-background-color: #232323;">
@@ -49,6 +54,12 @@
                               <Font size="14.0" />
                            </font>
                         </Text>
+                        <Text fx:id="button4AlbumText" fill="#00e5ff" layoutX="361.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button4AlbumText" wrappingWidth="189.9999966621399">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <AnchorPane fx:id="rightbar" layoutX="478.0" layoutY="-132.0" minHeight="310.0" minWidth="50.0" prefHeight="310.0" prefWidth="50.0" style="-fx-background-color: #232323 ;" />
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="button5" layoutY="200.0" prefHeight="50.0" prefWidth="490.0" style="-fx-background-color: #232323;">
@@ -64,6 +75,11 @@
                            </font>
                         </Text>
                         <Text fx:id="button5ArtistText" fill="#00e5ff" layoutX="226.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button5ArtistText" wrappingWidth="189.9999966621399">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="button5AlbumText" fill="#00e5ff" layoutX="361.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button5AlbumText" wrappingWidth="189.9999966621399">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -87,6 +103,11 @@
                               <Font size="14.0" />
                            </font>
                         </Text>
+                        <Text fx:id="button6AlbumText" fill="#00e5ff" layoutX="361.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button6AlbumText" wrappingWidth="189.9999966621399">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="button1" prefHeight="50.0" prefWidth="490.0" style="-fx-background-color: #232323;">
@@ -102,6 +123,11 @@
                            </font>
                         </Text>
                         <Text fx:id="button1ArtistText" fill="#00e5ff" layoutX="228.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button1ArtistText" wrappingWidth="189.9999966621399">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="button1AlbumText" fill="#00e5ff" layoutX="361.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button1AlbumText" wrappingWidth="189.9999966621399">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -125,6 +151,11 @@
                               <Font size="14.0" />
                            </font>
                         </Text>
+                        <Text fx:id="button2AlbumText" fill="#00e5ff" layoutX="361.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button2AlbumText" wrappingWidth="189.9999966621399">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="button7" layoutY="300.0" prefHeight="50.0" prefWidth="490.0" style="-fx-background-color: #232323;">
@@ -140,6 +171,11 @@
                            </font>
                         </Text>
                         <Text fx:id="button7ArtistText" fill="#00e5ff" layoutX="225.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button7ArtistText" wrappingWidth="189.9999966621399">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="button7AlbumText" fill="#00e5ff" layoutX="361.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button7AlbumText" wrappingWidth="189.9999966621399">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -184,7 +220,6 @@
                   <Text fx:id="artistTitle" fill="#d3d3d3" fontSmoothingType="LCD" layoutX="106.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="title" wrappingWidth="100.0" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="rightbar" layoutX="590.0" minHeight="310.0" minWidth="50.0" prefHeight="310.0" prefWidth="50.0" style="-fx-background-color: #232323 ;" />
             <AnchorPane fx:id="leftbar" minHeight="310.0" minWidth="50.0" prefHeight="310.0" prefWidth="100.0" style="-fx-background-color: #232323;">
                <children>
                   <ImageView fx:id="mp3Thumb" fitHeight="100.0" fitWidth="100.0" layoutY="260.0" pickOnBounds="true" preserveRatio="true">

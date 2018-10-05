@@ -14,7 +14,6 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.media.AudioEqualizer;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -126,7 +125,7 @@ public class MusicManager extends Application {
       setDisplayedTexts(currentSongInQueue);
    }
 
-   void setDisplayedTexts(int index){
+   private void setDisplayedTexts(int index){
      uiController.setSongTitle(musicFiles.get(index).getTitle());
       uiController.setSongAlbum(musicFiles.get(index).getAlbum());
       uiController.setSongArtist(musicFiles.get(index).getArtists()[0]);
@@ -222,10 +221,6 @@ public class MusicManager extends Application {
          currentSongmediaPlayer.pause();
       } else {
          currentSongmediaPlayer.play();
-         AudioEqualizer c = currentSongmediaPlayer.getAudioEqualizer();
-
-         System.out.println(currentSongmediaPlayer.getVolume());
-
       }
    }
 
@@ -246,10 +241,6 @@ public class MusicManager extends Application {
    private Media createMedia(File file) {
       final String source = file.toURI().toString();
       return new Media(source);
-   }
-
-   private File createMusicFile(String filePath) {
-      return new File(filePath);
    }
 
    public int getNumberOfSongs(){

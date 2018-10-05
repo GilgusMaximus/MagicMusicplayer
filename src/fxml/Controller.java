@@ -55,12 +55,12 @@ public class Controller {
   private ImageView playSongButton1, playSongButton2, playSongButton3, playSongButton4, playSongButton5, playSongButton6, playSongButton7;  //the play button on every panel
   @FXML
   private Text button1SongText, button2SongText, button3SongText, button4SongText, button5SongText, button6SongText, button7SongText;       //the Song Title on every pane
-
   @FXML
   private Text button1ArtistText, button2ArtistText, button3ArtistText, button4ArtistText, button5ArtistText, button6ArtistText, button7ArtistText;       //the Song Title on every pane
-
+  @FXML
+  private Text button1AlbumText, button2AlbumText, button3AlbumText, button4AlbumText, button5AlbumText, button6AlbumText, button7AlbumText;
   private AnchorPane[] buttons;
-  private Text[] buttonSongTexts, buttonArtistTexts;
+  private Text[] buttonSongTexts, buttonArtistTexts, buttonAlbumTexts;
   private ImageView[] playSongButtons ;
 
   public void buttonSetup(){  //is needed, because the ui items get initalozed later on, so it is not possible to initialize them on declaration
@@ -68,10 +68,12 @@ public class Controller {
     Text[] b        = {button1SongText, button2SongText, button3SongText, button4SongText, button5SongText, button6SongText, button7SongText};
     AnchorPane[] c  = {button1, button2, button3, button4, button5, button6, button7};
     Text[] d        = {button1ArtistText, button2ArtistText, button3ArtistText, button4ArtistText, button5ArtistText, button6ArtistText, button7ArtistText};
+    Text[] e        = {button1AlbumText, button2AlbumText, button3AlbumText, button4AlbumText, button5AlbumText, button6AlbumText, button7AlbumText};
     playSongButtons = a;
     buttonSongTexts = b;
     buttons = c;
     buttonArtistTexts = d;
+    buttonAlbumTexts = e;
   }
 
   @FXML
@@ -91,6 +93,7 @@ public class Controller {
 
           b += artists[artists.length-1];
           buttonArtistTexts[i].setText(b);
+          buttonAlbumTexts[i].setText(file.getAlbum());
         }
       }
       first = false;
@@ -157,6 +160,7 @@ System.out.println("hier");
 
       a += artists[artists.length-1];
       buttonArtistTexts[i].setText(a);
+      buttonAlbumTexts[i].setText(file.getAlbum());
     } else {
       //no -> we need to get the song that has an index to the current highest song + 6
       Musicfile file = manager.getMusicfileAtPosition(indexHighestSong + 6);
@@ -169,6 +173,7 @@ System.out.println("hier");
       a += artists[artists.length-1];
       buttonArtistTexts[i].setText(a);
       buttonSongTexts[i].setText(file.getTitle());
+      buttonAlbumTexts[i].setText(file.getAlbum());
     }
   }
 
