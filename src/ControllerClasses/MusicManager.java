@@ -28,7 +28,6 @@ import mp3magic.ID3v2;
 import mp3magic.Mp3File;
 
 public class MusicManager extends Application {
-  //TODO mediaPLayers entfernen und stattdessen immer nur den Song der gerade spielt in einen Mediaplayer umwandeln -> viel Speicher der gespart werden kann
 
    private ArrayList<Integer> musicQueue;
    private ArrayList<Musicfile> musicFiles;
