@@ -92,7 +92,7 @@ public class Controller {
               b += artists[j] + ", ";
 
           b += artists[artists.length-1];
-          buttonArtistTexts[i].setText(b);
+          buttonArtistTexts[i].setText( b);
           buttonAlbumTexts[i].setText(file.getAlbum());
         }
       }

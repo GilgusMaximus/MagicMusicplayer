@@ -20,17 +20,17 @@
                               <Image url="@pictures/play.png" />
                            </image>
                         </ImageView>
-                        <Text fx:id="button3SongText" fill="#00e5ff" layoutX="61.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button3SongText" wrappingWidth="189.9999966621399">
+                        <Text fx:id="button3SongText" fill="#00e5ff" layoutX="60.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button3SongText" wrappingWidth="135.99998532235622">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Text>
-                        <Text fx:id="button3ArtistText" fill="#00e5ff" layoutX="222.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button3ArtistText" wrappingWidth="189.9999966621399">
+                        <Text fx:id="button3ArtistText" fill="#00e5ff" layoutX="214.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button3ArtistText" wrappingWidth="135.99999502301216">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Text>
-                        <Text fx:id="button3AlbumText" fill="#00e5ff" layoutX="361.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button3AlbumText" wrappingWidth="189.9999966621399">
+                        <Text fx:id="button3AlbumText" fill="#00e5ff" layoutX="363.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button3AlbumText" wrappingWidth="135.99998410977423">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -44,22 +44,21 @@
                               <Image url="@pictures/play.png" />
                            </image>
                         </ImageView>
-                        <Text fx:id="button4SongText" fill="#00e5ff" layoutX="62.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button4SongText" wrappingWidth="189.9999966621399">
+                        <Text fx:id="button4SongText" fill="#00e5ff" layoutX="60.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button4SongText" wrappingWidth="135.99999502301216">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Text>
-                        <Text fx:id="button4ArtistText" fill="#00e5ff" layoutX="224.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button4ArtistText" wrappingWidth="189.9999966621399">
+                        <Text fx:id="button4ArtistText" fill="#00e5ff" layoutX="214.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button4ArtistText" wrappingWidth="135.99999502301216">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Text>
-                        <Text fx:id="button4AlbumText" fill="#00e5ff" layoutX="361.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button4AlbumText" wrappingWidth="189.9999966621399">
+                        <Text fx:id="button4AlbumText" fill="#00e5ff" layoutX="363.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button4AlbumText" wrappingWidth="135.99998410977423">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Text>
-                        <AnchorPane fx:id="rightbar" layoutX="478.0" layoutY="-132.0" minHeight="310.0" minWidth="50.0" prefHeight="310.0" prefWidth="50.0" style="-fx-background-color: #232323 ;" />
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="button5" layoutY="200.0" prefHeight="50.0" prefWidth="490.0" style="-fx-background-color: #232323;">
@@ -69,17 +68,17 @@
                               <Image url="@pictures/play.png" />
                            </image>
                         </ImageView>
-                        <Text fx:id="button5SongText" fill="#00e5ff" layoutX="61.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button5SongText" wrappingWidth="189.9999966621399">
+                        <Text fx:id="button5SongText" fill="#00e5ff" layoutX="60.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button5SongText" wrappingWidth="135.99998532235622">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Text>
-                        <Text fx:id="button5ArtistText" fill="#00e5ff" layoutX="226.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button5ArtistText" wrappingWidth="189.9999966621399">
+                        <Text fx:id="button5ArtistText" fill="#00e5ff" layoutX="214.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button5ArtistText" wrappingWidth="135.99998532235622">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Text>
-                        <Text fx:id="button5AlbumText" fill="#00e5ff" layoutX="361.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button5AlbumText" wrappingWidth="189.9999966621399">
+                        <Text fx:id="button5AlbumText" fill="#00e5ff" layoutX="363.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button5AlbumText" wrappingWidth="135.99999502301216">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -93,17 +92,17 @@
                               <Image url="@pictures/play.png" />
                            </image>
                         </ImageView>
-                        <Text fx:id="button6SongText" fill="#00e5ff" layoutX="61.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button6SongText" wrappingWidth="189.9999966621399">
+                        <Text fx:id="button6SongText" fill="#00e5ff" layoutX="60.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button6SongText" wrappingWidth="135.99999502301216">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Text>
-                        <Text fx:id="button6ArtistText" fill="#00e5ff" layoutX="225.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button6ArtistText" wrappingWidth="189.9999966621399">
+                        <Text fx:id="button6ArtistText" fill="#00e5ff" layoutX="214.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button6ArtistText" wrappingWidth="135.99999502301216">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Text>
-                        <Text fx:id="button6AlbumText" fill="#00e5ff" layoutX="361.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button6AlbumText" wrappingWidth="189.9999966621399">
+                        <Text fx:id="button6AlbumText" fill="#00e5ff" layoutX="363.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button6AlbumText" wrappingWidth="135.99998410977423">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -117,17 +116,17 @@
                               <Image url="@pictures/play.png" />
                            </image>
                         </ImageView>
-                        <Text fx:id="button1SongText" fill="#00e5ff" layoutX="62.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button1SongText" wrappingWidth="189.9999966621399">
+                        <Text fx:id="button1SongText" fill="#00e5ff" layoutX="60.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button1SongText" wrappingWidth="135.99999259784818">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Text>
-                        <Text fx:id="button1ArtistText" fill="#00e5ff" layoutX="228.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button1ArtistText" wrappingWidth="189.9999966621399">
+                        <Text fx:id="button1ArtistText" fill="#00e5ff" layoutX="214.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button1ArtistText" wrappingWidth="135.9999966621399">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Text>
-                        <Text fx:id="button1AlbumText" fill="#00e5ff" layoutX="361.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button1AlbumText" wrappingWidth="189.9999966621399">
+                        <Text fx:id="button1AlbumText" fill="#00e5ff" layoutX="363.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button1AlbumText" wrappingWidth="135.99999259784818">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -141,17 +140,17 @@
                               <Image url="@pictures/play.png" />
                            </image>
                         </ImageView>
-                        <Text fx:id="button2SongText" fill="#00e5ff" layoutX="62.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button2SongText" wrappingWidth="189.9999966621399">
+                        <Text fx:id="button2SongText" fill="#00e5ff" layoutX="60.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button2SongText" wrappingWidth="135.99999381043017">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Text>
-                        <Text fx:id="button2ArtistText" fill="#00e5ff" layoutX="226.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button2ArtistText" wrappingWidth="189.9999966621399">
+                        <Text fx:id="button2ArtistText" fill="#00e5ff" layoutX="214.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button2ArtistText" wrappingWidth="135.99999502301216">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Text>
-                        <Text fx:id="button2AlbumText" fill="#00e5ff" layoutX="361.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button2AlbumText" wrappingWidth="189.9999966621399">
+                        <Text fx:id="button2AlbumText" fill="#00e5ff" layoutX="361.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button2AlbumText" wrappingWidth="135.99999502301216">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -165,17 +164,17 @@
                               <Image url="@pictures/play.png" />
                            </image>
                         </ImageView>
-                        <Text fx:id="button7SongText" fill="#00e5ff" layoutX="61.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button7SongText" wrappingWidth="189.9999966621399">
+                        <Text fx:id="button7SongText" fill="#00e5ff" layoutX="60.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button7SongText" wrappingWidth="135.99999502301216">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Text>
-                        <Text fx:id="button7ArtistText" fill="#00e5ff" layoutX="225.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button7ArtistText" wrappingWidth="189.9999966621399">
+                        <Text fx:id="button7ArtistText" fill="#00e5ff" layoutX="214.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button7ArtistText" wrappingWidth="135.99998410977423">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Text>
-                        <Text fx:id="button7AlbumText" fill="#00e5ff" layoutX="361.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button7AlbumText" wrappingWidth="189.9999966621399">
+                        <Text fx:id="button7AlbumText" fill="#00e5ff" layoutX="363.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="button7AlbumText" wrappingWidth="135.99999502301216">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -211,13 +210,13 @@
                         <Image url="@pictures/play.png" />
                      </image>
                   </ImageView>
-                  <Text fx:id="songTitle" fill="#d3d3d3" fontSmoothingType="LCD" layoutX="106.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="title" wrappingWidth="106.44140625">
+                  <Text fx:id="songTitle" fill="#d3d3d3" fontSmoothingType="LCD" layoutX="106.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="title" wrappingWidth="175.99999904632568">
                      <font>
                         <Font name="Calibri" size="14.0" />
                      </font>
                   </Text>
-                  <Text fx:id="albumTitle" fill="#d3d3d3" fontSmoothingType="LCD" layoutX="106.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="title" wrappingWidth="176.0" />
-                  <Text fx:id="artistTitle" fill="#d3d3d3" fontSmoothingType="LCD" layoutX="106.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="title" wrappingWidth="100.0" />
+                  <Text fx:id="albumTitle" fill="#d3d3d3" fontSmoothingType="LCD" layoutX="106.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="title" wrappingWidth="249.0" />
+                  <Text fx:id="artistTitle" fill="#d3d3d3" fontSmoothingType="LCD" layoutX="106.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="title" wrappingWidth="219.9999942779541" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="leftbar" minHeight="310.0" minWidth="50.0" prefHeight="310.0" prefWidth="100.0" style="-fx-background-color: #232323;">
@@ -228,6 +227,7 @@
                      </image>
                   </ImageView>
                </children></AnchorPane>
+            <AnchorPane fx:id="rightbar" layoutX="590.0" minHeight="310.0" minWidth="50.0" prefHeight="310.0" prefWidth="50.0" style="-fx-background-color: #232323 ;" />
          </children>
       </AnchorPane>
    </children>
