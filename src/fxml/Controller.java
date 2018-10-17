@@ -178,6 +178,20 @@ System.out.println("hier");
   }
 
   //------------------------------------------------------------------------------------
+  //                            Windowbuttons
+  //------------------------------------------------------------------------------------
+
+
+  @FXML
+  private void minimizeWindow(MouseEvent event){
+    manager.minimizeWindow();
+  }
+  @FXML
+  private void closeWindow(MouseEvent event){
+    manager.exitProgram();
+  }
+
+  //------------------------------------------------------------------------------------
   //                            currently playing song information
   //------------------------------------------------------------------------------------
 

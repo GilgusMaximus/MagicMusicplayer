@@ -39,12 +39,14 @@ public class MusicManager extends Application {
    private final int loopSong = 2;
    private int loopStatus = loopNothing;
    private Controller uiController;
+   Stage pS;
    public static void main(String[] args) {
       InputReader.readInput();
       Application.launch();
    }
 
    public void start(Stage primaryStage) {
+     pS = primaryStage;
       musicFiles = InputReader.getMusicFiles();
 
       musicQueue = new ArrayList<>();
@@ -74,7 +76,7 @@ public class MusicManager extends Application {
       //Adding scene to the stage
       primaryStage.setScene(scene);
       primaryStage.setWidth(640);
-      primaryStage.setHeight(360);
+      primaryStage.setHeight(420);
       //primaryStage.setMaximized(true);
 
       //Displaying the contents of the stage
@@ -243,6 +245,14 @@ public class MusicManager extends Application {
       return new Media(source);
    }
 
+   public void exitProgram(){
+
+     currentSongmediaPlayer.stop();
+     System.exit(1);
+   }
+   public void minimizeWindow(){
+     pS.setIconified(true);
+   }
    public int getNumberOfSongs(){
       return musicFiles.size()-1;
    }

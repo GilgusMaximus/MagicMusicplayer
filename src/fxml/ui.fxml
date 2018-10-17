@@ -9,9 +9,9 @@
 
 <Group xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.Controller">
    <children>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="640.0">
+      <AnchorPane maxHeight="-Infinity" maxWidth="640.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="640.0">
          <children>
-            <AnchorPane fx:id="scrollable" layoutX="100.0" onScroll="#scrollSongs" prefHeight="300.0" prefWidth="489.0" style="-fx-background-color: #132325;">
+            <AnchorPane fx:id="scrollable" layoutX="100.0" layoutY="60.0" onScroll="#scrollSongs" prefHeight="300.0" prefWidth="489.0" style="-fx-background-color: #132325;">
                <children>
                   <AnchorPane fx:id="button3" layoutY="100.0" prefHeight="50.0" prefWidth="490.0" style="-fx-background-color: #232323;">
                      <children>
@@ -183,7 +183,7 @@
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="bottombar" layoutY="300.0" minHeight="50.0" minWidth="640.0" prefHeight="60.0" prefWidth="640.0" style="-fx-background-color: #232323;">
+            <AnchorPane fx:id="bottombar" layoutY="360.0" minHeight="50.0" minWidth="640.0" prefHeight="60.0" prefWidth="640.0" style="-fx-background-color: #232323;">
                <children>
                   <ImageView fitHeight="50.0" fitWidth="30.0" layoutX="1.0" layoutY="-313.0" pickOnBounds="true" preserveRatio="true" x="600.0" y="320.0">
                      <image>
@@ -219,7 +219,7 @@
                   <Text fx:id="artistTitle" fill="#d3d3d3" fontSmoothingType="LCD" layoutX="106.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="title" wrappingWidth="219.9999942779541" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="leftbar" minHeight="310.0" minWidth="50.0" prefHeight="310.0" prefWidth="100.0" style="-fx-background-color: #232323;">
+            <AnchorPane fx:id="leftbar" layoutY="60.0" minHeight="300.0" minWidth="50.0" prefHeight="300.0" prefWidth="100.0" style="-fx-background-color: #232323;">
                <children>
                   <ImageView fx:id="mp3Thumb" fitHeight="100.0" fitWidth="100.0" layoutY="260.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -227,7 +227,38 @@
                      </image>
                   </ImageView>
                </children></AnchorPane>
-            <AnchorPane fx:id="rightbar" layoutX="590.0" minHeight="310.0" minWidth="50.0" prefHeight="310.0" prefWidth="50.0" style="-fx-background-color: #232323 ;" />
+            <AnchorPane fx:id="rightbar" layoutX="590.0" layoutY="60.0" minHeight="300.0" minWidth="50.0" prefHeight="300.0" prefWidth="50.0" style="-fx-background-color: #232323 ;" />
+            <AnchorPane minHeight="60.0" minWidth="640.0" prefHeight="60.0" prefWidth="640.0" style="-fx-background-color: #232323;">
+               <children>
+                  <Text fill="#00e5ff" fontSmoothingType="LCD" layoutX="194.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#00e5ff" fontSmoothingType="LCD" layoutX="349.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Artist">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#00e5ff" fontSmoothingType="LCD" layoutX="490.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Album">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <AnchorPane minHeight="20.0" minWidth="640.0" prefHeight="20.0" prefWidth="640.0" style="-fx-background-color: #191919;">
+                     <children>
+                        <ImageView fx:id="closeWindow" fitHeight="20.0" fitWidth="20.0" onMouseClicked="#closeWindow" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@pictures/cancel.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="minimizeWindow" fitHeight="20.0" fitWidth="20.0" layoutX="22.0" onMouseClicked="#minimizeWindow" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@pictures/line-button.png" />
+                           </image>
+                        </ImageView>
+                     </children></AnchorPane>
+               </children></AnchorPane>
          </children>
       </AnchorPane>
    </children>
