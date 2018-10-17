@@ -18,6 +18,14 @@ public class Musicfile {
       }
       if (tit != null) {
          title = tit;
+      }else{
+        int lastSlash = 0;
+        for(int i = 0; i < path.length(); i++) {
+          if (path.charAt(i) == '/' || path.charAt(i) == '\\') {
+            lastSlash = i;
+          }
+          title = path.substring(lastSlash+1);
+        }
       }
       if (img != null) {
          if(img.equals("AlbumArtSmall.jpg")) {
@@ -41,6 +49,14 @@ public class Musicfile {
       }
       if (tit != null) {
          title = tit;
+      }else{
+        int lastSlash = 0;
+        for(int i = 0; i < path.length(); i++) {
+          if (path.charAt(i) == '/' || path.charAt(i) == '\\') {
+            lastSlash = i;
+          }
+          title = path.substring(lastSlash+1);
+        }
       }
       if (img != null) {
          if(img.equals("AlbumArtSmall.jpg")) {

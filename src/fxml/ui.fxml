@@ -185,6 +185,13 @@
             </AnchorPane>
             <AnchorPane fx:id="bottombar" layoutY="360.0" minHeight="50.0" minWidth="640.0" prefHeight="60.0" prefWidth="640.0" style="-fx-background-color: #232323;">
                <children>
+                  <Text fx:id="artistTitle" fill="#d3d3d3" fontSmoothingType="LCD" layoutX="106.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="title" wrappingWidth="448.99999618530273" />
+                  <Text fx:id="albumTitle" fill="#d3d3d3" fontSmoothingType="LCD" layoutX="106.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="title" wrappingWidth="448.99999618530273" />
+                  <Text fx:id="songTitle" fill="#d3d3d3" fontSmoothingType="LCD" layoutX="106.0" layoutY="16.0" strokeType="OUTSIDE" strokeWidth="0.0" text="title" wrappingWidth="448.9999990463257">
+                     <font>
+                        <Font name="Calibri" size="14.0" />
+                     </font>
+                  </Text>
                   <ImageView fitHeight="50.0" fitWidth="30.0" layoutX="1.0" layoutY="-313.0" pickOnBounds="true" preserveRatio="true" x="600.0" y="320.0">
                      <image>
                         <Image url="@pictures/settings.png" />
@@ -210,13 +217,6 @@
                         <Image url="@pictures/play.png" />
                      </image>
                   </ImageView>
-                  <Text fx:id="songTitle" fill="#d3d3d3" fontSmoothingType="LCD" layoutX="106.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="title" wrappingWidth="175.99999904632568">
-                     <font>
-                        <Font name="Calibri" size="14.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="albumTitle" fill="#d3d3d3" fontSmoothingType="LCD" layoutX="106.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="title" wrappingWidth="249.0" />
-                  <Text fx:id="artistTitle" fill="#d3d3d3" fontSmoothingType="LCD" layoutX="106.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="title" wrappingWidth="219.9999942779541" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="leftbar" layoutY="60.0" minHeight="300.0" minWidth="50.0" prefHeight="300.0" prefWidth="100.0" style="-fx-background-color: #232323;">
