@@ -13,47 +13,78 @@ public class FileWriter extends Thread {
 
 
    private ArrayList<Musicfile> musicfiles;
-   private boolean append;
+   private ArrayList<Integer>[] sortedLists = new ArrayList[3]; //TODO Check whether this can work
+   private boolean append, categories;
    private String filepath;
 
-   FileWriter(ArrayList<Musicfile> Musicfiles, boolean Append, String Filepath) {
+   FileWriter(ArrayList<Musicfile> Musicfiles, boolean Append, boolean Categories, String Filepath) {
       append = Append;
       musicfiles = Musicfiles;
       filepath = Filepath;
+      categories = Categories;
    }
 
    @Override
    public void run() {
-      writeToFile();
+     if(!categories)
+        writeMusicFilesToFile();
+     else
+       writeCategoryListsToFile();
    }
 
-   private void writeToFile() { //just write all Strings on a new line into the file
-      File file = new File(filepath);
-      if (!file.exists()) {
-         try {
-            PrintWriter writer = new PrintWriter(filepath, "UTF-8");
-            writer.println("");
-            writer.close();
-         }catch(Exception e){
-
-         }
-      }
-      try {
-         BufferedWriter bf;
-         if (append) {
-            bf = new BufferedWriter(new java.io.FileWriter(filepath, true));
-         } else {
-            bf = new BufferedWriter(new java.io.FileWriter(filepath));
-         }
-         bf.flush();
-         //if (musicfiles.size() > writeBegin) {  //We do not have to write if there is no new data
-         System.out.println("WRITING ");
-            for (int i = 0; i < musicfiles.size(); i++) {
-               bf.write(musicfiles.get(i).toString());
-               bf.newLine();
+   private void writeCategoryListsToFile(){
+        checkFile();
+        BufferedWriter bf = createBufferedWriter();
+        try{
+          for(ArrayList<Integer> a : sortedLists){
+            for(int s : a){
+              bf.write(s);
+              bf.newLine();
             }
-         //}
-         bf.close();
+          }
+        }catch (Exception e){
+          System.out.println("ERROR: FileWriter: writeCategory(): " + e);
+        }
+   }
+
+   private void checkFile(){
+     File file = new File(filepath);
+     if (!file.exists()) {
+       try {
+         PrintWriter writer = new PrintWriter(filepath, "UTF-8");
+         writer.println("");
+         writer.close();
+       } catch (Exception e) {
+         System.out.println("ERROR: FileWriter: checkFile(): " + e);
+       }
+     }
+   }
+
+   private BufferedWriter createBufferedWriter(){
+     BufferedWriter bf = null;
+     try{
+       if (append) {
+         bf = new BufferedWriter(new java.io.FileWriter(filepath, true));
+       } else {
+         bf = new BufferedWriter(new java.io.FileWriter(filepath));
+       }
+       bf.flush();
+     }catch(Exception e){
+       System.out.println("ERROR: FileWriter: createBW(): " + e);
+     }
+     return bf;
+   }
+
+   private void writeMusicFilesToFile() { //just write all Strings on a new line into the file
+      checkFile();
+      BufferedWriter bf = createBufferedWriter();
+      try {
+        System.out.println("WRITING ");
+        for(Musicfile m : musicfiles){
+          bf.write(m.toString());
+          bf.newLine();
+        }
+        bf.close();
       } catch (Exception e) {
          System.err.println("EXCEPTION: FileClasses.FileWriter: " + e);
       }

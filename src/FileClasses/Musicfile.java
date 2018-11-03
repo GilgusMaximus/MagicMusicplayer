@@ -7,7 +7,7 @@ public class Musicfile {
 
    private String filePath = "noData", album = "noData", title = "noData", image = "noData";
    private String[] artists;
-
+    private int index;
    //constructor called when more than 1 artist are read from the file tags
    Musicfile(String path, String[] art, String alb, String tit, String img) {
       if (path != null) {
@@ -130,5 +130,27 @@ public class Musicfile {
 
    public String[] getArtists() {
       return artists;
+   }
+
+   public void setIndex(int i){
+     if(i >= 0)
+      index = i;
+   }
+   public int getIndex(){
+     return index;
+   }
+   public int compare(String ownValue, String value){
+     for(int i = 0; i < min(ownValue,value); i++){
+       if(ownValue.toLowerCase().charAt(i) < value.toLowerCase().charAt(i))
+         return -1;
+       else if(ownValue.toLowerCase().charAt(i) > value.toLowerCase().charAt(i))
+         return 1;
+     }
+     return 0;
+   }
+   int min(String a, String b){
+     if(a.length() > b.length())
+       return b.length();
+     return a.length();
    }
 }

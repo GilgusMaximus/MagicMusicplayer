@@ -9,7 +9,7 @@
 
 <Group xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.Controller">
    <children>
-      <AnchorPane maxHeight="-Infinity" maxWidth="640.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="640.0">
+      <AnchorPane maxHeight="-Infinity" maxWidth="640.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="640.0" style="-fx-background-color: transparent;">
          <children>
             <AnchorPane fx:id="scrollable" layoutX="100.0" layoutY="60.0" onScroll="#scrollSongs" prefHeight="300.0" prefWidth="489.0" style="-fx-background-color: #132325;">
                <children>

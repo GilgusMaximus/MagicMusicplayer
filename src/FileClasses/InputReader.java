@@ -8,12 +8,12 @@ public class InputReader {
 
 
    private static ArrayList<Musicfile> musicFiles = new ArrayList<>();
-
+   private static boolean newMusic = true;
 
    public static void readInput() {
       double timeStart = System.nanoTime();
       boolean search = true;
-      boolean append = false;
+      boolean append = true;
       FileWriter fileWriter;
       ArrayList<String> allFiles;
 
@@ -33,6 +33,7 @@ public class InputReader {
          Scanner s = new Scanner(System.in);
          if (!s.nextLine().toLowerCase().equals("y")) {
             search = false;
+            newMusic = false;
          }
       }
 
@@ -81,7 +82,7 @@ public class InputReader {
       }
 
       //create custom FileWriter
-      fileWriter = new FileWriter(musicFiles, append, "files/Musicfiles.txt");
+      fileWriter = new FileWriter(musicFiles, append, false, "files/Musicfiles.txt");
       //start the writer on another thread, and let it write all new musicfiles to it
       fileWriter.run();
 
@@ -118,6 +119,10 @@ public class InputReader {
          }
       }
       return directories;
+   }
+
+   public static boolean getnewMusic(){
+    return newMusic;
    }
 
    public static ArrayList<Musicfile> getMusicFiles() {

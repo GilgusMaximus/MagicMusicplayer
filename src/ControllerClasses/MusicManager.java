@@ -34,27 +34,30 @@ public class MusicManager extends Application {
    private MediaPlayer currentSongmediaPlayer;
 
 
-   private MediaView mediaView;
+
    private final int loopNothing = 0;
    private final int loopSong = 2;
    private int loopStatus = loopNothing;
    private Controller uiController;
-   Stage pS;
+   private Stage pS;
+   private boolean newMusicFiles = false;
    public static void main(String[] args) {
       InputReader.readInput();
       Application.launch();
    }
 
    public void start(Stage primaryStage) {
-     pS = primaryStage;
+      MediaView mediaView;
+      pS = primaryStage;
       musicFiles = InputReader.getMusicFiles();
-
+      newMusicFiles = InputReader.getnewMusic();
       musicQueue = new ArrayList<>();
 
       for(int i = 0; i < musicFiles.size(); i++){
          addSongToEndOfQueue(i);
       }
-
+      Sorter s = new Sorter(musicFiles);
+      s.start();
       Parent root = null;
       FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/ui.fxml"));
       try {
@@ -72,11 +75,12 @@ public class MusicManager extends Application {
       //Setting title to the Stage
       primaryStage.setTitle("Event Filters Example");
       primaryStage.initStyle(StageStyle.UNDECORATED);
-
+     scene.setFill(null);
       //Adding scene to the stage
       primaryStage.setScene(scene);
       primaryStage.setWidth(640);
       primaryStage.setHeight(420);
+      primaryStage.initStyle(StageStyle.TRANSPARENT);
       //primaryStage.setMaximized(true);
 
       //Displaying the contents of the stage
