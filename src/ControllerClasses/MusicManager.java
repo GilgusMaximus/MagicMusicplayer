@@ -41,6 +41,7 @@ public class MusicManager extends Application {
    private Controller uiController;
    private Stage pS;
    private boolean newMusicFiles = false;
+   private ArrayList<Integer> titleList;
    public static void main(String[] args) {
       InputReader.readInput();
       Application.launch();
@@ -56,8 +57,8 @@ public class MusicManager extends Application {
       for(int i = 0; i < musicFiles.size(); i++){
          addSongToEndOfQueue(i);
       }
-      Sorter s = new Sorter(musicFiles);
-      s.start();
+      Sorter sorter = new Sorter(musicFiles);
+      sorter.start();
       Parent root = null;
       FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/ui.fxml"));
       try {
@@ -85,9 +86,17 @@ public class MusicManager extends Application {
 
       //Displaying the contents of the stage
       primaryStage.show();
+     try {
+       sorter.join();
+       titleList = sorter.getList();
+     }catch(Exception e){
+       System.err.println("MusicManager: Start: sorter.join: " + e);
+     }
       // primaryStage.toFront();
       setMediaPlayerMedia();
       play();
+
+
       setDisplayedImage(currentSongInQueue);
       setDisplayedTexts(currentSongInQueue);
       uiController.buttonSetup();
@@ -117,7 +126,7 @@ public class MusicManager extends Application {
    private void setMediaPlayerMedia() {
       if(currentSongmediaPlayer != null)
          currentSongmediaPlayer.stop();
-      File f = new File(musicFiles.get(currentSongInQueue).getFilePath());
+      File f = new File(musicFiles.get(titleList.get(currentSongInQueue)).getFilePath());
       Media m = createMedia(f);
       currentSongmediaPlayer = new MediaPlayer(m);
    }
@@ -132,14 +141,14 @@ public class MusicManager extends Application {
    }
 
    private void setDisplayedTexts(int index){
-     uiController.setSongTitle(musicFiles.get(index).getTitle());
-      uiController.setSongAlbum(musicFiles.get(index).getAlbum());
-      uiController.setSongArtist(musicFiles.get(index).getArtists()[0]);
+     uiController.setSongTitle(musicFiles.get(titleList.get(index)).getTitle());
+      uiController.setSongAlbum(musicFiles.get(titleList.get(index)).getAlbum());
+      uiController.setSongArtist(musicFiles.get(titleList.get(index)).getArtists()[0]);
    }
 
    //checks what kind of musicfile is going to start, and accordingly to type is using different methods to try to read the cover image based on the encoding of the file
    private void setDisplayedImage(int index){
-      Musicfile currentSong = musicFiles.get(index);
+      Musicfile currentSong = musicFiles.get(titleList.get(index));
       if(currentSong.getImage().equals("Image")){ //mp3 files
          try {
             Mp3File mp3File = new Mp3File(currentSong.getFilePath());
@@ -157,7 +166,7 @@ public class MusicManager extends Application {
       }else{  //m4a files
          FileInputStream inputstream = null;
          try {
-            inputstream = new FileInputStream(musicFiles.get(index).getImage()); //open the needed image as FileStream
+            inputstream = new FileInputStream(musicFiles.get(titleList.get(index)).getImage()); //open the needed image as FileStream
          }catch(Exception e){
             System.err.println("ERROR: MusicManager: setDisplayedImage: inputStream: " + e);
          }
@@ -193,7 +202,7 @@ public class MusicManager extends Application {
       play();
    }
    public void playSongOnIndex(int index){
-      File fiel = new File(musicFiles.get(index).getFilePath());
+      File fiel = new File(musicFiles.get(titleList.get(index)).getFilePath());
       Media a = createMedia(fiel);
       currentSongmediaPlayer.stop();
       currentSongmediaPlayer = new MediaPlayer(a);
@@ -261,6 +270,6 @@ public class MusicManager extends Application {
       return musicFiles.size()-1;
    }
    public Musicfile getMusicfileAtPosition(int position){
-      return musicFiles.get(position);
+      return musicFiles.get(titleList.get(position));
    }
 }

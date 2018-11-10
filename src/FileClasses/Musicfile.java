@@ -139,7 +139,8 @@ public class Musicfile {
    public int getIndex(){
      return index;
    }
-   public int compare(String ownValue, String value){
+   public int compare(String value){
+     String ownValue = title;
      for(int i = 0; i < min(ownValue,value); i++){
        if(ownValue.toLowerCase().charAt(i) < value.toLowerCase().charAt(i))
          return -1;
