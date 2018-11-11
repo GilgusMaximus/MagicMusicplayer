@@ -4,19 +4,28 @@ import FileClasses.Musicfile;
 import java.util.ArrayList;
 
 public class Sorter extends Thread{
+  ArrayList<ArrayList<Integer>> lists;
   ArrayList<Integer> list;
   ArrayList<Musicfile> musicfiles;
+  int current = 0;
   Sorter(ArrayList<Musicfile> Musicfiles){
     musicfiles = Musicfiles;
-    list = new ArrayList<>();
-    for(int i = 0; i < musicfiles.size(); i++){
-      list.add(i);
-    }
+    lists = new ArrayList<>();
+    lists.add(new ArrayList<Integer>()); //title
+    lists.add(new ArrayList<Integer>()); //album
+    lists.add(new ArrayList<Integer>()); //artist
+    for(ArrayList a : lists)
+      for(int i = 0; i < musicfiles.size(); i++){
+        a.add(i);
+      }
   }
 
   @Override
   public void run() {
-    quickSort();
+    for(current = 0; current < 3; current++) {
+      list = lists.get(current);
+      quickSort();
+    }
   }
   private void quickSort(){
     int size = musicfiles.size();
@@ -29,16 +38,21 @@ public class Sorter extends Thread{
       return;
     int aS = a, bS = b;
     a--;
-    String p = musicfiles.get(list.get(pivot)).getTitle();
+    String p = null;
+    switch(current){
+      case 0: p = musicfiles.get(list.get(pivot)).getTitle(); break;
+      case 1: p = musicfiles.get(list.get(pivot)).getAlbum(); break;
+      case 2: p = musicfiles.get(list.get(pivot)).getArtists()[0];break;
+    }
     switchItems(b, pivot);
     pivot = b;
     do{
       do{
         a++;
-      }while(musicfiles.get(list.get(a)).compare(p) < 0);
+      }while(musicfiles.get(list.get(a)).compare(p, current) < 0);
       do{
         b--;
-      }while(b >= a && musicfiles.get(list.get(b)).compare(p) > 0);
+      }while(b >= a && musicfiles.get(list.get(b)).compare(p, current) > 0);
       if(a < b)
         switchItems(a, b);
     }while(a < b);
@@ -52,6 +66,6 @@ public class Sorter extends Thread{
     list.set(b, help);
   }
   public ArrayList<Integer> getList(){
-    return list;
+    return lists.get(2);
   }
 }

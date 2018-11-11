@@ -74,11 +74,30 @@ public class Controller {
     buttons = c;
     buttonArtistTexts = d;
     buttonAlbumTexts = e;
+    butts();
   }
+  private void butts(){
+    for (int i = 0; i < buttonSongTexts.length; i++) {
+      Musicfile file = manager.getMusicfileAtPosition(i);
+      if (file != null) {
+        String title = file.getTitle();
+        Text a = buttonSongTexts[i];
+        a.setText(title);
+        String[] artists = file.getArtists();
+        String b = "";
+        if(artists.length > 1)
+          for(int j = 0; j < artists.length-1; j++)
+            b += artists[j] + ", ";
 
+        b += artists[artists.length-1];
+        buttonArtistTexts[i].setText( b);
+        buttonAlbumTexts[i].setText(file.getAlbum());
+      }
+    }
+  }
   @FXML
-  protected void scrollSongs(ScrollEvent event) { //handles the scrolling of the panes, and correct updating of their information
-    if (first) {  //beacause we cannot do that before everything is initialized
+  void scrollSongs(ScrollEvent event) { //handles the scrolling of the panes, and correct updating of their information
+    /*if (first) {  //beacause we cannot do that before everything is initialized
       for (int i = 0; i < buttonSongTexts.length; i++) {
         Musicfile file = manager.getMusicfileAtPosition(i);
         if (file != null) {
@@ -97,13 +116,13 @@ public class Controller {
         }
       }
       first = false;
-    }
+    }*/
     float speed = 6.20f;
     if(event.getDeltaY() < 0)
       speed *= -1;
     //is the song with index 0 already on top at the position y = 0 (start position)? or the song with the lowest index-5 on the higehst position close to the position y = 0 (different scroll speeds do not allow hitting y = 0)?
     if(!(buttons[indexHighestButton].getLayoutY() >= -15 && buttons[indexHighestButton].getLayoutY() <= 15 && indexHighestSong == manager.getNumberOfSongs() - 5 && event.getDeltaY() < 0)) {
-System.out.println("hier");
+//System.out.println("hier");
       if (!(buttons[0].getLayoutY() == 0 && indexHighestSong == 0 && event.getDeltaY() > 0)) {
         //no -> we can sroll
         for (AnchorPane pane : buttons) { //first update all positions accordingly
@@ -123,7 +142,7 @@ System.out.println("hier");
             indexHighestButton = i;
           }
         }
-        System.out.println("highes " + indexHighestSong);
+        //System.out.println("highes " + indexHighestSong);
       }
     }
     //yes -> do nothing, because we have reached the maximum we can sroll, without going out of boundaries
@@ -146,7 +165,7 @@ System.out.println("hier");
 
   //sets the song of the the pane that has been wrapped to the top or bottom
   private void updateSrcollTexts(boolean up, int i) {
-    System.out.println(indexHighestSong);
+    //System.out.println(indexHighestSong);
     //did a song pane get wrapped to the top? (so teh user scroleld up)
     if (up) {
       //yes -> just use the already updated index of the highest song

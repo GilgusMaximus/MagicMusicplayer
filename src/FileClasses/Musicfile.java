@@ -45,9 +45,13 @@ public class Musicfile {
          filePath = path;
       }
       if (alb != null) {
+         if(alb.length() > 1 && alb.charAt(0) == 32)
+            alb = alb.substring(1);
          album = alb;
       }
       if (tit != null) {
+         if(tit.length() > 1 && tit.charAt(0) == 32)
+            tit = tit.substring(1);
          title = tit;
       }else{
         int lastSlash = 0;
@@ -56,6 +60,8 @@ public class Musicfile {
             lastSlash = i;
           }
           title = path.substring(lastSlash+1);
+          if(title.length() > 1 && title.charAt(0) == 32)
+             title = tit.substring(1);
         }
       }
       if (img != null) {
@@ -139,8 +145,15 @@ public class Musicfile {
    public int getIndex(){
      return index;
    }
-   public int compare(String value){
-     String ownValue = title;
+   public int compare(String value, int type){
+      String ownValue = null;
+      switch (type){
+         case  0: ownValue = title; break;
+         case 1: ownValue = album; break;
+         case 2: ownValue = artists[0]; break;
+      }
+      if(ownValue == null || ownValue.equals(""))  //all songs without specification in this category get tothe back of the list
+         return 1;
      for(int i = 0; i < min(ownValue,value); i++){
        if(ownValue.toLowerCase().charAt(i) < value.toLowerCase().charAt(i))
          return -1;

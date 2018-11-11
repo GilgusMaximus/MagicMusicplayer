@@ -52,7 +52,7 @@ public class FileWriter extends Thread {
      if (!file.exists()) {
        try {
          PrintWriter writer = new PrintWriter(filepath, "UTF-8");
-         writer.println("");
+         //writer.println("");
          writer.close();
        } catch (Exception e) {
          System.out.println("ERROR: FileWriter: checkFile(): " + e);

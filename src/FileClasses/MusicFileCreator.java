@@ -21,7 +21,11 @@ public class MusicFileCreator extends Thread {
    public void run() {
       if (encodedMusicFiles != null) {
          for (int i = 0; i < encodedMusicFiles.size(); i++) {
-            musicFiles.add(new Musicfile(encodedMusicFiles.get(i)));
+            try {
+               musicFiles.add(new Musicfile(encodedMusicFiles.get(i)));
+            }catch(Exception e){
+               System.out.println("MusicFileCreator: run: " + e);
+            }
          }
       }
    }
