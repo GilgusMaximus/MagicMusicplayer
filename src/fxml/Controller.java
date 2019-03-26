@@ -1,9 +1,13 @@
 package fxml;
 
 import FileClasses.Musicfile;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import ControllerClasses.MusicManager;
 import javafx.scene.input.ScrollEvent;
@@ -16,7 +20,7 @@ public class Controller {
   public void setManager(MusicManager m) {
     manager = m;
   }
-
+  private int xPositionPre, yPosition;
   //------------------------------------------------------------------------------------
   //                                  Bottombar buttons
   //------------------------------------------------------------------------------------
@@ -42,10 +46,28 @@ public class Controller {
   }
 
   //------------------------------------------------------------------------------------
+  //                                  Topbar buttons
+  //------------------------------------------------------------------------------------
+  @FXML
+  protected void topbarClicked(){
+    manager.initializeMouseCoordinates();
+  }
+
+  @FXML
+  protected void dragEntered(){
+    System.out.println("Drag entered");
+    manager.moveWindows();
+  }
+  @FXML
+  protected void dragExited(){
+    System.out.println("HI");
+  }
+
+
+  //------------------------------------------------------------------------------------
   //                            Scrolling buttons in songs
   //------------------------------------------------------------------------------------
 
-  private boolean first = true;
   private int indexHighestButton = 0; //the button with the highest y coordinate
   private int indexHighestSong = 0;   //the song (as index) that is on the highest button
 

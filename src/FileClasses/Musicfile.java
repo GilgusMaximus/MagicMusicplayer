@@ -31,7 +31,7 @@ public class Musicfile {
          if(img.equals("AlbumArtSmall.jpg")) {
             Path a = Paths.get(path);
             a = a.getParent();
-            image = a.toString() + "\\AlbumArtSmall.jpg";
+            image = a.toString() + "/AlbumArtSmall.jpg";
          }
          else
             image = img;
@@ -68,7 +68,7 @@ public class Musicfile {
          if(img.equals("AlbumArtSmall.jpg")) {
             Path a = Paths.get(path);
             a = a.getParent();
-            image = a.toString() + "\\AlbumArtSmall.jpg";
+            image = a.toString() + "/AlbumArtSmall.jpg";
          }
          else
             image = img;

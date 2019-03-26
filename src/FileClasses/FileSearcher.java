@@ -13,7 +13,7 @@ class FileSearcher {
          String[] mainSubDirectories = new File(directories.get(i)).list();   //get all subdirectoriy names
          for (int j = 0; j < mainSubDirectories.length; j++)                   //go through all subdirectories recursively
          {
-            findAllFilesRec(directories.get(i) + "\\" + mainSubDirectories[j], mainSubDirectories[j], allFiles);
+            findAllFilesRec(directories.get(i) + "/" + mainSubDirectories[j], mainSubDirectories[j], allFiles);
          }
       }
       return allFiles;
@@ -35,7 +35,7 @@ class FileSearcher {
       } else {
          //no -> the current directory is indeed a directory
          for (int i = 0; i < subDirectoriesAndFiles.length; i++) {       //go through all sub directories recursively
-            findAllFilesRec(currentPath + "\\" + subDirectoriesAndFiles[i], subDirectoriesAndFiles[i], allFiles);
+            findAllFilesRec(currentPath + "/" + subDirectoriesAndFiles[i], subDirectoriesAndFiles[i], allFiles);
          }
       }
    }

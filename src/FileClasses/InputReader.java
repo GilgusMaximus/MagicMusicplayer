@@ -56,6 +56,7 @@ public class InputReader {
             if (path.substring(path.length() - 3).equals("m4a")) {   //m4a file?
                //yes -> use custom tag reader
                tags = p.findM4AData(file);
+
             } else {
                //no -> mp3 or wav file using same tag reader TODO write WAV Tag reader
                tags = p.findMp3Data(file);

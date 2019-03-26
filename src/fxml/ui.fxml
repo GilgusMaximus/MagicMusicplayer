@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Group xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.Controller">
+<Group xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.Controller">
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="640.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="640.0" style="-fx-background-color: transparent;">
          <children>
@@ -245,7 +245,7 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <AnchorPane minHeight="20.0" minWidth="640.0" prefHeight="20.0" prefWidth="640.0" style="-fx-background-color: #191919;">
+                  <AnchorPane fx:id="topbar" minHeight="20.0" minWidth="640.0" prefHeight="20.0" prefWidth="640.0" onMouseDragged="#dragEntered" onMouseClicked="#topbarClicked" style="-fx-background-color: #191919;">
                      <children>
                         <ImageView fx:id="closeWindow" fitHeight="20.0" fitWidth="20.0" onMouseClicked="#closeWindow" pickOnBounds="true" preserveRatio="true">
                            <image>

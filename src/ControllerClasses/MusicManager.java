@@ -4,6 +4,9 @@ import FileClasses.InputReader;
 import FileClasses.Musicfile;
 import com.sun.istack.internal.NotNull;
 import fxml.Controller;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -33,6 +36,7 @@ public class MusicManager extends Application {
    private int currentSongInQueue = 0;
    private MediaPlayer currentSongmediaPlayer;
 
+   private double mouseX, mouseY;
 
 
    private final int loopNothing = 0;
@@ -42,11 +46,12 @@ public class MusicManager extends Application {
    private Stage pS;
    private boolean newMusicFiles = false;
    private ArrayList<Integer> activeSortedList;
+   private boolean dragging;
    public static void main(String[] args) {
       InputReader.readInput();
       Application.launch();
    }
-
+   Stage stage;
    public void start(Stage primaryStage) {
       MediaView mediaView;
       pS = primaryStage;
@@ -86,6 +91,7 @@ public class MusicManager extends Application {
 
       //Displaying the contents of the stage
       primaryStage.show();
+      stage = primaryStage;
      try {
        sorter.join();
        activeSortedList = sorter.getList();
@@ -271,5 +277,31 @@ public class MusicManager extends Application {
    }
    public Musicfile getMusicfileAtPosition(int position){
       return musicFiles.get(activeSortedList.get(position));
+   }
+   //TODO decide whether the usage of a java window has more advantages than creating a windows from scratch (bug below + extra effort needed to add scaling and fullscreen etc)
+   //method needed to move the the window when it is dragged on the top bar
+   public void moveWindows(){
+      //get the current mouse position
+      double xNew = MouseInfo.getPointerInfo().getLocation().getX();
+      double yNew = MouseInfo.getPointerInfo().getLocation().getY();
+      //currently hacky bug solution - because of no reason tzhe mouseposition between mouse clicked and onMouseDragged is gigantic, so that the window always jumps a big step
+      if(mouseX-xNew < -50)
+         mouseX=xNew;
+      if(mouseY-yNew < -50)
+         mouseY=yNew;
+      //set the windows position
+      stage.setX(stage.getX()+xNew-mouseX);
+      stage.setY(stage.getY()+yNew-mouseY);
+      if(stage.getY() > Toolkit.getDefaultToolkit().getScreenSize().getHeight())
+        // stage.setY(Toolkit.getDefaultToolkit().getScreenSize().getHeight()+stage.getWidth()-100);
+      if(stage.getY() < 0)
+         stage.setY(0);
+      mouseY = yNew;
+      mouseX = xNew;
+   }
+   public void initializeMouseCoordinates(){
+      Point p = MouseInfo.getPointerInfo().getLocation();
+      mouseX = p.getX();
+      mouseY = p.getY();
    }
 }
