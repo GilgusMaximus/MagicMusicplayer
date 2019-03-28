@@ -4,9 +4,6 @@ import FileClasses.InputReader;
 import FileClasses.Musicfile;
 import com.sun.istack.internal.NotNull;
 import fxml.Controller;
-import java.awt.MouseInfo;
-import java.awt.Point;
-import java.awt.Toolkit;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -21,7 +18,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -36,25 +32,20 @@ public class MusicManager extends Application {
    private int currentSongInQueue = 0;
    private MediaPlayer currentSongmediaPlayer;
 
-   private double mouseX, mouseY;
-
-
    private final int loopNothing = 0;
    private final int loopSong = 2;
    private int loopStatus = loopNothing;
    private Controller uiController;
-   private Stage pS;
    private boolean newMusicFiles = false;
    private ArrayList<Integer> activeSortedList;
-   private boolean dragging;
+
    public static void main(String[] args) {
       InputReader.readInput();
       Application.launch();
    }
-   Stage stage;
+
    public void start(Stage primaryStage) {
       MediaView mediaView;
-      pS = primaryStage;
       musicFiles = InputReader.getMusicFiles();
       newMusicFiles = InputReader.getnewMusic();
       musicQueue = new ArrayList<>();
@@ -70,6 +61,7 @@ public class MusicManager extends Application {
          root = loader.load();
       } catch (Exception e) {
          System.err.println("ERROR: MusicManager: LOAD FXM " + e);
+         System.exit(-1);
       }
       uiController = loader.getController();
       uiController.setManager(this);
@@ -79,19 +71,22 @@ public class MusicManager extends Application {
       mediaView = new MediaView();
       ((Group) scene.getRoot()).getChildren().add(mediaView);
       //Setting title to the Stage
-      primaryStage.setTitle("Event Filters Example");
-      primaryStage.initStyle(StageStyle.UNDECORATED);
+      primaryStage.setTitle("Magic Musicplayer");
+      //primaryStage.initStyle(StageStyle.UNDECORATED);
      scene.setFill(null);
       //Adding scene to the stage
       primaryStage.setScene(scene);
-      primaryStage.setWidth(640);
-      primaryStage.setHeight(420);
-      primaryStage.initStyle(StageStyle.TRANSPARENT);
+      primaryStage.setWidth(648);
+      primaryStage.setHeight(457);
+      primaryStage.setMaxHeight(457);
+      primaryStage.setMaxWidth(648);
+      primaryStage.setMinHeight(457);
+      primaryStage.setMinWidth(648);
+      //primaryStage.initStyle(StageStyle.TRANSPARENT);
       //primaryStage.setMaximized(true);
 
       //Displaying the contents of the stage
       primaryStage.show();
-      stage = primaryStage;
      try {
        sorter.join();
        activeSortedList = sorter.getList();
@@ -264,14 +259,6 @@ public class MusicManager extends Application {
       return new Media(source);
    }
 
-   public void exitProgram(){
-
-     currentSongmediaPlayer.stop();
-     System.exit(1);
-   }
-   public void minimizeWindow(){
-     pS.setIconified(true);
-   }
    public int getNumberOfSongs(){
       return musicFiles.size()-1;
    }
@@ -280,28 +267,5 @@ public class MusicManager extends Application {
    }
    //TODO decide whether the usage of a java window has more advantages than creating a windows from scratch (bug below + extra effort needed to add scaling and fullscreen etc)
    //method needed to move the the window when it is dragged on the top bar
-   public void moveWindows(){
-      //get the current mouse position
-      double xNew = MouseInfo.getPointerInfo().getLocation().getX();
-      double yNew = MouseInfo.getPointerInfo().getLocation().getY();
-      //currently hacky bug solution - because of no reason tzhe mouseposition between mouse clicked and onMouseDragged is gigantic, so that the window always jumps a big step
-      if(mouseX-xNew < -50)
-         mouseX=xNew;
-      if(mouseY-yNew < -50)
-         mouseY=yNew;
-      //set the windows position
-      stage.setX(stage.getX()+xNew-mouseX);
-      stage.setY(stage.getY()+yNew-mouseY);
-      if(stage.getY() > Toolkit.getDefaultToolkit().getScreenSize().getHeight())
-        // stage.setY(Toolkit.getDefaultToolkit().getScreenSize().getHeight()+stage.getWidth()-100);
-      if(stage.getY() < 0)
-         stage.setY(0);
-      mouseY = yNew;
-      mouseX = xNew;
-   }
-   public void initializeMouseCoordinates(){
-      Point p = MouseInfo.getPointerInfo().getLocation();
-      mouseX = p.getX();
-      mouseY = p.getY();
-   }
+
 }

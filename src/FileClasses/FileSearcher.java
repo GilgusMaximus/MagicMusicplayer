@@ -2,24 +2,27 @@ package FileClasses;
 
 import java.io.File;
 import java.util.ArrayList;
-import ControllerClasses.textfileMarkers;
 
 class FileSearcher {
 
    static ArrayList<String> findAllFiles(ArrayList<String> directories) {
       ArrayList<String> allFiles = new ArrayList<>();
       for (int i = 0; i < directories.size(); i++) {                            //go through all directories that have been passed
-         //allFiles.add(textfileMarkers.searchDirectoryMarker + directories.get(i));
          String[] mainSubDirectories = new File(directories.get(i)).list();   //get all subdirectoriy names
+         if(mainSubDirectories == null){
+            System.err.println("ERROR: FileSearcher: findAllFiles: mainSubDirectories NULL");
+            return null;
+         }
+
          for (int j = 0; j < mainSubDirectories.length; j++)                   //go through all subdirectories recursively
          {
-            findAllFilesRec(directories.get(i) + "/" + mainSubDirectories[j], mainSubDirectories[j], allFiles);
+            findAllFilesRec(directories.get(i) + "/" + mainSubDirectories[j], allFiles);
          }
       }
       return allFiles;
    }
 
-   private static void findAllFilesRec(String currentPath, String name, ArrayList<String> allFiles) {
+   private static void findAllFilesRec(String currentPath, ArrayList<String> allFiles) {
       String[] subDirectoriesAndFiles = new File(currentPath).list(); //get the name of all subdirectories and files in the current directory
       if (subDirectoriesAndFiles == null) {                             //is the array equal to null?
          //yes -> the current directory is not a directory but a file
@@ -31,11 +34,10 @@ class FileSearcher {
          }else if(fileEnd.equals("png")||fileEnd.equals("jpg")||fileEnd.equals("jpeg")){
             //System.out.println(currentPath);
          }
-         return;
       } else {
          //no -> the current directory is indeed a directory
          for (int i = 0; i < subDirectoriesAndFiles.length; i++) {       //go through all sub directories recursively
-            findAllFilesRec(currentPath + "/" + subDirectoriesAndFiles[i], subDirectoriesAndFiles[i], allFiles);
+            findAllFilesRec(currentPath + "/" + subDirectoriesAndFiles[i], allFiles);
          }
       }
    }

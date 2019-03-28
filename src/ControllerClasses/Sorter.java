@@ -4,10 +4,11 @@ import FileClasses.Musicfile;
 import java.util.ArrayList;
 
 public class Sorter extends Thread{
-  ArrayList<ArrayList<Integer>> lists;
-  ArrayList<Integer> list;
-  ArrayList<Musicfile> musicfiles;
-  int current = 0;
+  private ArrayList<ArrayList<Integer>> lists;
+  private ArrayList<Integer> list;
+  private ArrayList<Musicfile> musicfiles;
+  private int current = 0;
+
   Sorter(ArrayList<Musicfile> Musicfiles){
     musicfiles = Musicfiles;
     lists = new ArrayList<>();
@@ -65,7 +66,7 @@ public class Sorter extends Thread{
     list.set(a, list.get(b));
     list.set(b, help);
   }
-  public ArrayList<Integer> getList(){
+  ArrayList<Integer> getList(){
     return lists.get(2);
   }
 }
