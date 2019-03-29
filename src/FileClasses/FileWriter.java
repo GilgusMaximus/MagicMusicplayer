@@ -2,6 +2,7 @@ package FileClasses;
 
 import java.io.File;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
@@ -34,7 +35,23 @@ public class FileWriter extends Thread {
    }
 
    private void writeAlbumsToFile(){ //writes the list of albums with the corresponding songs to a file
-
+      checkFile();
+      if(fileList == null || !(fileList.get(0) instanceof  AlbumClass)){
+         System.err.println("ERROR: FileWriter: writeAlbumsToFile: fileList = NULL OR fileList not of type ALBUMCLASS");
+         return;
+      }
+      ArrayList<AlbumClass> albumfiles = fileList; //this is fine, as it is checked before, that it is the correct filelist
+      BufferedWriter bf = createBufferedWriter();
+      try{
+         System.out.println("WRITING album files");
+         for(AlbumClass album : albumfiles){
+            bf.write(album.toString());
+            bf.newLine();
+         }
+         bf.close();
+      }catch(IOException e){
+         System.err.println("IO ERROR: FileWriter: writeAlbumsToFile: " + e);
+      }
    }
 
    private void writeCategoryListsToFile(){
@@ -82,8 +99,8 @@ public class FileWriter extends Thread {
 
    private void writeMusicFilesToFile() { //just write all Strings on a new line into the file
       checkFile();
-      if(fileList == null || !(fileList.get(0) instanceof  Musicfile)){
-         System.err.println("ERROR: FileWriter: fileList = null OR fileList not of type MUSICFILE");
+      if(fileList == null || fileList.size() == 0 || !(fileList.get(0) instanceof  Musicfile)){
+         System.err.println("ERROR: FileWriter: wirteMusicFilesToFile: fileList = null OR fileList not of type MUSICFILE");
          return;
       }
 
@@ -96,8 +113,8 @@ public class FileWriter extends Thread {
           bf.newLine();
         }
         bf.close();
-      } catch (Exception e) {
-         System.err.println("EXCEPTION: FileClasses.FileWriter: " + e);
+      } catch (IOException e) {
+         System.err.println("IO EXCEPTION: FileClasses.FileWriter: " + e);
       }
    }
 }

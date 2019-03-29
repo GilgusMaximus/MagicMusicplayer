@@ -24,4 +24,12 @@ public class AlbumClass {  //class which is used to store albums
    ArrayList<Integer> getAlbum(){
       return songIndices;
    }
+
+   @Override
+   public String toString() {
+      String indices = "";
+      for(int index : songIndices)
+         indices += index+";" ;
+      return name + ";" + indices;
+   }
 }

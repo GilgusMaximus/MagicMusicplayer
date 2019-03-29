@@ -1,5 +1,6 @@
 package ControllerClasses;
 
+import FileClasses.AlbumCreator;
 import FileClasses.InputReader;
 import FileClasses.Musicfile;
 import com.sun.istack.internal.NotNull;
@@ -55,6 +56,7 @@ public class MusicManager extends Application {
       }
       Sorter sorter = new Sorter(musicFiles);
       sorter.start();
+
       Parent root = null;
       FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/ui.fxml"));
       try {
@@ -72,8 +74,7 @@ public class MusicManager extends Application {
       ((Group) scene.getRoot()).getChildren().add(mediaView);
       //Setting title to the Stage
       primaryStage.setTitle("Magic Musicplayer");
-      //primaryStage.initStyle(StageStyle.UNDECORATED);
-     scene.setFill(null);
+      scene.setFill(null);
       //Adding scene to the stage
       primaryStage.setScene(scene);
       primaryStage.setWidth(648);
@@ -82,17 +83,17 @@ public class MusicManager extends Application {
       primaryStage.setMaxWidth(648);
       primaryStage.setMinHeight(457);
       primaryStage.setMinWidth(648);
-      //primaryStage.initStyle(StageStyle.TRANSPARENT);
-      //primaryStage.setMaximized(true);
 
       //Displaying the contents of the stage
       primaryStage.show();
      try {
        sorter.join();
-       activeSortedList = sorter.getList();
+       activeSortedList = sorter.getArtistSortedList();
      }catch(Exception e){
        System.err.println("MusicManager: Start: sorter.join: " + e);
      }
+     AlbumCreator albumCreator = new AlbumCreator(musicFiles, sorter.getAlbumSortedList());
+     albumCreator.start();
       // primaryStage.toFront();
       setMediaPlayerMedia();
       play();
@@ -265,7 +266,4 @@ public class MusicManager extends Application {
    public Musicfile getMusicfileAtPosition(int position){
       return musicFiles.get(activeSortedList.get(position));
    }
-   //TODO decide whether the usage of a java window has more advantages than creating a windows from scratch (bug below + extra effort needed to add scaling and fullscreen etc)
-   //method needed to move the the window when it is dragged on the top bar
-
 }
