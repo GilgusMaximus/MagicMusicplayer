@@ -3,33 +3,38 @@ package FileClasses;
 import java.io.File;
 import java.io.BufferedWriter;
 import java.io.PrintWriter;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class FileWriter extends Thread {
 
 
-   private ArrayList<Musicfile> musicfiles;
+   private ArrayList fileList;
    private ArrayList<Integer>[] sortedLists = new ArrayList[3]; //TODO Check whether this can work
-   private boolean append, categories;
+   private boolean append;
+   int fileType;
    private String filepath;
 
-   FileWriter(ArrayList<Musicfile> Musicfiles, boolean Append, boolean Categories, String Filepath) {
+   FileWriter(ArrayList Musicfiles, boolean Append, int file, String Filepath) {
       append = Append;
-      musicfiles = Musicfiles;
+      fileList = Musicfiles;
       filepath = Filepath;
-      categories = Categories;
+      fileType = file;
    }
 
    @Override
    public void run() {
-     if(!categories)
+     if(fileType == 0)
         writeMusicFilesToFile();
-     else
+     else if(fileType == 1)
        writeCategoryListsToFile();
+     else if(fileType == 2)
+        writeAlbumsToFile();
+     else
+        System.err.println("ERROR: FileWriter: incorrect fileType number");
+   }
+
+   private void writeAlbumsToFile(){ //writes the list of albums with the corresponding songs to a file
+
    }
 
    private void writeCategoryListsToFile(){
@@ -77,6 +82,12 @@ public class FileWriter extends Thread {
 
    private void writeMusicFilesToFile() { //just write all Strings on a new line into the file
       checkFile();
+      if(fileList == null || !(fileList.get(0) instanceof  Musicfile)){
+         System.err.println("ERROR: FileWriter: fileList = null OR fileList not of type MUSICFILE");
+         return;
+      }
+
+      ArrayList<Musicfile> musicfiles = fileList;  //this is fine
       BufferedWriter bf = createBufferedWriter();
       try {
         System.out.println("WRITING ");

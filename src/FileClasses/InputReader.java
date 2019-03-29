@@ -83,7 +83,7 @@ public class InputReader {
       }
 
       //create custom FileWriter
-      fileWriter = new FileWriter(musicFiles, append, false, "files/Musicfiles.txt");
+      fileWriter = new FileWriter(musicFiles, append, 0, "files/Musicfiles.txt");
       //start the writer on another thread, and let it write all new musicfiles to it
       fileWriter.run();
 
