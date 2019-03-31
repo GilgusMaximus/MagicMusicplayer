@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class FileWriter extends Thread {
@@ -70,6 +73,14 @@ public class FileWriter extends Thread {
    }
 
    private void checkFile(){
+      try {
+         if (!Files.exists(Paths.get("./files"))) {
+            Files.createDirectory(Paths.get("./files"));
+            System.out.println("Directory fiels erzeugt");
+         }
+      }catch(IOException e){
+         System.err.println("ERROR: FileWriter: checkFile: createDirectory: " + e);
+      }
      File file = new File(filepath);
      if (!file.exists()) {
        try {
@@ -109,8 +120,8 @@ public class FileWriter extends Thread {
       try {
         System.out.println("WRITING ");
         for(Musicfile m : musicfiles){
-          bf.write(m.toString());
-          bf.newLine();
+              bf.write(m.toString());
+              bf.newLine();
         }
         bf.close();
       } catch (IOException e) {

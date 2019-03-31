@@ -3,8 +3,10 @@ package FileClasses;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
-public class InputReader {
+public class InputReader{
 
 
    private static ArrayList<Musicfile> musicFiles = new ArrayList<>();
@@ -42,7 +44,8 @@ public class InputReader {
 
       if (search) {  //do we hav new directories to scan?
          //yes -> search for all music files
-         ArrayList<String> directories = readInputDirectories();
+         ArrayList<String> directories = new ArrayList<>();//readInputDirectories();
+         directories.add("E:/Musik/YoutubeMusik");
          ArrayList<String> newSearchedFiles = FileSearcher.findAllFiles(directories);
          PatternMatcher p = new PatternMatcher();
          Musicfile musicfile;

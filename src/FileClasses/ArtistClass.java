@@ -2,26 +2,26 @@ package FileClasses;
 
 import java.util.ArrayList;
 
-public class AlbumClass {  //class which is used to store albums
+public class ArtistClass {
 
    private String name;
    private ArrayList<Integer> songIndices; //song indices according to the main song list
 
-   AlbumClass(String Name, int firstSongIndex){
+   ArtistClass(String Name, int firstSongIndex){
       name = Name;
       songIndices = new ArrayList<>();
       songIndices.add(firstSongIndex);
    }
 
-   void addSongToAlbum(int songID){
+   void addSongToArtist(int songID){
       songIndices.add(songID);
    }
 
-   String getAlbumName(){
+   String getArtistName(){
       return name;
    }
 
-   ArrayList<Integer> getAlbumSongs(){
+   ArrayList<Integer> getArtistSongs(){
       return songIndices;
    }
 

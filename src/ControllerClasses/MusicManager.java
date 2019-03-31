@@ -1,6 +1,7 @@
 package ControllerClasses;
 
 import FileClasses.AlbumCreator;
+import FileClasses.ArtistCreator;
 import FileClasses.InputReader;
 import FileClasses.Musicfile;
 import com.sun.istack.internal.NotNull;
@@ -18,6 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -39,9 +41,9 @@ public class MusicManager extends Application {
    private Controller uiController;
    private boolean newMusicFiles = false;
    private ArrayList<Integer> activeSortedList;
-
+   private Media songMedia;
    public static void main(String[] args) {
-      InputReader.readInput();
+     InputReader.readInput();
       Application.launch();
    }
 
@@ -58,7 +60,7 @@ public class MusicManager extends Application {
       sorter.start();
 
       Parent root = null;
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/ui.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("ui.fxml"));
       try {
          root = loader.load();
       } catch (Exception e) {
@@ -68,7 +70,7 @@ public class MusicManager extends Application {
       uiController = loader.getController();
       uiController.setManager(this);
 
-      // Creating a scene object
+      //Creating a scene object
       @NotNull Scene scene = new Scene(root, 600, 300);
       mediaView = new MediaView();
       ((Group) scene.getRoot()).getChildren().add(mediaView);
@@ -86,18 +88,21 @@ public class MusicManager extends Application {
 
       //Displaying the contents of the stage
       primaryStage.show();
+
      try {
        sorter.join();
        activeSortedList = sorter.getArtistSortedList();
      }catch(Exception e){
        System.err.println("MusicManager: Start: sorter.join: " + e);
      }
-     AlbumCreator albumCreator = new AlbumCreator(musicFiles, sorter.getAlbumSortedList());
-     albumCreator.start();
-      // primaryStage.toFront();
+      AlbumCreator albumCreator = new AlbumCreator(musicFiles, sorter.getAlbumSortedList());
+      albumCreator.start();
+      ArtistCreator artistcreator = new ArtistCreator(musicFiles, sorter.getArtistSortedList());
+      artistcreator.start();
+
       setMediaPlayerMedia();
       play();
-
+     // System.out.println("SONG DURATION?: " + currentSongmediaPlayer.getTotalDuration().toString());
 
       setDisplayedImage(currentSongInQueue);
       setDisplayedTexts(currentSongInQueue);
@@ -126,11 +131,32 @@ public class MusicManager extends Application {
    }
 
    private void setMediaPlayerMedia() {
-      if(currentSongmediaPlayer != null)
+      if(currentSongmediaPlayer != null) {
          currentSongmediaPlayer.stop();
+         currentSongmediaPlayer.dispose();
+      }
+      currentSongmediaPlayer = null;
       File f = new File(musicFiles.get(activeSortedList.get(currentSongInQueue)).getFilePath());
-      Media m = createMedia(f);
-      currentSongmediaPlayer = new MediaPlayer(m);
+      songMedia = createMedia(f);
+      currentSongmediaPlayer = new MediaPlayer(songMedia);
+      currentSongmediaPlayer.setOnEndOfMedia(() -> { //method called when the song ends
+         if (loopStatus == loopSong) { //are we currently looping the song?
+            //yes -> reset the player and play again
+            currentSongmediaPlayer.seek(Duration.ZERO);
+            currentSongmediaPlayer.play();
+         } else {
+            //no -> see method for explanation
+            songAtEndCheckNextPlay();
+         }
+      });
+      currentSongmediaPlayer.setOnReady(new Runnable() {
+
+         @Override
+         public void run() {
+            System.out.println("Duration: "+currentSongmediaPlayer.getMedia().getDuration().toSeconds());
+         }
+      });
+      System.gc();
    }
 
    private void playNextSongInQueue() {
@@ -204,23 +230,12 @@ public class MusicManager extends Application {
       play();
    }
    public void playSongOnIndex(int index){
-      File fiel = new File(musicFiles.get(activeSortedList.get(index)).getFilePath());
-      Media a = createMedia(fiel);
-      currentSongmediaPlayer.stop();
-      currentSongmediaPlayer = new MediaPlayer(a);
-      currentSongmediaPlayer.setOnEndOfMedia(() -> { //method called when the song ends
-         if (loopStatus == loopSong) { //are we currently looping the song?
-            //yes -> reset the player and play again
-            currentSongmediaPlayer.seek(Duration.ZERO);
-            currentSongmediaPlayer.play();
-         } else {
-            //no -> see method for explanation
-            songAtEndCheckNextPlay();
-         }
-      });
+      currentSongInQueue = index;
+      setMediaPlayerMedia();
       setDisplayedTexts(index);
       setDisplayedImage(index);
       currentSongmediaPlayer.play();
+      currentSongInQueue = index;
    }
    private void songAtEndCheckNextPlay() { //at the end of the queue check which looping type is active
       if (currentSongInQueue == musicQueue.size() - 1 && loopStatus == loopNothing) {  //not looping?
@@ -256,8 +271,7 @@ public class MusicManager extends Application {
 
    //often used create methods
    private Media createMedia(File file) {
-      final String source = file.toURI().toString();
-      return new Media(source);
+      return new Media(file.toURI().toString());
    }
 
    public int getNumberOfSongs(){

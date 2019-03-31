@@ -209,7 +209,6 @@ public class Controller {
     albumTitle.setText(newAlbum);
   }
 
-  public void setSongThumbnail(Image i) {
-    mp3Thumb.setImage(i);
+  public void setSongThumbnail(Image i) { mp3Thumb.setImage(i);
   }
 }
