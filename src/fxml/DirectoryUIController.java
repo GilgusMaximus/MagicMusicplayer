@@ -1,5 +1,6 @@
 package fxml;
 
+import ControllerClasses.MusicManager;
 import java.io.File;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -14,6 +15,12 @@ public class DirectoryUIController {
    @FXML
    AnchorPane anchorpane;
 
+   private MusicManager manager;
+
+   public void setMusicManager(MusicManager Manager){
+      manager = Manager;
+   }
+
    private void browseButtonclicked(){
       DirectoryChooser chooser = new DirectoryChooser();
       Stage stage = (Stage) anchorpane.getScene().getWindow();
@@ -21,5 +28,11 @@ public class DirectoryUIController {
       if(file != null){
          System.out.println("PATH: " + file.getPath());
       }
+   }
+
+
+   public void finishEntry(){
+      System.out.println("HI");
+     manager.activateMusicWindows();
    }
 }

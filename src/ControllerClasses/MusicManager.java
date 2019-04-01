@@ -6,8 +6,10 @@ import FileClasses.InputReader;
 import FileClasses.Musicfile;
 import com.sun.istack.internal.NotNull;
 import fxml.Controller;
+import fxml.DirectoryUIController;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import javafx.application.Application;
 
@@ -19,7 +21,6 @@ import javafx.scene.image.Image;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -39,15 +40,51 @@ public class MusicManager extends Application {
    private final int loopSong = 2;
    private int loopStatus = loopNothing;
    private Controller uiController;
+   private Stage windowStage;
+   private DirectoryUIController directoryUIController;
    private boolean newMusicFiles = false;
    private ArrayList<Integer> activeSortedList;
    private Media songMedia;
+   private Scene scene;
    public static void main(String[] args) {
      InputReader.readInput();
       Application.launch();
    }
 
    public void start(Stage primaryStage) {
+      MediaView mediaView;
+
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("directoryChoose.fxml"));
+      Parent root = null;
+      try {
+         root = loader.load();
+      } catch (IOException e) {
+         System.err.println("ERROR: MusicManager: directoryUI FXML Load: " + e);
+      }
+      directoryUIController = loader.getController();
+      //Creating a scene object
+      scene = new Scene(root, 600, 300);
+      mediaView = new MediaView();
+      ((Group) scene.getRoot()).getChildren().add(mediaView);
+      //Setting title to the Stage
+      primaryStage.setTitle("Magic Musicplayer");
+      scene.setFill(null);
+      //Adding scene to the stage
+      primaryStage.setScene(scene);
+      primaryStage.setWidth(648);
+      primaryStage.setHeight(457);
+      primaryStage.setMaxHeight(457);
+      primaryStage.setMaxWidth(648);
+      primaryStage.setMinHeight(457);
+      primaryStage.setMinWidth(648);
+
+      //Displaying the contents of the stage
+      primaryStage.show();
+      windowStage = primaryStage;
+      directoryUIController.setMusicManager(this);
+   }
+
+   public void activateMusicWindows(){
       MediaView mediaView;
       musicFiles = InputReader.getMusicFiles();
       newMusicFiles = InputReader.getnewMusic();
@@ -75,26 +112,18 @@ public class MusicManager extends Application {
       mediaView = new MediaView();
       ((Group) scene.getRoot()).getChildren().add(mediaView);
       //Setting title to the Stage
-      primaryStage.setTitle("Magic Musicplayer");
-      scene.setFill(null);
       //Adding scene to the stage
-      primaryStage.setScene(scene);
-      primaryStage.setWidth(648);
-      primaryStage.setHeight(457);
-      primaryStage.setMaxHeight(457);
-      primaryStage.setMaxWidth(648);
-      primaryStage.setMinHeight(457);
-      primaryStage.setMinWidth(648);
+      windowStage.setScene(scene);
 
       //Displaying the contents of the stage
-      primaryStage.show();
+      windowStage.show();
 
-     try {
-       sorter.join();
-       activeSortedList = sorter.getArtistSortedList();
-     }catch(Exception e){
-       System.err.println("MusicManager: Start: sorter.join: " + e);
-     }
+      try {
+         sorter.join();
+         activeSortedList = sorter.getArtistSortedList();
+      }catch(Exception e){
+         System.err.println("MusicManager: Start: sorter.join: " + e);
+      }
       AlbumCreator albumCreator = new AlbumCreator(musicFiles, sorter.getAlbumSortedList());
       albumCreator.start();
       ArtistCreator artistcreator = new ArtistCreator(musicFiles, sorter.getArtistSortedList());
@@ -102,7 +131,7 @@ public class MusicManager extends Application {
 
       setMediaPlayerMedia();
       play();
-     // System.out.println("SONG DURATION?: " + currentSongmediaPlayer.getTotalDuration().toString());
+      // System.out.println("SONG DURATION?: " + currentSongmediaPlayer.getTotalDuration().toString());
 
       setDisplayedImage(currentSongInQueue);
       setDisplayedTexts(currentSongInQueue);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -8,28 +9,38 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorpane" maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.DirectoryUIController">
+
+<Group xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.DirectoryUIController">
    <children>
-      <Button fx:id="browseButton" layoutX="385.0" layoutY="71.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="140.0" text="Browse">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-      <TextField fx:id="directoryField" layoutX="14.0" layoutY="71.0" prefHeight="46.0" prefWidth="349.0" />
-      <Label layoutX="16.0" layoutY="16.0" prefHeight="46.0" prefWidth="526.0" text="Choose directories, which the app should crawl for music files">
-         <font>
-            <Font size="19.0" />
-         </font>
-      </Label>
-      <Button fx:id="addToListButton" layoutX="385.0" layoutY="135.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="140.0" text="Add to list">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-      <ScrollPane layoutX="14.0" layoutY="135.0" prefHeight="251.0" prefWidth="349.0">
-         <content>
-            <VBox fx:id="addedDirectoriesList" prefHeight="248.0" prefWidth="346.0" />
-         </content>
-      </ScrollPane>
+      <AnchorPane fx:id="anchorpane" maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <Button fx:id="browseButton" layoutX="385.0" layoutY="71.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="140.0" text="Browse">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <TextField fx:id="directoryField" layoutX="14.0" layoutY="71.0" prefHeight="46.0" prefWidth="349.0" />
+            <Label layoutX="16.0" layoutY="16.0" prefHeight="46.0" prefWidth="526.0" text="Choose directories, which the app should crawl for music files">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <Button fx:id="finishButton" mnemonicParsing="false" onMouseClicked="#finishEntry" prefHeight="46.0" prefWidth="140.0" text="Finish" translateX="385.0" translateY="330.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="addToListButton" layoutX="385.0" layoutY="135.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="140.0" text="Add to list">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <ScrollPane layoutX="14.0" layoutY="135.0" prefHeight="251.0" prefWidth="349.0">
+               <content>
+                  <VBox fx:id="addedDirectoriesList" prefHeight="248.0" prefWidth="346.0" />
+               </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
    </children>
-</AnchorPane>
+</Group>
