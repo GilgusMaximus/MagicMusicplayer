@@ -9,17 +9,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <Group xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.DirectoryUIController">
    <children>
       <AnchorPane fx:id="anchorpane" maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0">
          <children>
-            <Button fx:id="browseButton" layoutX="385.0" layoutY="71.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="140.0" text="Browse">
+            <Button fx:id="browseButton" layoutX="385.0" layoutY="71.0" mnemonicParsing="false" onAction="#browseButtonclicked" prefHeight="46.0" prefWidth="140.0" text="Browse">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <TextField fx:id="directoryField" layoutX="14.0" layoutY="71.0" prefHeight="46.0" prefWidth="349.0" />
+            <TextField fx:id="directoryField" layoutX="14.0" layoutY="71.0" prefHeight="46.0" prefWidth="349.0" promptText="Directory" />
             <Label layoutX="16.0" layoutY="16.0" prefHeight="46.0" prefWidth="526.0" text="Choose directories, which the app should crawl for music files">
                <font>
                   <Font size="19.0" />
@@ -30,7 +29,12 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="addToListButton" layoutX="385.0" layoutY="135.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="140.0" text="Add to list">
+            <Label prefHeight="46.0" prefWidth="230.0" text="Click on directories to remove them" translateX="370.0" translateY="200.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Button fx:id="addToListButton" layoutX="385.0" layoutY="135.0" mnemonicParsing="false" onAction="#addDirectoryToList" prefHeight="46.0" prefWidth="140.0" text="Add to list">
                <font>
                   <Font size="18.0" />
                </font>
