@@ -4,11 +4,14 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.util.ArrayList;
 
-class FileReader {
+public class FileReader {
 
     private ArrayList<String> allFiles = null;
 
-    boolean readFile(String filepath){
+
+
+
+    public boolean readFile(String filepath){
         allFiles = new ArrayList<>();
         File file = new File(filepath);
         if(!file.exists())
@@ -27,7 +30,7 @@ class FileReader {
         }
         return true;
     }
-    ArrayList<String> getAllFiles(){
+    public ArrayList<String> getAllFiles(){
         return  allFiles;
     }
 }

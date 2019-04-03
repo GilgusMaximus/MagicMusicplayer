@@ -5,7 +5,6 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
@@ -15,12 +14,12 @@ public class FileWriter extends Thread {
    private ArrayList fileList;
    private ArrayList<Integer>[] sortedLists = new ArrayList[3]; //TODO Check whether this can work
    private boolean append;
-   int fileType;
+   private int fileType;
    private String filepath;
 
-   FileWriter(ArrayList Musicfiles, boolean Append, int file, String Filepath) {
+   public FileWriter(ArrayList FileList, boolean Append, int file, String Filepath) {
       append = Append;
-      fileList = Musicfiles;
+      fileList = FileList;
       filepath = Filepath;
       fileType = file;
    }
@@ -33,8 +32,31 @@ public class FileWriter extends Thread {
        writeCategoryListsToFile();
      else if(fileType == 2)
         writeAlbumsToFile();
+     else if(fileType == 3)
+        writeSearchedDirectoriesToFile();
      else
         System.err.println("ERROR: FileWriter: incorrect fileType number");
+   }
+
+   private void writeSearchedDirectoriesToFile(){
+      checkFile();
+      if(fileList == null || !(fileList.get(0) instanceof  String)){
+         System.err.println("ERROR: FileWriter: writeDirectoriesToFile: fileList = NULL OR fileList not of type ALBUMCLASS");
+         return;
+      }
+      ArrayList<String> directories = fileList; //this is fine, as it is checked before, that it is the correct filelist
+      BufferedWriter bf = createBufferedWriter();
+      try{
+         System.out.println("WRITING album files");
+         for(String directory : directories){
+            bf.write(directory);
+            bf.newLine();
+         }
+         bf.close();
+      }catch(IOException e){
+         System.err.println("IO ERROR: FileWriter: writeDirectoriesToFile: " + e);
+      }
+
    }
 
    private void writeAlbumsToFile(){ //writes the list of albums with the corresponding songs to a file

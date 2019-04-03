@@ -2,6 +2,8 @@ package ControllerClasses;
 
 import FileClasses.AlbumCreator;
 import FileClasses.ArtistCreator;
+import FileClasses.FileReader;
+import FileClasses.FileWriter;
 import FileClasses.InputReader;
 import FileClasses.Musicfile;
 import com.sun.istack.internal.NotNull;
@@ -78,13 +80,23 @@ public class MusicManager extends Application {
       primaryStage.setMinHeight(457);
       primaryStage.setMinWidth(648);
 
+      directoryUIController.setMusicManager(this);
+      FileReader reader = new FileReader();
+      if(reader.readFile("files/directories.txt")) {
+         directoryUIController.setAlreadyScannedDirectories(reader.getAllFiles());
+      }else {
+         directoryUIController.setAlreadyScannedDirectories(null);
+      }
+
       //Displaying the contents of the stage
       primaryStage.show();
       windowStage = primaryStage;
-      directoryUIController.setMusicManager(this);
+
    }
 
-   public void activateMusicWindows(){
+   public void activateMusicWindows(ArrayList<String> newDirectories, ArrayList<String> alreadyScannedDirectories){
+      FileWriter writer = new FileWriter(newDirectories, true, 3, "files/directories.txt");
+      writer.start();
       MediaView mediaView;
       musicFiles = InputReader.getMusicFiles();
       newMusicFiles = InputReader.getnewMusic();
