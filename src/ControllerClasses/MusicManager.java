@@ -28,6 +28,7 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.util.ArrayList;
+import jdk.internal.util.xml.impl.Input;
 import mp3magic.ID3v2;
 import mp3magic.Mp3File;
 
@@ -49,7 +50,6 @@ public class MusicManager extends Application {
    private Media songMedia;
    private Scene scene;
    public static void main(String[] args) {
-     InputReader.readInput();
       Application.launch();
    }
 
@@ -98,6 +98,7 @@ public class MusicManager extends Application {
       FileWriter writer = new FileWriter(newDirectories, true, 3, "files/directories.txt");
       writer.start();
       MediaView mediaView;
+      InputReader.readInput(newDirectories);
       musicFiles = InputReader.getMusicFiles();
       newMusicFiles = InputReader.getnewMusic();
       musicQueue = new ArrayList<>();

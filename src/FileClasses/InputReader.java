@@ -12,7 +12,7 @@ public class InputReader{
    private static ArrayList<Musicfile> musicFiles = new ArrayList<>();
    private static boolean newMusic = true;
 
-   public static void readInput() {
+   public static void readInput(ArrayList<String> newDirectories) {
       double timeStart = System.nanoTime();
       boolean search = true;
       boolean append = true;
@@ -28,15 +28,17 @@ public class InputReader{
       } else {
          allFiles = null;
       }
+
+
+      //these two ifs cannot be true at the same time. if allFiles = new, the nwe didnt read any files prevously -> teh user has to provide at least one search directory
       if (allFiles == null) {
-         System.out.println("Bitte geben sie einen Ordner an in welchem selbst + allen Unterordnern nach Musik gesucht werden soll");
-      } else {
-         System.out.println("Möchten sie zu den bereits durchsuchten Directories weitere hinzufügen? y/n");
-         Scanner s = new Scanner(System.in);
-         if (!s.nextLine().toLowerCase().equals("y")) {
-            search = false;
-            newMusic = false;
-         }
+         search = true;
+         newMusic = true;
+      }
+      //TODO Check if the directory has no music files, whetehr the two ifs are both true
+      if(newDirectories == null){
+         search = false;
+         newMusic = false;
       }
 
       MusicFileCreator creator = new MusicFileCreator(allFiles);
@@ -44,9 +46,7 @@ public class InputReader{
 
       if (search) {  //do we hav new directories to scan?
          //yes -> search for all music files
-         ArrayList<String> directories = new ArrayList<>();//readInputDirectories();
-         directories.add("E:/Musik/YoutubeMusik");
-         ArrayList<String> newSearchedFiles = FileSearcher.findAllFiles(directories);
+         ArrayList<String> newSearchedFiles = FileSearcher.findAllFiles(newDirectories);
          PatternMatcher p = new PatternMatcher();
          Musicfile musicfile;
 
@@ -100,29 +100,6 @@ public class InputReader{
       musicFiles.addAll(creator.getMusicFiles());
       double timeEnd = System.nanoTime();
       System.out.println("read Input hat " + ((timeEnd-timeStart)/1000000000) + "s für " + neueZahl + " neu zu suchende Files und " + (musicFiles.size()-neueZahl) + " bereits gespeicherte Files gebraucht");
-   }
-
-   private static ArrayList<String> readInputDirectories() {
-      Scanner scanner = new Scanner(System.in);
-      ArrayList<String> directories = new ArrayList<>();
-      String directory = null;
-      while (directory == null) {
-         directory = scanner.nextLine();
-         File checkExistence = new File(directory);
-         if (!checkExistence.isDirectory()) {
-            directory = null;
-            System.out.println("This is not a valid directory. please try again");
-         } else {
-            directories.add(directory);
-            System.out.println("Möchten sie einen weiteren Ordner hinzufügen? y/n");
-            String answer = scanner.nextLine().toLowerCase();
-            if (answer.equals("y")) {
-               directory = null;
-               System.out.println("Bitte geben sie einen weiteren Ordnern an");
-            }
-         }
-      }
-      return directories;
    }
 
    public static boolean getnewMusic(){
