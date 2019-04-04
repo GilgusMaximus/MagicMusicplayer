@@ -66,10 +66,14 @@ public class Sorter extends Thread{
     list.set(a, list.get(b));
     list.set(b, help);
   }
-  ArrayList<Integer> getArtistSortedList(){
-    return lists.get(2);
+
+  ArrayList<Integer> getSongTitleSortedList(){
+    return lists.get(0);
   }
   ArrayList<Integer> getAlbumSortedList(){
     return lists.get(1);
+  }
+  ArrayList<Integer> getArtistSortedList(){
+    return lists.get(2);
   }
 }

@@ -13,7 +13,7 @@
    <children>
       <AnchorPane fx:id="anchorpane" maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0">
          <children>
-            <Button fx:id="browseButton" layoutX="385.0" layoutY="71.0" mnemonicParsing="false" onAction="#browseButtonclicked" prefHeight="46.0" prefWidth="140.0" text="Browse">
+            <Button fx:id="browseButton" layoutX="385.0" layoutY="71.0" mnemonicParsing="false" onAction="#browseButtonClicked" prefHeight="46.0" prefWidth="140.0" text="Browse">
                <font>
                   <Font size="18.0" />
                </font>
@@ -34,7 +34,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button fx:id="addToListButton" layoutX="385.0" layoutY="135.0" mnemonicParsing="false" onAction="#addDirectoryToList" prefHeight="46.0" prefWidth="140.0" text="Add to list">
+            <Button fx:id="addToListButton" layoutX="385.0" layoutY="135.0" onAction="#addNewDirectoryToList" mnemonicParsing="false" prefHeight="46.0" prefWidth="140.0" text="Add to list">
                <font>
                   <Font size="18.0" />
                </font>
