@@ -17,6 +17,15 @@ public class Controller {
     manager = m;
   }
 
+  public Image getStandardImage(){
+    return mp3Thumb.getImage();
+  }
+  @FXML
+  private ImageView logo;
+  public Image getLogo(){
+    return logo.getImage();
+  }
+
   //------------------------------------------------------------------------------------
   //                                  Bottombar buttons
   //------------------------------------------------------------------------------------

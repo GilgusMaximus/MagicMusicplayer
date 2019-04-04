@@ -16,6 +16,9 @@ import java.io.File;
 import java.io.InputStream;
 
 import com.sun.istack.internal.NotNull;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 import javafx.application.Application;
@@ -32,6 +35,8 @@ import javafx.util.Duration;
 
 import mp3magic.ID3v2;
 import mp3magic.Mp3File;
+import sun.misc.IOUtils;
+import sun.nio.ch.IOUtil;
 
 public class MusicManager extends Application {
 
@@ -46,7 +51,7 @@ public class MusicManager extends Application {
    private Controller uiController;
    private Stage windowStage;
    private ArrayList<Integer> activeSortedList; //the list, which decides, how the queue of all songs is sorted
-
+   private Image standardImage;
 
    public static void main(String[] args) {
       Application.launch();
@@ -84,6 +89,18 @@ public class MusicManager extends Application {
       primaryStage.setMaxWidth(648);
       primaryStage.setMinHeight(457);
       primaryStage.setMinWidth(648);
+
+
+      File f = new File("src/ControllerClasses/images/MM.png");
+      byte[] ass = null;
+      try {
+          ass = Files.readAllBytes(f.toPath());
+      }catch(Exception e){
+
+      }
+      InputStream i = new ByteArrayInputStream(ass);
+      Image a = new Image(i);
+      primaryStage.getIcons().add(a);
 
       //access the controller from the fxml loader
       directoryUIController = loader.getController();
@@ -143,7 +160,7 @@ public class MusicManager extends Application {
       //setup the new controller
       uiController = loader.getController();
       uiController.setManager(this);
-
+      standardImage = uiController.getStandardImage();
       //Creating a scene object
       @NotNull Scene scene = new Scene(root, 600, 300);
       ((Group) scene.getRoot()).getChildren().add(mediaView);
@@ -181,13 +198,13 @@ public class MusicManager extends Application {
       uiController.buttonSetup();
    }
 
-   private void addSongToEndOfQueue(int songIndex) {
-      musicQueue.add(songIndex);        //add the MediaPlayer to the play queue
-   }
-
    //------------------------------------------------------------------------------------
    //                                  Music playback control methods
    //------------------------------------------------------------------------------------
+
+   private void addSongToEndOfQueue(int songIndex) {
+      musicQueue.add(songIndex);        //add the MediaPlayer to the play queue
+   }
 
    //plays the next song in queue (if current song is last, then the first is played)
    private void playNextSongInQueue() {
@@ -306,14 +323,7 @@ public class MusicManager extends Application {
 
    //sets the image that is displayed to a filler picture
    private void setDisplayedImageToStandard(){
-      FileInputStream inputstream = null;
-      try {
-         inputstream = new FileInputStream("src/fxml/pictures/standardcover.png"); //open the needed image as FileStream
-      }catch(Exception e){
-         System.err.println("ERROR: MusicManager: setDisplayedImage: inputStream: " + e);
-      }
-      if(inputstream != null)
-         uiController.setSongThumbnail(new Image(inputstream));  //set the image that is shown in the ui
+      uiController.setSongThumbnail(standardImage);  //set the image that is shown in the ui
    }
 
    //------------------------------------------------------------------------------------

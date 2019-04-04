@@ -1,11 +1,16 @@
 <component name="ArtifactManager">
-  <artifact type="javafx" name="Musicplayer">
+  <artifact type="javafx" build-on-make="true" name="Musicplayer">
     <output-path>$PROJECT_DIR$/out/artifacts/Musicplayer</output-path>
     <properties id="javafx-properties">
       <options>
         <option name="appClass" value="ControllerClasses.MusicManager" />
         <option name="description" value="" />
         <option name="htmlPlaceholderId" value="" />
+        <option name="icons">
+          <JavaFxApplicationIcons>
+            <option name="windowsIcon" value="$PROJECT_DIR$/src/fxml/pictures/mm_tmi_icon.ico" />
+          </JavaFxApplicationIcons>
+        </option>
         <option name="nativeBundle" value="all" />
         <option name="title" value="" />
         <option name="vendor" value="" />
@@ -15,7 +20,10 @@
     <root id="root">
       <element id="archive" name="Musicplayer.jar">
         <element id="module-output" name="Musicplayer" />
+        <element id="file-copy" path="$PROJECT_DIR$/src/ControllerClasses/images/MM.png" />
+        <element id="dir-copy" path="$PROJECT_DIR$/src/ControllerClasses/images" />
       </element>
+      <element id="file-copy" path="$PROJECT_DIR$/src/ControllerClasses/images/MM.png" />
     </root>
   </artifact>
 </component>
