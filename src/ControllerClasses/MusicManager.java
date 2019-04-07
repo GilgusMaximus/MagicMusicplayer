@@ -6,6 +6,7 @@ import FileClasses.FileReader;
 import FileClasses.FileWriter;
 import FileClasses.InputReader;
 import FileClasses.Musicfile;
+import com.sun.xml.internal.ws.api.ResourceLoader;
 import fxml.Controller;
 import fxml.DirectoryUIController;
 
@@ -91,14 +92,14 @@ public class MusicManager extends Application {
       primaryStage.setMinWidth(648);
 
 
-      File f = new File("src/ControllerClasses/images/MM.png");
+     /* File f = new File("src/ControllerClasses/images/MM.png");
       byte[] ass = null;
       try {
           ass = Files.readAllBytes(f.toPath());
       }catch(Exception e){
 
-      }
-      InputStream i = new ByteArrayInputStream(ass);
+      }*/
+      InputStream i = getClass().getResourceAsStream("/resources/MM.png");
       Image a = new Image(i);
       primaryStage.getIcons().add(a);
 

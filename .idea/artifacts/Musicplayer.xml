@@ -20,10 +20,10 @@
     <root id="root">
       <element id="archive" name="Musicplayer.jar">
         <element id="module-output" name="Musicplayer" />
-        <element id="file-copy" path="$PROJECT_DIR$/src/ControllerClasses/images/MM.png" />
+        <element id="file-copy" path="$PROJECT_DIR$/src/resources/MM.png" />
         <element id="dir-copy" path="$PROJECT_DIR$/src/ControllerClasses/images" />
       </element>
-      <element id="file-copy" path="$PROJECT_DIR$/src/ControllerClasses/images/MM.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/resources/MM.png" />
     </root>
   </artifact>
 </component>
