@@ -23,6 +23,10 @@ https://lucahohmann.com/magic-musicplayer/
 
 https://lucahohmann.com/magic-musicplayer-javafx-in-2019/
 
+
+
+This project uses the mp3magic libary for mp3 tag analyzing. So check it out here: https://github.com/mpatric/mp3agic
+
 ## Download
 Can you trust the download? Well yes and no. Because how should I prove to you, that the code of a built application is the same as the repository code? I can't. But I personally believe in the open source project, and want to contribute to a better software accessability for everyone. So either you take my word, or compile the code yourself =)
 
