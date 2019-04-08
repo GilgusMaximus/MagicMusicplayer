@@ -1,12 +1,13 @@
 package ControllerClasses;
 
+import static java.lang.Thread.sleep;
+
 import FileClasses.AlbumCreator;
 import FileClasses.ArtistCreator;
 import FileClasses.FileReader;
 import FileClasses.FileWriter;
 import FileClasses.InputReader;
 import FileClasses.Musicfile;
-import com.sun.xml.internal.ws.api.ResourceLoader;
 import fxml.Controller;
 import fxml.DirectoryUIController;
 
@@ -17,12 +18,11 @@ import java.io.File;
 import java.io.InputStream;
 
 import com.sun.istack.internal.NotNull;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 
 import javafx.application.Application;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -30,14 +30,14 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import mp3magic.ID3v2;
 import mp3magic.Mp3File;
-import sun.misc.IOUtils;
-import sun.nio.ch.IOUtil;
+
 
 public class MusicManager extends Application {
 
@@ -53,6 +53,7 @@ public class MusicManager extends Application {
    private Stage windowStage;
    private ArrayList<Integer> activeSortedList; //the list, which decides, how the queue of all songs is sorted
    private Image standardImage;
+   private Service<Void> background;
 
    public static void main(String[] args) {
       Application.launch();
@@ -92,16 +93,8 @@ public class MusicManager extends Application {
       primaryStage.setMinWidth(648);
 
 
-     /* File f = new File("src/ControllerClasses/images/MM.png");
-      byte[] ass = null;
-      try {
-          ass = Files.readAllBytes(f.toPath());
-      }catch(Exception e){
-
-      }*/
-      InputStream i = getClass().getResourceAsStream("/resources/MM.png");
-      Image a = new Image(i);
-      primaryStage.getIcons().add(a);
+      Image logo = new Image(getClass().getResourceAsStream("/resources/MM.png")); //load image from resources folder
+      primaryStage.getIcons().add(logo);                                              //set the application icon to the image
 
       //access the controller from the fxml loader
       directoryUIController = loader.getController();
@@ -122,20 +115,15 @@ public class MusicManager extends Application {
 
    //called when the directory selection is finished - starts the actual music player
    public void activateMusicWindows(ArrayList<String> newDirectories, ArrayList<String> alreadyScannedDirectories){
-      //FileWriter for the selected directories
-      FileWriter writer = new FileWriter(newDirectories, true, 3, "files/directories.txt");
-      //Sorter for the crawled music files
-      Sorter sorter;
+      FileWriter writer = new FileWriter(newDirectories, true, 3, "files/directories.txt");  //FileWriter for the selected directories
+      Sorter sorter;                                                                                              //Sorter for the crawled music files
 
       Parent root = null;
       FXMLLoader loader = new FXMLLoader(getClass().getResource("ui.fxml"));
       MediaView mediaView = new MediaView();
 
-      //crawl all new directories
-      InputReader.readInput(newDirectories);
-
-      //start the writer
-      writer.start();
+      InputReader.readInput(newDirectories); //crawl all new directories
+      writer.start();                        //start the writer
 
       //acquire all music files
       musicFiles = InputReader.getMusicFiles();
@@ -166,11 +154,8 @@ public class MusicManager extends Application {
       @NotNull Scene scene = new Scene(root, 600, 300);
       ((Group) scene.getRoot()).getChildren().add(mediaView);
 
-      //Adding scene to the stage
-      windowStage.setScene(scene);
-
-      //Displaying the contents of the stage
-      windowStage.show();
+      windowStage.setScene(scene);  //Adding scene to the stage
+      windowStage.show();           //Displaying the contents of the stage
 
       //wait for the sorter to finish (usually it is finished before)
       try {
@@ -180,6 +165,7 @@ public class MusicManager extends Application {
          System.err.println("MusicManager: Start: sorter.join: " + e);
          System.exit(-1);
       }
+
       //create album and artist creator, which combine songs into artist and album pages
       AlbumCreator albumCreator = new AlbumCreator(musicFiles, sorter.getAlbumSortedList());
       albumCreator.start();
@@ -197,6 +183,7 @@ public class MusicManager extends Application {
 
       //setup of the scrolalble buttons
       uiController.buttonSetup();
+
    }
 
    //------------------------------------------------------------------------------------
@@ -376,14 +363,17 @@ public class MusicManager extends Application {
    private void setMediaPlayerMedia() {
       Media songMedia;
       File file;
+      //is the current media player != null?
       if(currentSongmediaPlayer != null) {
+         //yes -> stop the media player and dispose the resources
          currentSongmediaPlayer.stop();
          currentSongmediaPlayer.dispose();
       }
       currentSongmediaPlayer = null;
-      file = new File(musicFiles.get(activeSortedList.get(currentSongInQueue)).getFilePath());
-      songMedia = createMedia(file);
-      currentSongmediaPlayer = new MediaPlayer(songMedia);
+      file = new File(musicFiles.get(activeSortedList.get(currentSongInQueue)).getFilePath());  //get the new music file
+      songMedia = createMedia(file);                                                            //create a media object with the file
+      currentSongmediaPlayer = new MediaPlayer(songMedia);                                      //create a new MediaPlayer object with the Media and set it to the current media player
+
       currentSongmediaPlayer.setOnEndOfMedia(() -> { //method called when the song ends
          if (loopStatus == loopSong) { //are we currently looping the song?
             //yes -> reset the player and play again
@@ -394,13 +384,64 @@ public class MusicManager extends Application {
             songAtEndCheckNextPlay();
          }
       });
-      currentSongmediaPlayer.setOnReady(new Runnable() {
 
+      currentSongmediaPlayer.setOnReady(new Runnable() { //method called, when the media player is ready
          @Override
          public void run() {
             System.out.println("Duration: "+currentSongmediaPlayer.getMedia().getDuration().toSeconds());
+            uiController.updateTimeLine((int) currentSongmediaPlayer.getMedia().getDuration().toSeconds()+1);
+            System.out.println("Sldierlength " + uiController.getSliderMaxValue());
+         }
+      });
+
+
+      currentSongmediaPlayer.setOnStopped(new Runnable() { //Stop status is set, when setMediaPlayer is called
+         @Override
+         public void run() {
+            background.cancel(); //stop the background thread
+         }
+      });
+
+
+      currentSongmediaPlayer.setOnPlaying(new Runnable() { //Playing status is set, when the media player is playing a song
+         @Override
+         public void run() {
+            //service is a background thread from javafx
+            background = new Service<Void>() {
+               @Override
+               //create a new task, which should be executed on that thread
+               protected Task<Void> createTask() {
+                  return new Task<Void>() {
+                     //get current song time - needed when the song is paused and played again
+                     int time = (int)currentSongmediaPlayer.getCurrentTime().toSeconds();
+                     @Override
+                     protected Void call() throws Exception {
+
+                        //is the media player playing?
+                        while (currentSongmediaPlayer.getStatus() == Status.PLAYING) {
+                           System.out.println(time + " " + uiController.getSliderValue());
+                           //yes-> does the slider have the same value as the time variable?
+                           if(uiController.getSliderValue() != time) {
+                              //no -> set the time value to the slider value (this means, the user has moved the slider to a different position)
+                              time = uiController.getSliderValue();
+                              currentSongmediaPlayer.seek(new Duration(time*1000)); //adjust the playback time of the media player
+                           }else {
+                              //no -> update the time and sldier value to the current playback time
+                              time = (int)currentSongmediaPlayer.getCurrentTime().toSeconds();
+                              uiController.setSliderPosition(time);
+                           }
+
+                           sleep(1000);   //sleep for one second
+                        }
+                        return null;
+                     }
+                  };
+               }
+            };
+            background.restart(); //start the thread
          }
       });
       System.gc();
    }
+
 }

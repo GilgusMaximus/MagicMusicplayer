@@ -2,6 +2,7 @@ package fxml;
 
 import FileClasses.Musicfile;
 import javafx.fxml.FXML;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -20,14 +21,11 @@ public class Controller {
   public Image getStandardImage(){
     return mp3Thumb.getImage();
   }
-  @FXML
-  private ImageView logo;
-  public Image getLogo(){
-    return logo.getImage();
-  }
 
+  @FXML
+  private Slider musicTimeLine;
   //------------------------------------------------------------------------------------
-  //                                  Bottombar buttons
+  //                                  Bottombar
   //------------------------------------------------------------------------------------
 
   @FXML
@@ -50,6 +48,22 @@ public class Controller {
     manager.loop();
   }
 
+  //setup the music time line when a new song is played
+  public void updateTimeLine(double songLength){
+    musicTimeLine.setMax(songLength);
+    musicTimeLine.setValue(0);
+  }
+
+  public void setSliderPosition(int value){
+    musicTimeLine.setValue(value);
+  }
+public double getSliderMaxValue(){
+    return musicTimeLine.getMax();
+}
+
+  public int getSliderValue(){
+    return (int) musicTimeLine.getValue();
+  }
   //------------------------------------------------------------------------------------
   //                                  Sidebar buttons
   //------------------------------------------------------------------------------------
