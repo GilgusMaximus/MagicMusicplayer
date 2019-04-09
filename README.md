@@ -30,7 +30,7 @@ This project uses the mp3magic libary for mp3 tag analyzing. So check it out her
 ## Download
 Can you trust the download? Well yes and no. Because how should I prove to you, that the code of a built application is the same as the repository code? I can't. But I personally believe in the open source project, and want to contribute to a better software accessability for everyone. So either you take my word, or compile the code yourself =)
 
-* [MagicMusicplayer.zip](https://mega.nz/#!nqQBCIgT!b4UEXDAPfB_nf_biPYWoXhchIWxjxcOj9uCvohXpd3c)
+* [Download](https://github.com/GilgusMaximus/MagicMusicplayer/releases)
 
 If your anti virus program rings an alarm bell, please notify me, via github issues or e-mail, so that I get a better overview, how I can improve the deployment of the application.
 
