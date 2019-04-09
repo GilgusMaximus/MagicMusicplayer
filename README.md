@@ -4,7 +4,7 @@
 
 ## Definition
 
-Current version: v1.0_alpha
+Current version: v1.1_alpha
 
 This program is an open source, Java based music player for local music files. It is desigend to provide a nice and clean look, with simple, yet powerful functionality (please notice, that the powerful functionality will be added in the beta phase). 
 
