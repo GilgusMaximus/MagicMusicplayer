@@ -245,7 +245,10 @@
                      </font>
                   </Button>
                </children></AnchorPane>
-            <AnchorPane fx:id="rightbar" layoutX="590.0" layoutY="60.0" minHeight="300.0" minWidth="50.0" prefHeight="300.0" prefWidth="50.0" style="-fx-background-color: #232323 ;" />
+            <AnchorPane fx:id="rightbar" layoutX="590.0" layoutY="60.0" minHeight="300.0" minWidth="50.0" prefHeight="300.0" prefWidth="50.0" style="-fx-background-color: #232323 ;">
+               <children>
+                  <Slider fx:id="scrollSlider" blockIncrement="1.0" layoutX="18.0" layoutY="2.0" onMouseDragged="#mouseDrag" orientation="VERTICAL" prefHeight="294.0" prefWidth="14.0" rotate="180.0" />
+               </children></AnchorPane>
             <AnchorPane minHeight="60.0" minWidth="640.0" prefHeight="60.0" prefWidth="640.0" style="-fx-background-color: #232323;">
                <children>
                   <Text fill="#00e5ff" fontSmoothingType="LCD" layoutX="194.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title">

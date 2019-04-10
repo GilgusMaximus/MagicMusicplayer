@@ -88,6 +88,8 @@ public double getSliderMaxValue(){
   private int indexHighestButton = 0; //the button with the highest y coordinate
   private int indexHighestSong = 0;   //the song (as index) that is on the highest button
 
+   @FXML
+   private Slider scrollSlider;
   @FXML
   private AnchorPane button1, button2, button3, button4, button5, button6, button7;                                                         //the panels that represent a song
   @FXML
@@ -129,6 +131,28 @@ public double getSliderMaxValue(){
   //------------------------------------------------------------------------------------
   //                            Scrolling buttons in songs
   //------------------------------------------------------------------------------------
+
+   public void setScrollSliderMaximum(int maximum){
+      scrollSlider.setMax(maximum);
+   }
+
+   @FXML
+   void mouseDrag(){
+     int scrollSliderValue = (int) scrollSlider.getValue();
+     if(scrollSliderValue > indexHighestSong) {
+        indexHighestSong = scrollSliderValue;
+        for (int i = 0; i < buttons.length; i++) {  //check which button is not seen anymore, and wrap it accordingly ont top of the next or below the previous button
+           assignTextsToButons(manager.getMusicfileAtPosition(i+indexHighestSong), i);
+        }
+     }else {
+        indexHighestSong = scrollSliderValue;
+        for (int i = 0; i < buttons.length; i++) {  //check which button is not seen anymore, and wrap it accordingly ont top of the next or below the previous button
+           assignTextsToButons(manager.getMusicfileAtPosition(i+indexHighestSong), i);
+        }
+     }
+
+   }
+
   @FXML
   void scrollSongs(ScrollEvent event) { //handles the scrolling of the panes, and correct updating of their information
     float speed = 6.20f;
@@ -145,10 +169,12 @@ public double getSliderMaxValue(){
           if (buttons[i].getLayoutY() < -50) {
             buttons[i].setLayoutY(buttons[(i + buttons.length - 1) % buttons.length].getLayoutY() + 50);
             indexHighestSong++;
+            scrollSlider.setValue(scrollSlider.getValue()+1);
             updateSrcollTexts(false, i);
           } else if (buttons[i].getLayoutY() > 300) {
             buttons[i].setLayoutY(buttons[(i + 1) % buttons.length].getLayoutY() - 50);
             indexHighestSong--;
+             scrollSlider.setValue(scrollSlider.getValue()-1);
             updateSrcollTexts(true, i);
           }
           if (buttons[i].getLayoutY() < buttons[indexHighestButton].getLayoutY()) { //find the button with the higehst y coordinate

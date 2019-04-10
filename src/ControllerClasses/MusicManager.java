@@ -183,7 +183,7 @@ public class MusicManager extends Application {
 
       //setup of the scrolalble buttons
       uiController.buttonSetup();
-
+      uiController.setScrollSliderMaximum(musicFiles.size()-1);
    }
 
    //------------------------------------------------------------------------------------
