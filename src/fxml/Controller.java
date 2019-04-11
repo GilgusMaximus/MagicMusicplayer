@@ -136,21 +136,21 @@ public double getSliderMaxValue(){
       scrollSlider.setMax(maximum);
    }
 
-   @FXML
-   void mouseDrag(){
-     int scrollSliderValue = (int) scrollSlider.getValue();
-     if(scrollSliderValue > indexHighestSong) {
-        indexHighestSong = scrollSliderValue;
-        for (int i = 0; i < buttons.length; i++) {  //check which button is not seen anymore, and wrap it accordingly ont top of the next or below the previous button
-           assignTextsToButons(manager.getMusicfileAtPosition(i+indexHighestSong), i);
-        }
-     }else {
-        indexHighestSong = scrollSliderValue;
-        for (int i = 0; i < buttons.length; i++) {  //check which button is not seen anymore, and wrap it accordingly ont top of the next or below the previous button
-           assignTextsToButons(manager.getMusicfileAtPosition(i+indexHighestSong), i);
-        }
-     }
 
+
+   @FXML
+   void mouseDrag(){  //method is called when the slider for song scrolling is dragged
+     System.out.println("IndexHighestSOng:" + indexHighestSong);
+     int scrollSliderValue = (int) scrollSlider.getValue(); //get the sldier value
+     indexHighestSong = scrollSliderValue;                  //update the highest song index
+     System.out.println("ScrollSldierValue:" + scrollSliderValue);
+
+     //reset the buttons, so that button 0 is at position y=0 and every other buttons in index order blow by 50px -> prevents top and bottom out of bounds
+     for (int i = 0; i < buttons.length; i++) {
+       indexHighestButton = 0;
+       buttons[(indexHighestButton+i)%buttons.length].setLayoutY(i*50);
+       assignTextsToButons(manager.getMusicfileAtPosition(i+indexHighestSong), i);  //assign the correct texts to every button
+     }
    }
 
   @FXML

@@ -181,9 +181,12 @@ public class MusicManager extends Application {
       setDisplayedImage(currentSongInQueue);
       setDisplayedTexts(currentSongInQueue);
 
-      //setup of the scrolalble buttons
+      //setup of the scrollable buttons & scrollbar
       uiController.buttonSetup();
-      uiController.setScrollSliderMaximum(musicFiles.size()-1);
+      if(musicFiles.size() > 6)
+         uiController.setScrollSliderMaximum(musicFiles.size()-6);   //prevents bottom out of bounds
+      else
+         uiController.setScrollSliderMaximum(0);   //no scroll should be available if less or equal than 6 songs were found
    }
 
    //------------------------------------------------------------------------------------
@@ -388,9 +391,7 @@ public class MusicManager extends Application {
       currentSongmediaPlayer.setOnReady(new Runnable() { //method called, when the media player is ready
          @Override
          public void run() {
-            System.out.println("Duration: "+currentSongmediaPlayer.getMedia().getDuration().toSeconds());
             uiController.updateTimeLine((int) currentSongmediaPlayer.getMedia().getDuration().toSeconds()+1);
-            System.out.println("Sldierlength " + uiController.getSliderMaxValue());
          }
       });
 
@@ -419,7 +420,6 @@ public class MusicManager extends Application {
 
                         //is the media player playing?
                         while (currentSongmediaPlayer.getStatus() == Status.PLAYING) {
-                           System.out.println(time + " " + uiController.getSliderValue());
                            //yes-> does the slider have the same value as the time variable?
                            if(uiController.getSliderValue() != time) {
                               //no -> set the time value to the slider value (this means, the user has moved the slider to a different position)
