@@ -2,7 +2,9 @@ package fxml;
 
 import FileClasses.Musicfile;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -24,6 +26,14 @@ public class Controller {
 
   @FXML
   private Slider musicTimeLine;
+  @FXML
+  private Label timeDisplay;
+
+  @FXML
+  private TextField displayTimeText;
+
+  private String timeDisplayMaxTime;
+  private boolean dragged = false;
   //------------------------------------------------------------------------------------
   //                                  Bottombar
   //------------------------------------------------------------------------------------
@@ -48,18 +58,47 @@ public class Controller {
     manager.loop();
   }
 
+  public void timelineDragged(){
+    dragged = true;
+  }
+
+  public void setTimeLineDraggedFalse(){
+    dragged = false;
+  }
+
+  public boolean getDragged(){
+    return dragged;
+  }
+
   //setup the music time line when a new song is played
   public void updateTimeLine(double songLength){
     musicTimeLine.setMax(songLength);
+    int minutes = (int)songLength/60, seconds = (int)songLength%60;
+    timeDisplayMaxTime = " / " + minutes + ".";
+    if(seconds < 10)
+      timeDisplayMaxTime += "0" + seconds;
+    else
+      timeDisplayMaxTime += seconds;
     musicTimeLine.setValue(0);
   }
 
   public void setSliderPosition(int value){
     musicTimeLine.setValue(value);
+    System.out.println(value);
+    int minutes = (int)value/60, seconds = (int)value%60;
+    String display;
+    try {
+      display = minutes + ".";
+      if(seconds < 10)
+        display += "0" + seconds;
+      else
+        display+= seconds;
+      displayTimeText.setText(display + timeDisplayMaxTime);
+    }catch(Exception e){
+      System.err.println("EROOR: Controller: setSldierPosition: " + e);
+    }
   }
-public double getSliderMaxValue(){
-    return musicTimeLine.getMax();
-}
+
 
   public int getSliderValue(){
     return (int) musicTimeLine.getValue();

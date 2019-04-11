@@ -391,7 +391,8 @@ public class MusicManager extends Application {
       currentSongmediaPlayer.setOnReady(new Runnable() { //method called, when the media player is ready
          @Override
          public void run() {
-            uiController.updateTimeLine((int) currentSongmediaPlayer.getMedia().getDuration().toSeconds()+1);
+            uiController.updateTimeLine((int) currentSongmediaPlayer.getMedia().getDuration().toSeconds());
+            System.out.println("Song length " + currentSongmediaPlayer.getMedia().getDuration().toSeconds());
          }
       });
 
@@ -421,17 +422,32 @@ public class MusicManager extends Application {
                         //is the media player playing?
                         while (currentSongmediaPlayer.getStatus() == Status.PLAYING) {
                            //yes-> does the slider have the same value as the time variable?
-                           if(uiController.getSliderValue() != time) {
+                           /*if(uiController.getSliderValue() != time) {
                               //no -> set the time value to the slider value (this means, the user has moved the slider to a different position)
                               time = uiController.getSliderValue();
-                              currentSongmediaPlayer.seek(new Duration(time*1000)); //adjust the playback time of the media player
+                              currentSongmediaPlayer.seek(Duration.seconds(time));
+                              //currentSongmediaPlayer.seek(Duration.seconds(time)); //adjust the playback time of the media player
                            }else {
                               //no -> update the time and sldier value to the current playback time
+                           time = (int)currentSongmediaPlayer.getCurrentTime().toSeconds();
+                           uiController.setSliderPosition(time);
+                           }*/
+                           //System.out.println(currentSongmediaPlayer.get().toSeconds() + " time ");
+                           if(uiController.getDragged()) {
+                              time = uiController.getSliderValue();
+                              currentSongmediaPlayer.seek(Duration.seconds(time));
+                              System.out.println("SLDIERVALUE: " + uiController.getSliderValue() + " SEEEK: " + currentSongmediaPlayer.getCurrentTime().toMillis());
+                              uiController.setTimeLineDraggedFalse();
+                           }else {
                               time = (int)currentSongmediaPlayer.getCurrentTime().toSeconds();
+                              if(time > 10 && a) {
+                                 a = false;
+                                 currentSongmediaPlayer.seek(Duration.seconds(30));
+                                 time = (int) currentSongmediaPlayer.getCurrentTime().toSeconds();
+                              }
                               uiController.setSliderPosition(time);
                            }
-
-                           sleep(1000);   //sleep for one second
+                           sleep(100);   //sleep for one second
                         }
                         return null;
                      }
@@ -441,7 +457,8 @@ public class MusicManager extends Application {
             background.restart(); //start the thread
          }
       });
+
       System.gc();
    }
-
+   boolean a = true;
 }
