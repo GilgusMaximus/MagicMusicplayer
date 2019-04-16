@@ -4,7 +4,7 @@
 
 ## Definition
 
-Current version: v1.1_alpha
+Current version: v1.2_alpha
 
 This program is an open source, Java based music player for local music files. It is desigend to provide a nice and clean look, with simple, yet powerful functionality (please notice, that the powerful functionality will be added in the beta phase). 
 
@@ -23,7 +23,7 @@ https://lucahohmann.com/magic-musicplayer/
 
 https://lucahohmann.com/magic-musicplayer-javafx-in-2019/
 
-
+![title](https://lucahohmann.com/wp-content/uploads/2019/04/mm_puc1.png)
 
 This project uses the mp3magic libary for mp3 tag analyzing. So check it out here: https://github.com/mpatric/mp3agic
 
