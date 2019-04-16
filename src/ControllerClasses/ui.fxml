@@ -8,6 +8,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -15,6 +16,76 @@
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="640.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="640.0" style="-fx-background-color: #232323;">
          <children>
+            <AnchorPane fx:id="scrollable_album" layoutX="110.0" onScroll="#scrollSongs" prefHeight="300.0" prefWidth="489.0" style="-fx-background-color: 1 1 1 1;" visible="false">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="160.0">
+                     <children>
+                        <ImageView fx:id="album1Image" fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../fxml/pictures/standardcover.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="album1AlbumName" alignment="CENTER" prefHeight="17.0" prefWidth="160.0" text="Albumname" textFill="WHITE" />
+                        <Label fx:id="album1ArtistName" alignment="CENTER" layoutX="10.0" layoutY="173.0" prefHeight="17.0" prefWidth="160.0" text="Artistname" textFill="WHITE" />
+                     </children>
+                  </VBox>
+                  <VBox layoutX="163.0" prefHeight="200.0" prefWidth="160.0">
+                     <children>
+                        <ImageView fx:id="album2Image" fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../fxml/pictures/standardcover.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="album2AlbumName" alignment="CENTER" prefHeight="17.0" prefWidth="160.0" text="Albumname" textFill="WHITE" />
+                        <Label fx:id="album2ArtistName" alignment="CENTER" layoutX="10.0" layoutY="173.0" prefHeight="17.0" prefWidth="160.0" text="Artistname" textFill="WHITE" />
+                     </children>
+                  </VBox>
+                  <VBox layoutX="326.0" prefHeight="200.0" prefWidth="160.0">
+                     <children>
+                        <ImageView fx:id="album3Image" fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../fxml/pictures/standardcover.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="album3AlbumName" alignment="CENTER" prefHeight="17.0" prefWidth="160.0" text="Album name" textAlignment="CENTER" textFill="WHITE" />
+                        <Label fx:id="album3ArtistName" alignment="CENTER" layoutX="10.0" layoutY="173.0" prefHeight="17.0" prefWidth="160.0" text="Artistname" textFill="WHITE" />
+                     </children>
+                  </VBox>
+                  <VBox layoutY="200.0" prefHeight="200.0" prefWidth="160.0">
+                     <children>
+                        <ImageView fx:id="album1Image1" fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../fxml/pictures/standardcover.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="album1AlbumName1" alignment="CENTER" prefHeight="17.0" prefWidth="160.0" text="Albumname" textFill="WHITE" />
+                        <Label fx:id="album1ArtistName1" alignment="CENTER" layoutX="10.0" layoutY="173.0" prefHeight="17.0" prefWidth="160.0" text="Artistname" textFill="WHITE" />
+                     </children>
+                  </VBox>
+                  <VBox layoutX="163.0" layoutY="200.0" prefHeight="200.0" prefWidth="160.0">
+                     <children>
+                        <ImageView fx:id="album2Image1" fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../fxml/pictures/standardcover.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="album2AlbumName1" alignment="CENTER" prefHeight="17.0" prefWidth="160.0" text="Albumname" textFill="WHITE" />
+                        <Label fx:id="album2ArtistName1" alignment="CENTER" layoutX="10.0" layoutY="173.0" prefHeight="17.0" prefWidth="160.0" text="Artistname" textFill="WHITE" />
+                     </children>
+                  </VBox>
+                  <VBox layoutX="326.0" layoutY="200.0" prefHeight="200.0" prefWidth="160.0">
+                     <children>
+                        <ImageView fx:id="album3Image1" fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../fxml/pictures/standardcover.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="album3AlbumName1" alignment="CENTER" prefHeight="17.0" prefWidth="160.0" text="Album name" textAlignment="CENTER" textFill="WHITE" />
+                        <Label fx:id="album3ArtistName1" alignment="CENTER" layoutX="10.0" layoutY="173.0" prefHeight="17.0" prefWidth="160.0" text="Artistname" textFill="WHITE" />
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
             <AnchorPane fx:id="scrollable" layoutX="100.0" layoutY="60.0" onScroll="#scrollSongs" prefHeight="300.0" prefWidth="489.0">
                <children>
                   <AnchorPane fx:id="button3" layoutY="100.0" prefHeight="50.0" prefWidth="490.0">
@@ -223,7 +294,7 @@
                   </ImageView>
                   <Slider fx:id="musicTimeLine" blockIncrement="1.0" layoutX="312.0" layoutY="3.0" majorTickUnit="1.0" minHeight="-Infinity" minWidth="-Infinity" minorTickCount="1" onMouseDragged="#timelineDragged" prefHeight="8.0" prefWidth="250.0" snapToTicks="true" style="-: #000000;" />
                   <Label fx:id="timeDisplay" disable="true" layoutX="570.0" text="2.34 / 2.55" textFill="WHITE" visible="false" />
-                  <TextField fx:id="displayTimeText" layoutX="560.0" layoutY="-5.0" prefHeight="25.0" prefWidth="77.0" promptText="2.00 / 2.55" style="-fx-background-color: #232323;-fx-text-fill: white;" />
+                  <TextField fx:id="displayTimeText" layoutX="560.0" layoutY="-5.0" prefHeight="25.0" prefWidth="77.0" promptText="2.00 / 2.55" style="-fx-background-color: 0 0 0 0; -fx-text-fill: white;" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="leftbar" layoutY="60.0" minHeight="300.0" minWidth="50.0" prefHeight="300.0" prefWidth="100.0" style="-fx-background-color: #232323;">
@@ -249,11 +320,11 @@
                      </font>
                   </Button>
                </children></AnchorPane>
-            <AnchorPane fx:id="rightbar" layoutX="590.0" layoutY="60.0" minHeight="300.0" minWidth="50.0" prefHeight="300.0" prefWidth="50.0" style="-fx-background-color: #232323 ;">
+            <AnchorPane fx:id="rightbar" layoutX="590.0" layoutY="60.0" minHeight="300.0" minWidth="50.0" prefHeight="300.0" prefWidth="50.0" style="-fx-background-color: 0 0 0 0;">
                <children>
                   <Slider fx:id="scrollSlider" blockIncrement="1.0" layoutX="18.0" layoutY="2.0" onMouseDragged="#mouseDrag" orientation="VERTICAL" prefHeight="294.0" prefWidth="14.0" rotate="180.0" />
                </children></AnchorPane>
-            <AnchorPane minHeight="60.0" minWidth="640.0" prefHeight="60.0" prefWidth="640.0" style="-fx-background-color: #232323;">
+            <AnchorPane fx:id="topbar" minHeight="60.0" minWidth="640.0" prefHeight="60.0" prefWidth="640.0" style="-fx-background-color: #232323;" visible="false">
                <children>
                   <Text fill="#00e5ff" fontSmoothingType="LCD" layoutX="194.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title">
                      <font>
@@ -273,6 +344,5 @@
                </children></AnchorPane>
          </children>
       </AnchorPane>
-      <Label text="Label" />
    </children>
 </Group>

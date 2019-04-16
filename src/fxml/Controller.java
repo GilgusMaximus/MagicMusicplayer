@@ -60,6 +60,7 @@ public class Controller {
 
   public void timelineDragged(){
     dragged = true;
+    manager.seekToSecond();
   }
 
   public void setTimeLineDraggedFalse(){

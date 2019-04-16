@@ -346,6 +346,12 @@ public class MusicManager extends Application {
       System.out.println("'Loop' pressed - Current Status: " + loopStatus);
    }
 
+
+   public void seekToSecond(){
+         currentSongmediaPlayer.seek(Duration.seconds(uiController.getSliderValue()));
+         System.out.println("SLDIERVALUE: " + uiController.getSliderValue() + " SEEEK: " + currentSongmediaPlayer.getCurrentTime().toSeconds());
+   }
+
    //------------------------------------------------------------------------------------
    //                                  Often reused methods
    //------------------------------------------------------------------------------------
@@ -422,30 +428,30 @@ public class MusicManager extends Application {
                         //is the media player playing?
                         while (currentSongmediaPlayer.getStatus() == Status.PLAYING) {
                            //yes-> does the slider have the same value as the time variable?
-                           /*if(uiController.getSliderValue() != time) {
+                          /*if(uiController.getSliderValue() != time) {
+                              System.out.println("SLDIERVALUE: " + uiController.getSliderValue() + " SEEEK: " + currentSongmediaPlayer.getCurrentTime().toSeconds());
                               //no -> set the time value to the slider value (this means, the user has moved the slider to a different position)
                               time = uiController.getSliderValue();
-                              currentSongmediaPlayer.seek(Duration.seconds(time));
+                              currentSongmediaPlayer.seek(Duration.seconds(uiController.getSliderValue()));
+                              System.out.println("SLDIERVALUE: " + uiController.getSliderValue() + " SEEEK: " + currentSongmediaPlayer.getCurrentTime().toSeconds());
                               //currentSongmediaPlayer.seek(Duration.seconds(time)); //adjust the playback time of the media player
                            }else {
                               //no -> update the time and sldier value to the current playback time
+                           uiController.setSliderPosition((int)currentSongmediaPlayer.getCurrentTime().toSeconds());
                            time = (int)currentSongmediaPlayer.getCurrentTime().toSeconds();
-                           uiController.setSliderPosition(time);
                            }*/
                            //System.out.println(currentSongmediaPlayer.get().toSeconds() + " time ");
+
                            if(uiController.getDragged()) {
-                              time = uiController.getSliderValue();
-                              currentSongmediaPlayer.seek(Duration.seconds(time));
-                              System.out.println("SLDIERVALUE: " + uiController.getSliderValue() + " SEEEK: " + currentSongmediaPlayer.getCurrentTime().toMillis());
+                             currentSongmediaPlayer.seek(Duration.seconds(uiController.getSliderValue()));
+                              //System.out.println("SLDIERVALUE: " + uiController.getSliderValue() + " SEEEK: " + currentSongmediaPlayer.currentTimeProperty().toString());
                               uiController.setTimeLineDraggedFalse();
+                              //uiController.setSliderPosition((int) currentSongmediaPlayer.getCurrentTime().toSeconds());
                            }else {
-                              time = (int)currentSongmediaPlayer.getCurrentTime().toSeconds();
-                              if(time > 10 && a) {
-                                 a = false;
-                                 currentSongmediaPlayer.seek(Duration.seconds(30));
-                                 time = (int) currentSongmediaPlayer.getCurrentTime().toSeconds();
-                              }
-                              uiController.setSliderPosition(time);
+                             uiController.setSliderPosition((int)currentSongmediaPlayer.getCurrentTime().toSeconds());
+
+                              //System.out.println("SLDIERVALUE: " + uiController.getSliderValue() + " SEEEK: " + currentSongmediaPlayer.getCurrentTime().toSeconds());
+                              //System.out.println("SLDIERVALUE: " + uiController.getSliderValue() + " SEEEK: " + currentSongmediaPlayer.currentTimeProperty().toString());
                            }
                            sleep(100);   //sleep for one second
                         }
